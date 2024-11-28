@@ -1,0 +1,40 @@
+Escolas - Codigo da UF, 4 numeros aleatorios
+
+Ex: 6 8991
+
+Codigos das UFs:
+- Acre(AC): 1
+- Alagoas(AL): 2
+- Amapá(AP): 3
+- Amazonas(AM): 4
+- Bahia(BA): 5
+- Ceará(CE): 6
+- Espirito Santo(ES): 7
+- Goiás(GO): 8
+- Maranhão(MA): 9
+- Mato Grosso(MT): 10
+- Mato Grosso do Sul(MS): 11
+- Minas Gerais(MG): 12
+- Pará(PA): 13
+- Paraíba(PB): 14
+- Paraná(PR): 15
+- Pernambuco(PE): 16
+- Piauí(PI): 17
+- Rio de Janeiro(RJ): 18
+- Rio Grande do Norte(RN): 19
+- Rio Grande do Sul(RS): 20
+- Rondônia(Ro): 21
+- Roraima(RR): 22
+- Santa Catarina(SC): 23
+- São Paulo(SP): 24
+- Sergipe(SE): 25
+- Tocantins(TO): 26
+- Distrito Federal(DF): 27
+
+Alunos: Ano de matricula, ID da escola, 4 numeros aleatorios
+
+Ex: 2010 68991 0210
+
+Professores: Ano de nascimento, ID da escola(onde foi cadastrado pela primeira vez), 3 numeros aleatorios
+
+Ex: 1996 68991 541
