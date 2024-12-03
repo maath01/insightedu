@@ -13,6 +13,7 @@ CREATE TABLE alunos (
     nome VARCHAR(100) NOT NULL,
     senha VARCHAR(15) NOT NULL,
     data_nascimento DATE NOT NULL,
+    ano_matricula YEAR NOT NULL,
     PRIMARY KEY(id)
 );
 

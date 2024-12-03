@@ -2,10 +2,10 @@
 INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES (1, 'Ana Silva Souza', 'ana.silva@gmail.com', 'anass123', 'CE', '01-01-1995');
 INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES (2, 'Roberto Gonçalves', 'roberto.goncalves@gmail.com', '12345678', 'CE', '20-04-1998');
 
-INSERT INTO alunos (id, nome, senha, data_nascimento) VALUES (1, 'Matheus Soares do Nascimento', '12345678', '02-10-2004');
-INSERT INTO alunos (id, nome, senha, data_nascimento) VALUES (2, 'Suyane Oliveira da Silva', 'abcdefgh', '08-10-2003');
-INSERT INTO alunos (id, nome, senha, data_nascimento) VALUES (3, 'Taislene da Silva Gonçalves', 'abcdefgh', '03-10-2004');
-INSERT INTO alunos (id, nome, senha, data_nascimento) VALUES (4, 'Rozane Raquel da Silva Gonçalves', 'abcdefgh', '10-06-2002');
+INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (1, 'Matheus Soares do Nascimento', '12345678', '02-10-2004', '2010');
+INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (2, 'Suyane Oliveira da Silva', 'abcdefgh', '08-10-2003', '2008');
+INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (3, 'Taislene da Silva Gonçalves', 'abcdefgh', '03-10-2004', '2010');
+INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (4, 'Rozane Raquel da Silva Gonçalves', 'abcdefgh', '10-06-2002', '2007');
 
 INSERT INTO turmas (id, letra) VALUES (1, 'A');
 INSERT INTO turmas (id, letra) VALUES (2, 'B');
