@@ -1,2 +1,4 @@
 ie_env/
 ids.txt
+database/banco.db
+database/__pycache__/

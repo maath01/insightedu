@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from database import banco
 import database.professor as prof
 import database.aluno as aluno
+import database.turma as turma
 
 
 app = Flask(__name__)

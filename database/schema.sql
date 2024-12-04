@@ -18,12 +18,13 @@ CREATE TABLE alunos (
 );
 
 CREATE TABLE turmas_alunos (
-    turmas_id int NOT NULL,
+    turmas_id BIGINT NOT NULL,
     alunos_id BIGINT NOT NULL
 );
 
 CREATE TABLE turmas (
-    id int NOT NULL,
+    id BIGINT NOT NULL,
+    serie int NOT NULL,
     letra VARCHAR(1),
     PRIMARY KEY(id)
 );
@@ -38,4 +39,10 @@ CREATE TABLE ufs (
     id int NOT NULL,
     nome VARCHAR(20),
     sigla VARCHAR(2)
+);
+
+CREATE TABLE professores_turmas_materias (
+    professores_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL,
+    materias_id BIGINT NOT NULL
 );

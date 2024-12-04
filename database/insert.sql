@@ -7,8 +7,8 @@ INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (2, 
 INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (3, 'Taislene da Silva Gonçalves', 'abcdefgh', '03-10-2004', '2010');
 INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES (4, 'Rozane Raquel da Silva Gonçalves', 'abcdefgh', '10-06-2002', '2007');
 
-INSERT INTO turmas (id, letra) VALUES (1, 'A');
-INSERT INTO turmas (id, letra) VALUES (2, 'B');
+INSERT INTO turmas (id, serie, letra) VALUES (1, 1, 'A');
+INSERT INTO turmas (id, serie, letra) VALUES (2, 1, 'B');
 
 INSERT INTO materias (id, nome) VALUES (1, 'Português');
 INSERT INTO materias (id, nome) VALUES (2, 'Matematica');
@@ -50,3 +50,14 @@ INSERT INTO ufs (id, nome, sigla) VALUES
 (26, 'Sergipe', 'SE'),
 (27, 'Tocantins', 'TO');
 
+INSERT INTO professores_turmas_materias (professores_id, turmas_id, materias_id) VALUES 
+(1, 1, 1),
+(1, 1, 2),
+(1, 1, 3),
+(1, 1, 4),
+(1, 1, 5),
+(2, 2, 1),
+(2, 2, 2),
+(2, 2, 3),
+(2, 2, 4),
+(2, 2, 5)
