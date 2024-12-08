@@ -46,3 +46,44 @@ CREATE TABLE professores_turmas_materias (
     turmas_id BIGINT NOT NULL,
     materias_id BIGINT NOT NULL
 );
+CREATE TABLE escolas(
+    id BIGINT NOT NULL,
+    nome VARCHAR (30) NOT NULL,
+    cidade VARCHAR (30) NOT NULL,
+    uf VARCHAR (3) NOT NULL,
+    PRIMARY KEY (id)
+
+);
+
+CREATE TABLE escolas_gestores_turmas_alunos_professores_coordenadores(
+    escolas_id BIGINT NOT NULL,
+    gestores_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL,
+    alunos_id BIGINT NOT NULL,
+    professores_id BIGINT NOT NULL,
+    coordenadores_id BIGINT NOT NULL
+
+
+);
+
+CREATE TABLE gestores (
+    id BIGINT NOT NULL,
+    nome VARCHAR (30) NOT NULL,
+    email VARCHAR (20) NOT NULL,
+    nascimento DATE NOT NULL,
+    senha VARCHAR (15) NOT NULL,
+    PRIMARY KEY (id)
+
+   
+);
+
+CREATE TABLE coordenadores (
+    id BIGINT NOT NULL,
+    nome VARCHAR (30) NOT NULL,
+    email VARCHAR (20) NOT NULL,
+    nascimento DATE NOT NULL,
+    senha VARCHAR (15) NOT NULL,
+    PRIMARY KEY (id)
+    
+
+);

@@ -36,3 +36,5 @@ def create_database():
             connection.commit()
 
         connection.close()
+create_database()
+connect_db()

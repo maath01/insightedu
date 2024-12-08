@@ -1,4 +1,4 @@
-from database.banco import connect_db
+from banco import connect_db
 import sqlite3
 from random import randint
 
@@ -68,3 +68,4 @@ def generate_teacher_id(cursor: sqlite3.Cursor, professor: Professor):
         cod += str(randint(0, 9))
     
     return cod
+

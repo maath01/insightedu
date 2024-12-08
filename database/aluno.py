@@ -1,6 +1,6 @@
 import sqlite3
 from random import randint
-from database.banco import connect_db
+from banco import connect_db
 
 class Aluno:
     """Modelo de dados da tabela alunos"""
@@ -65,3 +65,6 @@ def generate_student_id(cursor: sqlite3.Cursor, aluno: Aluno):
         cod += str(randint(0, 9))
 
     return cod
+
+
+
