@@ -66,6 +66,26 @@ CREATE TABLE escolas_gestores_turmas_alunos_professores_coordenadores(
 
 );
 
+CREATE TABLE escolas_gestores(
+    escolas_id BIGINT NOT NULL,
+    gestores_id BIGINT NOT NULL
+
+);
+CREATE TABLE escolas_turmas(
+    escolas_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL
+
+);
+
+CREATE TABLE escolas_coordenadores(
+    escolas_id BIGINT NOT NULL,
+    coordenadores_id BIGINT NOT NULL
+
+
+);
+
+
+
 CREATE TABLE gestores (
     id BIGINT NOT NULL,
     nome VARCHAR (30) NOT NULL,

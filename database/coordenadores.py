@@ -2,7 +2,7 @@ from banco import connect_db
 import sqlite3
 from random import randint
 
-class Coordenadores:
+class Coordenador:
     
     def __init__(self, coordenador_id=0, nome='',email='',nascimento='',senha='') -> None:
         self.coordenador_id = coordenador_id
@@ -14,7 +14,7 @@ class Coordenadores:
     def __str__(self) -> str:
         return str(self.coordenador_id) + ' ' + str(self.nome) 
  
-def create(coordenador:Coordenadores ):
+def create(coordenador: Coordenador):
    
     connection, cursor = connect_db()
 
@@ -46,16 +46,16 @@ def list():
 
     cursor.execute('SELECT * FROM coordenadores')
     coordenadores_1 = cursor.fetchall() # Lista com os dados da tabela
-    coordenadores_2: list[Coordenadores] = [] # Lista de Objetos(Professor) com os dados da tabela
+    coordenadores_2: list[Coordenador] = [] # Lista de Objetos(Professor) com os dados da tabela
 
     for coordenador  in coordenadores_1:
-       coordenadores_2.append(Coordenadores(coordenador[0],coordenador[1], coordenador[2],coordenador[3],coordenador[4]))
+       coordenadores_2.append(Coordenador(coordenador[0],coordenador[1], coordenador[2],coordenador[3],coordenador[4]))
 
     connection.close()
 
     return coordenadores_2
 
-def generate_coordinator_id(cursor: sqlite3.Cursor, coordenador: Coordenadores):
+def generate_coordinator_id(cursor: sqlite3.Cursor, coordenador: Coordenador):
     
     escola = '88901'
     nascimento = coordenador.nascimento[6:]
