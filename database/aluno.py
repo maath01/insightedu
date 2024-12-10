@@ -88,3 +88,27 @@ def generate_student_id(cursor: sqlite3.Cursor, aluno: Aluno):
 
 
 
+def list_students_by_class(class_id): #-> list:
+    """Lista os alunos por turma"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM turmas_alunos WHERE turmas_id = ?', (str(class_id),))
+    students_id = []
+    students_obj: list[Aluno] = []
+    rows = cursor.fetchall()
+    
+    for row in rows:
+        if row[1] not in students_id:
+            students_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in students_id)
+    cursor.execute(f'SELECT * FROM alunos WHERE id IN ({placeholders})', students_id)
+    students = cursor.fetchall()
+
+    for student in students:
+        print(student)
+        students_obj.append(Aluno(student[0], student[1], student[2], student[0], student[0]))
+
+    connection.close()
+
+    return students_obj

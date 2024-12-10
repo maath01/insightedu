@@ -1,11 +1,7 @@
 from flask import Flask, render_template
-from database import banco, connection_tables
+from database import banco, connection_tables, aluno, turma, escola, gestor
 import database.professor as prof
-import database.aluno as aluno
-import database.turma as turma
-import database.escola as escola
 import database.coordenador as coor
-import database.gestor as gestor
 
 app = Flask(__name__)
 

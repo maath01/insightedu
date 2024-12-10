@@ -142,7 +142,7 @@ def list_classes_by_coordinator(coor_id): #-> list:
     """Lista as classes por coordenadors"""
     connection, cursor = connect_db()
 
-    cursor.execute('SELECT * FROM coordenadores_turmas WHERE professores_id = ?', (str(coor_id),))
+    cursor.execute('SELECT * FROM coordenadores_turmas WHERE coordenadores_id = ?', (str(coor_id),))
     classes_id = []
     classes_obj: list[Turma] = []
     rows = cursor.fetchall()
