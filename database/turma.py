@@ -110,3 +110,55 @@ def list_classes_by_teacher(prof_id): #-> list:
     connection.close()
 
     return classes_obj
+
+
+def list_classes_by_school(school_id): #-> list:
+    """Lista as classes por escola"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM escolas_turmas WHERE escolas_id = ?', (str(school_id),))
+    classes_id = []
+    classes_obj: list[Turma] = []
+    rows = cursor.fetchall()
+    
+    for row in rows:
+        if row[1] not in classes_id:
+            classes_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in classes_id)
+    cursor.execute(f'SELECT * FROM turmas WHERE id IN ({placeholders})', classes_id)
+    classes = cursor.fetchall()
+
+    for class_ in classes:
+        print(class_)
+        classes_obj.append(Turma(class_[0], class_[1], class_[2]))
+
+    connection.close()
+
+    return classes_obj
+
+
+def list_classes_by_coordinator(coor_id): #-> list:
+    """Lista as classes por coordenadors"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM coordenadores_turmas WHERE professores_id = ?', (str(coor_id),))
+    classes_id = []
+    classes_obj: list[Turma] = []
+    rows = cursor.fetchall()
+    
+    for row in rows:
+        if row[1] not in classes_id:
+            classes_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in classes_id)
+    cursor.execute(f'SELECT * FROM turmas WHERE id IN ({placeholders})', classes_id)
+    classes = cursor.fetchall()
+
+    for class_ in classes:
+        print(class_)
+        classes_obj.append(Turma(class_[0], class_[1], class_[2]))
+
+    connection.close()
+
+    return classes_obj
