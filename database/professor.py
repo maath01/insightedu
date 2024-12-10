@@ -1,4 +1,5 @@
 from database.banco import connect_db
+from database.connection_tables import escolas_professores
 import sqlite3
 from random import randint
 
@@ -17,20 +18,22 @@ class Professor:
     def __str__(self) -> str:
         return str(self.prof_id) + ' ' + self.nome
     
-def create(professor: Professor):
+def create(professor: Professor, escola):
     """Insere um novo professor no banco de dados"""
     connection, cursor = connect_db()
 
     try:
-        prof_id = generate_teacher_id(cursor, professor)
+        prof_id = generate_teacher_id(professor, escola)
 
         cursor.execute('INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES (?, ?, ?, ?, ?, ?)',
                         (prof_id, professor.nome, professor.email, professor.senha, professor.uf, professor.data_nascimento))
+        connection.commit() 
 
     except sqlite3.IntegrityError:
         print('ID duplicado')
+    else:
+        escolas_professores(escola.id, prof_id, cursor, connection)
     
-    connection.commit()
     connection.close()
 
 
@@ -79,11 +82,10 @@ def get(prof_id):
     return prof
 
 
-def generate_teacher_id(cursor: sqlite3.Cursor, professor: Professor):
+def generate_teacher_id(professor: Professor, escola):
     """Gera um id para o professor"""
-    escola = '88901'
     nascimento = professor.data_nascimento[6:]
-    cod = nascimento + escola
+    cod = nascimento + str(escola.id)
     
     for n in range(3):
         cod += str(randint(0, 9))

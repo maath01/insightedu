@@ -20,7 +20,7 @@ def create(escola: Escola):
     connection, cursor = connect_db()
 
     try:
-        escola_id = generate_school_id(cursor, escola)
+        escola_id = generate_school_id(escola)
 
         cursor.execute('INSERT INTO escolas (id, nome, cidade, uf) VALUES (?, ?, ?, ?)',
                         (escola_id, escola.nome, escola.cidade, escola.uf))
@@ -76,11 +76,10 @@ def get(escola_id):
     return escola
 
 
-def generate_school_id(cursor: sqlite3.Cursor, escola: Escola):
-    
-    uf = '06'
-    cod=uf
-    for n in range(3):
+def generate_school_id(escola: Escola):
+    """Gera um id para a escola"""
+    cod = str(escola.uf)
+    for n in range(4):
         cod += str(randint(0, 9))
     
     return cod

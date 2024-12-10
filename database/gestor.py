@@ -1,4 +1,5 @@
 from database.banco import connect_db
+from database.connection_tables import escolas_gestores
 import sqlite3
 from random import randint
 
@@ -15,20 +16,22 @@ class Gestor:
     def __str__(self) -> str:
         return str(self.gestor_id) + ' ' + str(self.nome) 
     
-def create(gestor: Gestor):
+def create(gestor: Gestor, escola):
     """Insere um novo gestor no banco de dados"""
     connection, cursor = connect_db()
 
     try:
-        gestor_id = generate_manager_id(cursor,gestor)
+        gestor_id = generate_manager_id(gestor, escola)
 
         cursor.execute('INSERT INTO gestores (id, nome, email, nascimento, senha) VALUES (?, ?, ?, ?, ?)',
                         (gestor_id, gestor.nome, gestor.email, gestor.nascimento,gestor.senha))
+        connection.commit()
 
     except sqlite3.IntegrityError:
         print('ID duplicado')
+    else:
+        escolas_gestores(escola.id, gestor_id, cursor, connection)
     
-    connection.commit()
     connection.close()
 
 def list_managers():
@@ -70,11 +73,10 @@ def get(gestor_id):
 
     return gestor
 
-def generate_manager_id(cursor: sqlite3.Cursor, gestor: Gestor):
-  
-    escola = '88901'
+def generate_manager_id(gestor: Gestor, escola):
+    """Gera um id para o gestor"""
     nascimento = gestor.nascimento[6:]
-    cod = nascimento + escola
+    cod = nascimento + str(escola.id)
     
     for n in range(3):
         cod += str(randint(0, 9))

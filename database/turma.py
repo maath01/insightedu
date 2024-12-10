@@ -1,4 +1,5 @@
 from database.banco import connect_db
+from database.connection_tables import escolas_turmas
 import sqlite3
 from random import randint
 
@@ -14,19 +15,21 @@ class Turma:
     def __str__(self) -> str:
         return str(self.tur_id) + ' ' + str(self.serie) + ' ' + self.letra
     
-def create(turma: Turma):
+def create(turma: Turma, escola):
     """Insere uma nova turma no banco de dados"""
     connection, cursor = connect_db()
 
     try:
-        tur_id = generate_class_id(cursor, turma)
+        tur_id = generate_class_id(turma, escola)
 
         cursor.execute('INSERT INTO turmas (id, serie, letra) VALUES (?, ?, ?)', (tur_id, turma.serie, turma.letra))
+        connection.commit()
 
     except sqlite3.IntegrityError:
         print('ID duplicado')
-    
-    connection.commit()
+    else:
+        escolas_turmas(escola.id, tur_id, cursor, connection)
+
     connection.close()
 
 
@@ -74,10 +77,9 @@ def get(tur_id):
     return turma
 
 
-def generate_class_id(cursor: sqlite3.Cursor, turma: Turma):
+def generate_class_id(turma: Turma, escola):
     """Gera um id para a turma"""
-    escola = '88901'
-    cod = escola + str(turma.serie)
+    cod = str(escola.id) + str(turma.serie)
     
     for n in range(3):
         cod += str(randint(0, 9))
