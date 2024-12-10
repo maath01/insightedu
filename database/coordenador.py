@@ -4,6 +4,7 @@ import sqlite3
 from random import randint
 
 class Coordenador:
+    """Modelo de dados da tabela coordenadores"""
     
     def __init__(self, coordenador_id=0, nome='',email='',nascimento='',senha='') -> None:
         self.coordenador_id = coordenador_id
