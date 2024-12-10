@@ -32,16 +32,22 @@ def create(coordenador: Coordenador):
 
 
 def delete(coordenador_id):
-  
+    """Deleta um coordenador do banco de dados"""
     connection, cursor = connect_db()
 
-    cursor.execute('DELETE FROM coodenadores WHERE id = ?', (str(coordenador_id),))
+    tables = ['escolas_coordenadores', 'coordenadores_turmas']
 
+    cursor.execute('DELETE FROM coodenadores WHERE id = ?', (str(coordenador_id),))
     connection.commit()
+
+    for table in tables:
+        cursor.execute(f'DELETE FROM {table} WHERE coordenadores_id = ?', (str(coordenador_id),))
+        connection.commit()
+
     connection.close()
 
 
-def list():
+def list_coordinators():
     connection, cursor = connect_db()
 
     cursor.execute('SELECT * FROM coordenadores')
@@ -56,7 +62,6 @@ def list():
     return coordenadores_2
 
 def generate_coordinator_id(cursor: sqlite3.Cursor, coordenador: Coordenador):
-    
     escola = '88901'
     nascimento = coordenador.nascimento[6:]
     cod = nascimento + escola

@@ -17,11 +17,6 @@ CREATE TABLE alunos (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE turmas_alunos (
-    turmas_id BIGINT NOT NULL,
-    alunos_id BIGINT NOT NULL
-);
-
 CREATE TABLE turmas (
     id BIGINT NOT NULL,
     serie int NOT NULL,
@@ -41,50 +36,13 @@ CREATE TABLE ufs (
     sigla VARCHAR(2)
 );
 
-CREATE TABLE professores_turmas_materias (
-    professores_id BIGINT NOT NULL,
-    turmas_id BIGINT NOT NULL,
-    materias_id BIGINT NOT NULL
-);
 CREATE TABLE escolas(
     id BIGINT NOT NULL,
     nome VARCHAR (30) NOT NULL,
     cidade VARCHAR (30) NOT NULL,
     uf VARCHAR (3) NOT NULL,
     PRIMARY KEY (id)
-
 );
-
-CREATE TABLE escolas_gestores_turmas_alunos_professores_coordenadores(
-    escolas_id BIGINT NOT NULL,
-    gestores_id BIGINT NOT NULL,
-    turmas_id BIGINT NOT NULL,
-    alunos_id BIGINT NOT NULL,
-    professores_id BIGINT NOT NULL,
-    coordenadores_id BIGINT NOT NULL
-
-
-);
-
-CREATE TABLE escolas_gestores(
-    escolas_id BIGINT NOT NULL,
-    gestores_id BIGINT NOT NULL
-
-);
-CREATE TABLE escolas_turmas(
-    escolas_id BIGINT NOT NULL,
-    turmas_id BIGINT NOT NULL
-
-);
-
-CREATE TABLE escolas_coordenadores(
-    escolas_id BIGINT NOT NULL,
-    coordenadores_id BIGINT NOT NULL
-
-
-);
-
-
 
 CREATE TABLE gestores (
     id BIGINT NOT NULL,
@@ -93,8 +51,6 @@ CREATE TABLE gestores (
     nascimento DATE NOT NULL,
     senha VARCHAR (15) NOT NULL,
     PRIMARY KEY (id)
-
-   
 );
 
 CREATE TABLE coordenadores (
@@ -104,6 +60,46 @@ CREATE TABLE coordenadores (
     nascimento DATE NOT NULL,
     senha VARCHAR (15) NOT NULL,
     PRIMARY KEY (id)
-    
+);
 
+-- Tabelas de conexão
+CREATE TABLE turmas_alunos (
+    turmas_id BIGINT NOT NULL,
+    alunos_id BIGINT NOT NULL
+);
+
+CREATE TABLE professores_turmas_materias (
+    professores_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL,
+    materias_id BIGINT NOT NULL
+);
+
+CREATE TABLE escolas_gestores(
+    escolas_id BIGINT NOT NULL,
+    gestores_id BIGINT NOT NULL
+);
+
+CREATE TABLE escolas_turmas(
+    escolas_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL
+);
+
+CREATE TABLE escolas_coordenadores(
+    escolas_id BIGINT NOT NULL,
+    coordenadores_id BIGINT NOT NULL
+);
+
+CREATE TABLE escolas_professores(
+    escolas_id BIGINT NOT NULL,
+    professores_id BIGINT NOT NULL
+);
+
+CREATE TABLE escolas_alunos(
+    escolas_id BIGINT NOT NULL,
+    alunos_id BIGINT NOT NULL
+);
+
+CREATE TABLE coordenadores_turmas (
+    coordenadores_id BIGINT NOT NULL,
+    turmas_id BIGINT NOT NULL
 );

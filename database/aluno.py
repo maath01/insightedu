@@ -37,9 +37,15 @@ def delete(al_id):
     """Deleta um aluno do banco de dados"""
     connection, cursor = connect_db()
 
-    cursor.execute('DELETE FROM alunos WHERE id = ?', (str(al_id),))
+    tables = ['turmas_alunos', 'escolas_alunos'] # Tabelas de conexão
 
+    cursor.execute('DELETE FROM alunos WHERE id = ?', (str(al_id),))
     connection.commit()
+
+    for table in tables:
+        cursor.execute(f'DELETE FROM {table} WHERE alunos_id = ?', (str(al_id),))
+        connection.commit()
+
     connection.close()
 
 

@@ -2,7 +2,8 @@ from banco import connect_db
 import sqlite3
 from random import randint
 
-class Gestores:
+class Gestor:
+    """Modelo de dados da tabela gestores"""
     
     def __init__(self, gestor_id=0, nome='',email='',nascimento='',senha='') -> None:
         self.gestor_id = gestor_id
@@ -14,8 +15,8 @@ class Gestores:
     def __str__(self) -> str:
         return str(self.gestor_id) + ' ' + str(self.nome) 
     
-def create(gestor: Gestores):
-   
+def create(gestor: Gestor):
+    """Insere um novo gestor no banco de dados"""
     connection, cursor = connect_db()
 
     try:
@@ -30,30 +31,32 @@ def create(gestor: Gestores):
     connection.commit()
     connection.close()
 
-def list():
+def list_managers():
     connection, cursor = connect_db()
 
     cursor.execute('SELECT * FROM gestores')
     gestores_1 = cursor.fetchall() # Lista com os dados da tabela
-    gestores_2: list[Gestores] = [] # Lista de Objetos(Professor) com os dados da tabela
+    gestores_2: list[Gestor] = [] # Lista de Objetos(Gestor) com os dados da tabela
 
     for gestor  in gestores_1:
-        gestores_2.append(Gestores(gestor[0], gestor[1], gestor[2],gestor[3],gestor[4]))
+        gestores_2.append(Gestor(gestor[0], gestor[1], gestor[2],gestor[3],gestor[4]))
 
     connection.close()
 
     return gestores_2
 
 def delete(gestor_id):
-   
+    """Deleta um gestor do banco de dados"""
     connection, cursor = connect_db()
 
     cursor.execute('DELETE FROM gestores WHERE id = ?', (str(gestor_id),))
-
     connection.commit()
+    cursor.execute('DELETE FROM escolas_gestores WHERE gestores_id = ?', (str(gestor_id),))
+    connection.commit()
+
     connection.close()
 
-def generate_manager_id(cursor: sqlite3.Cursor, gestor: Gestores):
+def generate_manager_id(cursor: sqlite3.Cursor, gestor: Gestor):
   
     escola = '88901'
     nascimento = gestor.nascimento[6:]
