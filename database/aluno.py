@@ -1,6 +1,6 @@
 import sqlite3
 from random import randint
-from banco import connect_db
+from database.banco import connect_db
 
 class Aluno:
     """Modelo de dados da tabela alunos"""
@@ -62,6 +62,20 @@ def list_students():
     connection.close()
 
     return alunos_2
+
+
+def get(al_id):
+    """Pega um aluno especifico do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM alunos WHERE id = ?', (str(al_id),))
+    row = cursor.fetchall()[0]
+    aluno = Aluno(row[0], row[1], row[2], row[3], row[4])
+
+    connection.commit()
+    connection.close()
+
+    return aluno
 
 def generate_student_id(cursor: sqlite3.Cursor, aluno: Aluno):
     """Gera um id para o aluno"""

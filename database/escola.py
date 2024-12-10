@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -60,6 +60,20 @@ def delete(escola_id):
         connection.commit()
 
     connection.close()
+
+
+def get(escola_id):
+    """Pega uma escola especifica do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM escolas WHERE id = ?', (str(escola_id),))
+    row = cursor.fetchall()[0]
+    escola = Escola(row[0], row[1], row[2], row[3])
+
+    connection.commit()
+    connection.close()
+
+    return escola
 
 
 def generate_school_id(cursor: sqlite3.Cursor, escola: Escola):

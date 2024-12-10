@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -55,6 +55,20 @@ def delete(gestor_id):
     connection.commit()
 
     connection.close()
+
+
+def get(gestor_id):
+    """Pega um gestor especifico do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM gestores WHERE id = ?', (str(gestor_id),))
+    row = cursor.fetchall()[0]
+    gestor = Gestor(row[0], row[1], row[2], row[3], row[4])
+
+    connection.commit()
+    connection.close()
+
+    return gestor
 
 def generate_manager_id(cursor: sqlite3.Cursor, gestor: Gestor):
   

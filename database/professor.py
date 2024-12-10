@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -63,6 +63,21 @@ def list_teachers():
     connection.close()
 
     return profs_2
+
+
+def get(prof_id):
+    """Pega um professor especifico do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM professores WHERE id = ?', (str(prof_id),))
+    row = cursor.fetchall()[0]
+    prof = Professor(row[0], row[1], row[2], row[3], row[4], row[5])
+
+    connection.commit()
+    connection.close()
+
+    return prof
+
 
 def generate_teacher_id(cursor: sqlite3.Cursor, professor: Professor):
     """Gera um id para o professor"""

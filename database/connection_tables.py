@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 
 
 def turmas_alunos(turma_id, aluno_id):

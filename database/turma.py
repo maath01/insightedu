@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -59,6 +59,20 @@ def list_classes():
     connection.close()
 
     return classes_2
+
+def get(tur_id):
+    """Pega uma turma especifica do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM turmas WHERE id = ?', (str(tur_id),))
+    row = cursor.fetchall()[0]
+    turma = Turma(row[0], row[1], row[2])
+
+    connection.commit()
+    connection.close()
+
+    return turma
+
 
 def generate_class_id(cursor: sqlite3.Cursor, turma: Turma):
     """Gera um id para a turma"""

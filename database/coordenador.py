@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -60,6 +60,21 @@ def list_coordinators():
     connection.close()
 
     return coordenadores_2
+
+
+def get(coordenador_id):
+    """Pega um coordenador especifico do banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM coordenadores WHERE id = ?', (str(coordenador_id),))
+    row = cursor.fetchall()[0]
+    coordenador = Coordenador(row[0], row[1], row[2], row[3], row[4])
+
+    connection.commit()
+    connection.close()
+
+    return coordenador
+
 
 def generate_coordinator_id(cursor: sqlite3.Cursor, coordenador: Coordenador):
     escola = '88901'
