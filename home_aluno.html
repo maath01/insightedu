@@ -4,10 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home aluno</title>
+    <title>Home Aluno</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
-<body style="background-color: #2D6790;">
-    <h1 style="color: white;">HOME aluno</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul id="messages" class="list-unstyled">
+            {% for message in messages %}
+                <li class="alert alert-success">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
+
+<body style="background-color: white;">
+    <header>
+        <div class="container-logo">
+            <div class="logo-imagem">
+                <img src="../idvisual/IMGLOGO.png">
+            </div>
+            <div class="logo-texto">
+                <h1>InsightEdu: Aluno</h1>
+            </div>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Ferramentas</a></li>
+            </ul>
+        </div>
+    </header>
 </body>
 </html>
