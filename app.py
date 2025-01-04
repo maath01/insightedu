@@ -7,9 +7,7 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'insightedu'
 
-
 banco.create_database()
-
 
 @app.route('/')
 def index():
@@ -23,7 +21,6 @@ def cadastro_aluno():
 
     print('Aluno adicionado')
 
-
 @app.route('/home_aluno', methods=['GET', 'POST'])
 def home_aluno():
     return render_template('home_aluno.html')
@@ -36,8 +33,8 @@ def home_professor():
 def home_coordenador():
     return render_template('home_coordenador.html')
 
-@app.route('/login_geral', methods=['GET', 'POST'])
-def login_geral():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
         categoria = request.form['categoria']
         nome = request.form['nome']
@@ -77,11 +74,40 @@ def login_geral():
                 
             else:
                 flash('Não logado, tente novamente!')
-                return render_template('login_geral.html')
+                return render_template('login.html')
             
         finally:
             connection.close()
 
-    return render_template('login_geral.html')
+    return render_template('login.html')
+
+@app.route('/buscar_turma', methods=['POST'])
+def buscar_turma():
+    turma = request.form['turma']
+
+    connection = sqlite3.connect('database/banco.db')
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM professores_turmas_materias  WHERE turmas_id = ?", (turma,))
+    turma_encontrada = cursor.fetchone()
+
+    if turma_encontrada:
+        cursor.execute("""
+            SELECT alunos.id, alunos.nome
+            FROM alunos
+            JOIN turmas_alunos ON alunos.id = turmas_alunos.alunos_id
+            WHERE turmas_alunos.turmas_id = ?
+        """, (turma_encontrada[0],))  
+        alunos = cursor.fetchall()  
+
+        connection.close()
+
+     
+        return render_template('turma_encontrada.html', turma=turma_encontrada, alunos=alunos)
+    else:
+        flash('Turma não encontrada!')  
+        connection.close()
+        return redirect(url_for('home_professor'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
