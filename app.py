@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
-from database import aluno, banco, connection_tables, turma, escola, coordenador
+from database import aluno, banco, connection_tables, turma, escola, gestor
 import database.professor as prof
 import database.coordenador as coor
 import sqlite3
