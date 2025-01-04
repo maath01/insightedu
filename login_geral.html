@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
     <title>Login</title>
 
 </head>
-<body style="background-color: #2D6790;">
+<body>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -19,19 +20,25 @@
     {% endwith %}
 
 
-    <h1 style="color: white;">Login</h1>
+    <h1>Login</h1>
 
-    <form action="/login_geral" method="POST">
+    <form action="/login" method="POST">
         <p><b>Escolha uma opção: </b></p>
-        Aluno <input type="radio" name="categoria" value="aluno" required> <br/>
-        Professor <input type="radio" name="categoria" value="professor" required> <br/>
-        Gestor <input type="radio" name="categoria" value="gestor" required> <br/><br/>
 
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+        <div class="categoria">
+            Aluno <input type="radio" name="categoria" value="aluno" required> <br/>
+            Professor <input type="radio" name="categoria" value="professor" required> <br/>
+            Coordenador <input type="radio" name="categoria" value="Coordenador" required> <br/><br/>
+        </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required><br><br>
+        <div class="login">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Nome"><br><br>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required placeholder="Senha"><br><br>
+        </div>
+
 
         <button type="submit">Entrar</button>
     </form>
