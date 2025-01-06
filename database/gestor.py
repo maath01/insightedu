@@ -76,7 +76,7 @@ def get(gestor_id):
 def generate_manager_id(gestor: Gestor, escola):
     """Gera um id para o gestor"""
     nascimento = gestor.nascimento[6:]
-    cod = nascimento + str(escola.id)
+    cod = nascimento + str(escola.escola_id)
     
     for n in range(3):
         cod += str(randint(0, 9))

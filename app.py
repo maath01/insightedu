@@ -7,7 +7,16 @@ app = Flask(__name__)
 
 banco.create_database()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+esc = escola.Escola(0, 'IFCE', 'Crato', 'CE')
+professor = prof.Professor(0, 'Matheus Soares', 'matheus@gmail.com', '1234', 'CE', '02-10-2004')
+prof.create(professor, esc)
+
+lista = prof.list_teachers()
+
+for item in lista:
+    print(item)
+
+# @app.route('/')
+# def index():
+    # return render_template('index.html')
 

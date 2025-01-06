@@ -84,7 +84,7 @@ def get(al_id):
 
 def generate_student_id(aluno: Aluno, escola):
     """Gera um id para o aluno"""
-    cod = aluno.ano_matricula + str(escola.id)
+    cod = aluno.ano_matricula + str(escola.escola_id)
 
     for i in range(4):
         cod += str(randint(0, 9))

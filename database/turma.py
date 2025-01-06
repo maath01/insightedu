@@ -79,7 +79,7 @@ def get(tur_id):
 
 def generate_class_id(turma: Turma, escola):
     """Gera um id para a turma"""
-    cod = str(escola.id) + str(turma.serie)
+    cod = str(escola.escola_id) + str(turma.serie)
     
     for n in range(3):
         cod += str(randint(0, 9))
