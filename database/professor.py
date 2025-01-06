@@ -85,7 +85,7 @@ def get(prof_id):
 def generate_teacher_id(professor: Professor, escola):
     """Gera um id para o professor"""
     nascimento = professor.data_nascimento[6:]
-    cod = nascimento + str(escola.id)
+    cod = nascimento + str(escola.escola_id)
     
     for n in range(3):
         cod += str(randint(0, 9))
