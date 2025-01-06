@@ -82,7 +82,7 @@ def get(coordenador_id):
 
 def generate_coordinator_id(coordenador: Coordenador, escola):
     nascimento = coordenador.nascimento[6:]
-    cod = nascimento + str(escola.id)
+    cod = nascimento + str(escola.escola_id)
     
     for n in range(3):
         cod += str(randint(0, 9))
