@@ -10,7 +10,3 @@ banco.create_database()
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-def teste():
-    pass
