@@ -9,9 +9,9 @@ app.secret_key = 'insightedu'
 
 banco.create_database()
 
-@app.route('/lista_alunos')
-def lista_alunos():
-    print(alunos)
+#@app.route('/lista_alunos')
+#def lista_alunos():
+#    print(alunos)
 
 @app.route('/')
 def index():
@@ -174,8 +174,8 @@ def buscar_turma_gestor():
         cursor.execute("""
             SELECT alunos.id, alunos.nome
             FROM alunos
-            JOIN turmas_alunos ON alunos.id = turmas_alunos.alunos_id
-            WHERE turmas_alunos.id = ?
+            JOIN turmas ON alunos.id = turmas.id
+            WHERE turmas.id = ?
         """, (turma_encontrada[0],))  
         alunos = cursor.fetchall()  
 
