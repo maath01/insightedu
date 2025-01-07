@@ -25,10 +25,16 @@
                 <img src="../idvisual/IMGLOGO.png">
             </div>
             <div class="logo-texto">
-                <h1>InsightEdu: Coordenador</h1>
+                <h1 style="color: black" >InsightEdu: Coordenador</h1>
             </div>
         </div>
-
+        <form action="/buscar_turma_coor" method="POST">
+            <div class="turma">
+                <label for="turma">Turma:</label>
+                <input type="number" id="turma" name="turma" required placeholder="ID Turma"><br><br>
+                <button type="submit">Procurar</button>
+            </div>
+        </form>
         <div class="menu">
             <ul>
                 <li><a href="#">Início</a></li>
