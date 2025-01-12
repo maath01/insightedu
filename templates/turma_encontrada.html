@@ -7,6 +7,8 @@
 
 </head>
 <body>
-    <h1>{{ turma[1] }}</h1>
+    {% for turma in turma %}
+        <h1>Turma: {{ turma.tur_id }}</h1>
+    {% endfor %}
 </body>
 </html>
