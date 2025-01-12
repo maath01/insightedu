@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from database import aluno, banco, connection_tables, turma, escola, gestor
+from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
 import database.professor as prof
 import database.coordenador as coor
 import sqlite3
@@ -103,88 +104,41 @@ def login():
 
 @app.route('/buscar_turma_prof', methods=['POST'])
 def buscar_turma_prof():
-    turma = request.form['turma']
-
-    connection = sqlite3.connect('database/banco.db')
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM professores_turmas_materias  WHERE turmas_id = ?", (turma,))
-    turma_encontrada = cursor.fetchone()
+    turma_id = request.form['turma']
+  
+    turma_encontrada = list_classes_by_teacher(turma_id)
 
     if turma_encontrada:
-        cursor.execute("""
-            SELECT alunos.id, alunos.nome
-            FROM alunos
-            JOIN turmas_alunos ON alunos.id = turmas_alunos.alunos_id
-            WHERE turmas_alunos.turmas_id = ?
-        """, (turma_encontrada[0],))  
-        alunos = cursor.fetchall()  
-
-        connection.close()
-
-     
-        return render_template('turma_encontrada.html', turma=turma_encontrada, alunos=alunos)
+        return render_template('turma_encontrada.html', turma=turma_encontrada)
     else:
-        flash('Turma não encontrada!')  
-        connection.close()
+        flash('Turma não encontrada!')
         return redirect(url_for('home_professor'))
     
 
 
 @app.route('/buscar_turma_coor', methods=['POST'])
 def buscar_turma_coor():
-    turma = request.form['turma']
-
-    connection = sqlite3.connect('database/banco.db')
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM coordenadores_turmas  WHERE turmas_id = ?", (turma,))
-    turma_encontrada = cursor.fetchone()
+    coor_id = request.form['turma']
+  
+    turma_encontrada = list_classes_by_coordinator(coor_id)
 
     if turma_encontrada:
-        cursor.execute("""
-            SELECT alunos.id, alunos.nome
-            FROM alunos
-            JOIN turmas_alunos ON alunos.id = turmas_alunos.alunos_id
-            WHERE turmas_alunos.turmas_id = ?
-        """, (turma_encontrada[0],))  
-        alunos = cursor.fetchall()  
-
-        connection.close()
-
-     
-        return render_template('turma_encontrada.html', turma=turma_encontrada, alunos=alunos)
+        return render_template('turma_encontrada.html', turma=turma_encontrada)
     else:
-        flash('Turma não encontrada!')  
-        connection.close()
+        flash('Turma não encontrada!')
         return redirect(url_for('home_coordenador'))
     
 
 @app.route('/buscar_turma_gestor', methods=['POST'])
 def buscar_turma_gestor():
-    turma = request.form['turma']
-
-    connection = sqlite3.connect('database/banco.db')
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM turmas  WHERE id = ?", (turma,))
-    turma_encontrada = cursor.fetchone()
+    school_id = request.form['turma']
+  
+    turma_encontrada = list_classes_by_school(school_id)
 
     if turma_encontrada:
-        cursor.execute("""
-            SELECT alunos.id, alunos.nome
-            FROM alunos
-            JOIN turmas ON alunos.id = turmas.id
-            WHERE turmas.id = ?
-        """, (turma_encontrada[0],))  
-        alunos = cursor.fetchall()  
-
-        connection.close()
-
-        return render_template('turma_encontrada.html', turma=turma_encontrada, alunos=alunos)
+        return render_template('turma_encontrada.html', turma=turma_encontrada)
     else:
-        flash('Turma não encontrada!')  
-        connection.close()
+        flash('Turma não encontrada!')
         return redirect(url_for('home_gestor'))
     
 if __name__ == '__main__':
