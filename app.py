@@ -78,11 +78,11 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/buscar_turma_prof', methods=['POST'])
-def buscar_turma_prof():
+@app.route('/buscar_turma', methods=['POST'])
+def buscar_turma():
     turma_id = request.form['turma']
   
-    turma_encontrada = list_classes_by_teacher(turma_id)
+    turma_encontrada = turma.get(turma_id)
 
     if turma_encontrada:
         return render_template('turma_encontrada.html', turma=turma_encontrada)
@@ -90,32 +90,3 @@ def buscar_turma_prof():
         flash('Turma não encontrada!')
         return redirect(url_for('home_professor'))
     
-
-
-@app.route('/buscar_turma_coor', methods=['POST'])
-def buscar_turma_coor():
-    coor_id = request.form['turma']
-  
-    turma_encontrada = list_classes_by_coordinator(coor_id)
-
-    if turma_encontrada:
-        return render_template('turma_encontrada.html', turma=turma_encontrada)
-    else:
-        flash('Turma não encontrada!')
-        return redirect(url_for('home_coordenador'))
-    
-
-@app.route('/buscar_turma_gestor', methods=['POST'])
-def buscar_turma_gestor():
-    school_id = request.form['turma']
-  
-    turma_encontrada = list_classes_by_school(school_id)
-
-    if turma_encontrada:
-        return render_template('turma_encontrada.html', turma=turma_encontrada)
-    else:
-        flash('Turma não encontrada!')
-        return redirect(url_for('home_gestor'))
-    
-if __name__ == '__main__':
-    app.run(debug=True)
