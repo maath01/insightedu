@@ -10,40 +10,21 @@ app.secret_key = 'insightedu'
 
 banco.create_database()
 
-#@app.route('/lista_alunos')
-#def lista_alunos():
-#    print(alunos)
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/cadastro_aluno')
-def cadastro_aluno():
-    esc = escola.Escola(6999, 'IFCE Campus Crato', 'Crato', 'CE')
-    al = aluno.Aluno(0, 'Matheus Soares do Nascimento', '12345678', '02/10/2004', '2024')
-    aluno.create(al, esc)
 
-    print('Aluno adicionado')
-
-
-
-@app.route('/home_aluno', methods=['GET', 'POST'])
-def home_aluno():
-    return render_template('home_aluno.html')
-
-@app.route('/home_professor')
-def home_professor():
-    return render_template('home_professor.html')
-
-@app.route('/home_coordenador')
-def home_coordenador():
-    return render_template('home_coordenador.html')
-
-@app.route('/home_gestor')
-def home_gestor():
-    return render_template('home_gestor.html')
-
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if session['user_type'] == 'aluno':
+        return render_template('home_aluno.html')
+    elif session['user_type'] == 'professor':
+        return render_template('home_professor.html')
+    elif session['user_type'] == 'coordenador':
+        return render_template('home_coordenador.html')
+    elif session['user_type'] == 'gestor':
+        return render_template('home_gestor.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -71,26 +52,21 @@ def login():
             user = cursor.fetchone()
 
             if user:
-
+                session['usuario_logado'] = request.form['nome']
                 if categoria == 'aluno':
-                    session['usuario_logado'] = request.form['nome']
-                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")
-                    return redirect(url_for('home_aluno'))
-                  
+                    session['user_type'] = 'aluno'
+                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")                  
                 elif categoria == 'professor':
-                      session['usuario_logado'] = request.form['nome']
-                      flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
-                      return redirect(url_for('home_professor'))
-                
+                    session['user_type'] = 'professor'
+                    flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
                 elif categoria == 'coordenador':
-                     session['usuario_logado'] = request.form['nome']
-                     flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
-                     return redirect(url_for('home_coordenador'))
-                
+                    session['user_type'] = 'coordenador'
+                    flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
                 elif categoria == 'gestor':
-                     session['usuario_logado'] = request.form['nome']
-                     flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
-                     return redirect(url_for('home_gestor'))
+                    session['user_type'] = 'gestor'
+                    flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                return redirect(url_for('home'))
                 
                 
             else:
