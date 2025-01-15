@@ -30,7 +30,7 @@ def create(coordenador: Coordenador, escola):
     except sqlite3.IntegrityError:
         print('ID duplicado')
     else:
-        escolas_coordenadores(escola.id, coordenador_id, cursor, connection)
+        escolas_coordenadores(escola.escola_id, coordenador_id, cursor, connection)
     
     connection.close()
 
