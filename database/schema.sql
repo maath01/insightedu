@@ -111,3 +111,8 @@ CREATE TABLE coordenadores_turmas (
     coordenadores_id BIGINT NOT NULL,
     turmas_id BIGINT NOT NULL
 );
+
+CREATE TABLE materias_avaliacoes (
+    materias_id int NOT NULL,
+    avaliacoes_id BIGINT NOT NULL
+);

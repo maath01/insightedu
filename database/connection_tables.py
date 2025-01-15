@@ -54,3 +54,12 @@ def coordenadores_turmas(coordenador_id, turma_id, cursor, connection):
 
     connection.commit()
 
+
+def materias_avaliacoes(materia, avaliacao_id, cursor, connection):
+    """Associa uma avaliação a uma materia"""
+    cursor.execute('SELECT id FROM materias WHERE nome = ?', (materia,))
+    id_materia = cursor.fetchall()[0][0]
+
+    cursor.execute('INSERT INTO materias_avaliacoes (materias_id, avaliacoes_id) VALUES (?, ?)', (id_materia, avaliacao_id))
+
+    connection.commit()
