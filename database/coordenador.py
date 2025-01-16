@@ -74,7 +74,6 @@ def get(coordenador_id):
     row = cursor.fetchall()[0]
     coordenador = Coordenador(row[0], row[1], row[2], row[3], row[4])
 
-    connection.commit()
     connection.close()
 
     return coordenador

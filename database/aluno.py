@@ -76,7 +76,6 @@ def get(al_id):
     row = cursor.fetchall()[0]
     aluno = Aluno(row[0], row[1], row[2], row[3], row[4])
 
-    connection.commit()
     connection.close()
 
     return aluno

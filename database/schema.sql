@@ -62,6 +62,22 @@ CREATE TABLE coordenadores (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE avaliacoes (
+    id BIGINT NOT NULL,
+    serie int NOT NULL,
+    bimestre int NOT NULL,
+    data_aplicacao DATE,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE notas (
+    id BIGINT NOT NULL,
+    aluno_id BIGINT NOT NULL,
+    avaliacao_id BIGINT NOT NULL,
+    nota REAL NOT NULL,
+    PRIMARY KEY(id)
+);
+
 -- Tabelas de conexão
 CREATE TABLE turmas_alunos (
     turmas_id BIGINT NOT NULL,
@@ -102,4 +118,9 @@ CREATE TABLE escolas_alunos(
 CREATE TABLE coordenadores_turmas (
     coordenadores_id BIGINT NOT NULL,
     turmas_id BIGINT NOT NULL
+);
+
+CREATE TABLE materias_avaliacoes (
+    materias_id int NOT NULL,
+    avaliacoes_id BIGINT NOT NULL
 );

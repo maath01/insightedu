@@ -70,7 +70,6 @@ def get(escola_id):
     row = cursor.fetchall()[0]
     escola = Escola(row[0], row[1], row[2], row[3])
 
-    connection.commit()
     connection.close()
 
     return escola

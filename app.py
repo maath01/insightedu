@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
-from database import aluno, banco, connection_tables, turma, escola, gestor
+from database import aluno, banco, connection_tables, turma, escola, gestor, nota
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
 import database.professor as prof
 import database.coordenador as coor
+import database.avaliacao as av
 import sqlite3
 
 app = Flask(__name__)
@@ -13,7 +14,6 @@ banco.create_database()
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():

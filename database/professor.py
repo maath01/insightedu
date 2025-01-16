@@ -76,7 +76,6 @@ def get(prof_id):
     row = cursor.fetchall()[0]
     prof = Professor(row[0], row[1], row[2], row[3], row[4], row[5])
 
-    connection.commit()
     connection.close()
 
     return prof

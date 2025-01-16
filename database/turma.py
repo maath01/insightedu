@@ -71,7 +71,6 @@ def get(tur_id):
     row = cursor.fetchall()[0]
     turma = Turma(row[0], row[1], row[2])
 
-    connection.commit()
     connection.close()
 
     return turma

@@ -64,4 +64,8 @@ INSERT INTO professores_turmas_materias (professores_id, turmas_id, materias_id)
 (2, 2, 2),
 (2, 2, 3),
 (2, 2, 4),
-(2, 2, 5)
+(2, 2, 5);
+
+INSERT INTO avaliacoes (id, serie, bimestre, data_aplicacao) VALUES
+(1, 5, 2, '20-06-2024'),
+(2, 6, 4, '20-06-2024')

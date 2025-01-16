@@ -22,7 +22,7 @@ def create_database():
             commands = file.read().split(';')
         
         for command in commands:
-            print(command)
+            # print(command)
             cursor.execute(command)
             connection.commit()
 
@@ -31,7 +31,7 @@ def create_database():
             commands = file.read().split(';')
         
         for command in commands:
-            print(command)
+            # print(command)
             cursor.execute(command)
             connection.commit()
 
