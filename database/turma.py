@@ -28,7 +28,7 @@ def create(turma: Turma, escola):
     except sqlite3.IntegrityError:
         print('ID duplicado')
     else:
-        escolas_turmas(escola.id, tur_id, cursor, connection)
+        escolas_turmas(escola.escola_id, tur_id, cursor, connection)
 
     connection.close()
 

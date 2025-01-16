@@ -70,6 +70,14 @@ CREATE TABLE avaliacoes (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE notas (
+    id BIGINT NOT NULL,
+    aluno_id BIGINT NOT NULL,
+    avaliacao_id BIGINT NOT NULL,
+    nota REAL NOT NULL,
+    PRIMARY KEY(id)
+);
+
 -- Tabelas de conexão
 CREATE TABLE turmas_alunos (
     turmas_id BIGINT NOT NULL,

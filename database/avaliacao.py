@@ -53,7 +53,7 @@ def list_evaluations():
 
     cursor.execute('SELECT * FROM avaliacoes')
     avs_1 = cursor.fetchall() # Lista com os dados da tabela
-    avs_2: list[Avaliacao] = [] # Lista de Objetos(Avaliações) com os dados da tabela
+    avs_2: list[Avaliacao] = [] # Lista de Objetos(Avaliação) com os dados da tabela
 
     for av in avs_1:
         avs_2.append(Avaliacao(av[0], av[1], av[2], av[3]))
