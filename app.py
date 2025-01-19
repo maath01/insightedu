@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
+from database.connection_tables import professores_turmas_materias
 import database.professor as prof
 import database.coordenador as coor
 import database.avaliacao as av
@@ -19,10 +20,15 @@ def index():
 def home():
     if session['user_type'] == 'aluno':
         return render_template('home_aluno.html')
+    
     elif session['user_type'] == 'professor':
+        turmas = session.get('turmas', [])
         return render_template('home_professor.html')
+
+
     elif session['user_type'] == 'coordenador':
         return render_template('home_coordenador.html')
+    
     elif session['user_type'] == 'gestor':
         return render_template('home_gestor.html')
 
@@ -31,6 +37,7 @@ def home():
 def login():
     if request.method == 'POST':
         categoria = request.form['categoria']
+        id = request.form['id']
         nome = request.form['nome']
         senha = request.form['senha']
 
@@ -48,20 +55,34 @@ def login():
         cursor = connection.cursor()
 
         try:
-            cursor.execute(f"SELECT * FROM {tabela} WHERE nome = ? AND senha = ?", (nome, senha))
+            cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND nome = ? AND senha = ?", (id, nome, senha))
             user = cursor.fetchone()
 
             if user:
                 session['usuario_logado'] = request.form['nome']
                 if categoria == 'aluno':
                     session['user_type'] = 'aluno'
-                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")                  
+                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
+
                 elif categoria == 'professor':
+                    cursor.execute(f"""
+                                   SELECT turmas_id, materias_id 
+                                   FROM professores_turmas_materias 
+                                   WHERE professores_id = ?
+                    """, (id,))
+                    turmas = cursor.fetchall()
+                    
                     session['user_type'] = 'professor'
+                    session['turmas'] = turmas
                     flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                    return render_template('home_professor.html', professor=nome, turmas=turmas)
+
+
                 elif categoria == 'coordenador':
                     session['user_type'] = 'coordenador'
                     flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+
                 elif categoria == 'gestor':
                     session['user_type'] = 'gestor'
                     flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
@@ -78,15 +99,8 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/buscar_turma', methods=['POST'])
-def buscar_turma():
-    turma_id = request.form['turma']
-  
-    turma_encontrada = turma.get(turma_id)
 
-    if turma_encontrada:
-        return render_template('turma_encontrada.html', turma=turma_encontrada)
-    else:
-        flash('Turma não encontrada!')
-        return redirect(url_for('home_professor'))
+
+if __name__ == "__main__":
+    app.run(debug=True)
     
