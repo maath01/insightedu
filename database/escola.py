@@ -1,4 +1,4 @@
-from database.banco import connect_db
+from banco import connect_db
 import sqlite3
 from random import randint
 
@@ -75,6 +75,13 @@ def get(escola_id):
     return escola
 
 
+def update_school(id, novo_nome, nova_cidade,nova_uf):
+    connection, cursor = connect_db()
+    cursor.execute("UPDATE escolas SET  nome= ?, cidade = ?, uf = ? WHERE id = ?", (novo_nome, nova_cidade,nova_uf, id))
+    connection.commit()
+    connection.close()  
+
+
 def generate_school_id(escola: Escola):
     """Gera um id para a escola"""
     cod = str(escola.uf)
@@ -82,4 +89,6 @@ def generate_school_id(escola: Escola):
         cod += str(randint(0, 9))
     
     return cod
+
+
 

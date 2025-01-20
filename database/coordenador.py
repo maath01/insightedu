@@ -1,5 +1,5 @@
-from database.banco import connect_db
-from database.connection_tables import escolas_coordenadores
+from banco import connect_db
+from connection_tables import escolas_coordenadores
 import sqlite3
 from random import randint
 
@@ -78,6 +78,12 @@ def get(coordenador_id):
 
     return coordenador
 
+def update_coordinator(id, novo_nome, novo_email,novo_nascimento,nova_senha):
+    connection, cursor = connect_db()
+    cursor.execute("UPDATE coordenadores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", (novo_nome, novo_email,novo_nascimento,nova_senha, id))
+    connection.commit()
+    connection.close()  
+
 
 def generate_coordinator_id(coordenador: Coordenador, escola):
     nascimento = coordenador.nascimento[6:]
@@ -87,3 +93,5 @@ def generate_coordinator_id(coordenador: Coordenador, escola):
         cod += str(randint(0, 9))
     
     return cod
+
+

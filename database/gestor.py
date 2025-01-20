@@ -1,5 +1,5 @@
-from database.banco import connect_db
-from database.connection_tables import escolas_gestores
+from banco import connect_db
+from connection_tables import escolas_gestores
 import sqlite3
 from random import randint
 
@@ -71,6 +71,12 @@ def get(gestor_id):
     connection.close()
 
     return gestor
+
+def update_managers(id, novo_nome, novo_email,novo_nascimento,nova_senha):
+    connection, cursor = connect_db()
+    cursor.execute("UPDATE gestores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", (novo_nome, novo_email,novo_nascimento,nova_senha, id))
+    connection.commit()
+    connection.close()  
 
 def generate_manager_id(gestor: Gestor, escola):
     """Gera um id para o gestor"""
