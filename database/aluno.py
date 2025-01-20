@@ -120,8 +120,7 @@ def list_students_by_class(class_id): #-> list:
     students = cursor.fetchall()
 
     for student in students:
-        print(student)
-        students_obj.append(Aluno(student[0], student[1], student[2], student[0], student[0]))
+        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4]))
 
     connection.close()
 
