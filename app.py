@@ -22,9 +22,8 @@ def home():
         return render_template('home_aluno.html')
     
     elif session['user_type'] == 'professor':
-        turmas = session.get('turmas', [])
-        return render_template('home_professor.html')
-
+        turmas = turma.list_classes_by_teacher(session['id'])
+        return render_template('home_professor.html', turmas=turmas)
 
     elif session['user_type'] == 'coordenador':
         return render_template('home_coordenador.html')
@@ -65,19 +64,9 @@ def login():
                     flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
 
                 elif categoria == 'professor':
-                    cursor.execute(f"""
-                                   SELECT turmas_id, materias_id 
-                                   FROM professores_turmas_materias 
-                                   WHERE professores_id = ?
-                    """, (id,))
-                    turmas = cursor.fetchall()
-                    
+                    session['id'] = id
                     session['user_type'] = 'professor'
-                    session['turmas'] = turmas
                     flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
-
-                    return render_template('home_professor.html', professor=nome, turmas=turmas)
-
 
                 elif categoria == 'coordenador':
                     session['user_type'] = 'coordenador'
@@ -103,4 +92,3 @@ def login():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
