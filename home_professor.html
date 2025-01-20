@@ -38,11 +38,11 @@
                 <li><a href="#">Ferramentas</a></li>
             </ul>
         </div>
-        <h2>Turmas de {{professor}}</h2>
+        <h2>Turmas </h2>
         <ul>
             {% if turmas %}
                 {% for turma in turmas %}
-                    <li>Turma: {{ turma[0] }} - Matéria: {{ turma[1] }}</li>
+                    <li>Turma: {{ turma.serie }} ano -  {{ turma.letra }}</li>
                 {% endfor %}
             {% else %}
                 <p>Nenhuma turma ou matéria associada.</p>
