@@ -80,6 +80,16 @@ def get(prof_id):
 
     return prof
 
+def update(prof_id, prof: Professor):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('UPDATE professores SET nome = ?, email = ?, senha = ?, uf = ?, data_nascimento = ? WHERE id = ?',
+                (prof.nome, prof.email, prof.senha, prof.uf, prof.data_nascimento, prof_id))
+    
+    connection.commit()
+    connection.close()
+
 
 def generate_teacher_id(professor: Professor, escola):
     """Gera um id para o professor"""

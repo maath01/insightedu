@@ -7,7 +7,7 @@ from database.connection_tables import escolas_alunos
 class Aluno:
     """Modelo de dados da tabela alunos"""
 
-    def __init__(self, al_id, nome, senha, data_nascimento, ano_matricula) -> None:
+    def __init__(self, al_id=0, nome='', senha='', data_nascimento='', ano_matricula='') -> None:
         self.al_id = al_id
         self.nome = nome
         self.senha = senha
@@ -79,6 +79,17 @@ def get(al_id):
     connection.close()
 
     return aluno
+
+
+def update(al_id, aluno: Aluno):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('UPDATE alunos SET nome = ?, senha = ?, data_nascimento = ?, ano_matricula = ? WHERE id = ?',
+                (aluno.nome, aluno.senha, aluno.data_nascimento, aluno.ano_matricula, al_id))
+    
+    connection.commit()
+    connection.close()
 
 
 def generate_student_id(aluno: Aluno, escola):

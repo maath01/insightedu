@@ -76,6 +76,17 @@ def get(tur_id):
     return turma
 
 
+def update(tur_id, turma: Turma):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('UPDATE turmas SET serie = ?, letra = ? WHERE id = ?',
+                (turma.serie, turma.letra, tur_id))
+    
+    connection.commit()
+    connection.close()
+
+
 def generate_class_id(turma: Turma, escola):
     """Gera um id para a turma"""
     cod = str(escola.escola_id) + str(turma.serie)
