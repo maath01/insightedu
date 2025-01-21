@@ -11,7 +11,7 @@
     
     <ul>
         {% for aluno in alunos %}
-            <li>{{ aluno }}</li>
+            <a href="{{ url_for('perfil_aluno', aluno_id=aluno.al_id)}}">{{ aluno }}</a>
         {% endfor %}
     </ul>
 </body>

@@ -29,14 +29,6 @@
             </div>
         </div>
 
-        <form action="/buscar_turma" method="POST">
-            <div class="turma">
-                <label for="turma">Turma:</label>
-                <input type="number" id="turma" name="turma" required placeholder="ID Turma"><br><br>
-                <button type="submit">Procurar</button>
-            </div>
-        </form>
-
         <div class="menu">
             <ul>
                 <li><a href="#">Início</a></li>
@@ -46,6 +38,16 @@
                 <li><a href="#">Ferramentas</a></li>
             </ul>
         </div>
+        <h2>Turmas </h2>
+        <ul>
+            {% if turmas %}
+                {% for turma in turmas %}
+                    <li>Turma: {{ turma.serie }} ano -  {{ turma.letra }}</li>
+                {% endfor %}
+            {% else %}
+                <p>Nenhuma turma ou matéria associada.</p>
+            {% endif %}
+        </ul>        
     </header>
 </body>
 </html>
