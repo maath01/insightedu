@@ -89,4 +89,28 @@ def buscar_turma():
     else:
         flash('Turma não encontrada!')
         return redirect(url_for('home_professor'))
-    
+
+
+@app.route ('turmas/<int:turma_id>')
+def lista_alunos(turma_id):
+    try:    
+        alunos = aluno.list_students_by_class(turma_id)
+        if alunos:
+            return render_template('lista_alunos.html', turma=turma_id, alunos=alunos)
+        else:
+            return f"<h1>Não há alunos cadastrados na turma {turma_id}.</h1>"
+    finally:
+        pass
+
+
+@app.route('/perfil_aluno/<int:aluno_id>')
+def perfil_aluno(aluno_id):
+
+    try:  
+        student = aluno.get(aluno_id) 
+        if student:
+            return render_template('perfil_aluno.html', aluno=student)
+        else:
+            return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
+    finally:
+        pass
