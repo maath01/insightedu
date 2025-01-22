@@ -77,7 +77,12 @@ def get(escola_id):
 
 def generate_school_id(escola: Escola):
     """Gera um id para a escola"""
-    cod = str(escola.uf)
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT id FROM ufs WHERE sigla = ?', (escola.uf,))
+    uf_cod = cursor.fetchall()[0][0]
+
+    cod = str(uf_cod)
     for n in range(4):
         cod += str(randint(0, 9))
     

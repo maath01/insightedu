@@ -80,6 +80,16 @@ def get(prof_id):
 
     return prof
 
+def update(prof_id, prof: Professor):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('UPDATE professores SET nome = ?, email = ?, senha = ?, uf = ?, data_nascimento = ? WHERE id = ?',
+                (prof.nome, prof.email, prof.senha, prof.uf, prof.data_nascimento, prof_id))
+    
+    connection.commit()
+    connection.close()
+
 
 def generate_teacher_id(professor: Professor, escola):
     """Gera um id para o professor"""
@@ -90,4 +100,29 @@ def generate_teacher_id(professor: Professor, escola):
         cod += str(randint(0, 9))
     
     return cod
+
+
+def list_teachers_by_school(school_id):
+    """Devovle uma lista de professores que são da mesma escola"""
+
+    connection, cursor = connect_db()
+    cursor.execute('SELECT * FROM escolas_professores WHERE escolas_id = ?', (str(school_id),))
+    teachers_id = []
+    teachers_obj = []
+    rows = cursor.fetchall()
+
+    for row in rows:
+        if row[1] not in teachers_id:
+            teachers_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in teachers_id)
+    cursor.execute(f'SELECT * FROM professores WHERE id IN ({placeholders})', teachers_id)
+    teachers = cursor.fetchall()
+
+    for teacher in teachers:
+        teachers_obj.append(Professor(teacher[0], teacher[1], teacher[2], teacher[3], teacher[4], teacher[5]))
+
+    connection.close()
+
+    return teachers_obj
 
