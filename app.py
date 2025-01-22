@@ -78,15 +78,3 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/buscar_turma', methods=['POST'])
-def buscar_turma():
-    turma_id = request.form['turma']
-  
-    turma_encontrada = turma.get(turma_id)
-
-    if turma_encontrada:
-        return render_template('turma_encontrada.html', turma=turma_encontrada)
-    else:
-        flash('Turma não encontrada!')
-        return redirect(url_for('home_professor'))
-    
