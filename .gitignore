@@ -1,6 +1,5 @@
 ie_env/
 ids.txt
 database/banco.db
-database/insert.sql
 __pycache__/
 database/__pycache__/
