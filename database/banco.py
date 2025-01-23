@@ -36,3 +36,26 @@ def create_database():
             connection.commit()
 
         connection.close()
+
+
+def check_login(categoria, user_id, nome, senha):
+    tabela = ''
+    if categoria == 'aluno':
+        tabela = 'alunos'
+    elif categoria == 'professor':
+        tabela = 'professores'
+    elif categoria == 'coordenador':
+        tabela = 'coordenadores'
+    elif categoria == 'gestor':
+        tabela = 'gestores'
+
+    connection, cursor = connect_db()
+    user = None
+
+    try:
+        cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND nome = ? AND senha = ?", (user_id, nome, senha))
+        user = cursor.fetchone()
+    except:
+        pass
+
+    return user

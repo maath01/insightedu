@@ -1,4 +1,4 @@
-INSERT INTO escolas 
+INSERT INTO escolas (id, nome, cidade, uf) VALUES (1, 'IFCE', 'Crato', 'CE');
 
 INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES (1, 'Ana Silva Souza', 'ana.silva@gmail.com', 'anass123', 'CE', '01-01-1995');
 INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES (2, 'Roberto Gonçalves', 'roberto.goncalves@gmail.com', '12345678', 'CE', '20-04-1998');
