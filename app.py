@@ -115,3 +115,8 @@ def perfil_aluno(aluno_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+@app.route('/home/ferramentas')
+def ferramentas():
+    return render_template('ferramentas.html')
