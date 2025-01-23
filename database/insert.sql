@@ -10,7 +10,7 @@ INSERT INTO professores (id, nome, email, senha, uf, data_nascimento, cpf, idade
 INSERT INTO escolas_professores (escolas_id, professores_id) VALUES (68921, 199568921436), (68921, 199868921543), (60932, 199260932821);
 
 INSERT INTO coordenadores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921329, 'Gabriel', 'gabriel@gmail.com', '04-05-1989', '12345678', '892.309.280-91', 36);
-INSERT INTO escolas_coordenadores (escolas_id, coordenadores_id) VALUES (68921, 19896892132);
+INSERT INTO escolas_coordenadores (escolas_id, coordenadores_id) VALUES (68921, 198968921329);
 
 INSERT INTO gestores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921543, 'Gabriela', 'gabriela@gmail.com', '04-05-1989', '12345678', '738.927.121-65', 36);
 INSERT INTO escolas_gestores (escolas_id, gestores_id) VALUES (68921, 198968921543);
