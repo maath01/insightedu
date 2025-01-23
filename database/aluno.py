@@ -125,3 +125,28 @@ def list_students_by_class(class_id): #-> list:
     connection.close()
 
     return students_obj
+
+
+def list_students_by_school(school_id): #-> list:
+    """Lista os alunos por escola"""
+    connection, cursor = connect_db()
+
+    cursor.execute('SELECT * FROM escolas_alunos WHERE escolas_id = ?', (str(school_id),))
+    students_id = []
+    students_obj: list[Aluno] = []
+    rows = cursor.fetchall()
+    
+    for row in rows:
+        if row[1] not in students_id:
+            students_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in students_id)
+    cursor.execute(f'SELECT * FROM alunos WHERE id IN ({placeholders})', students_id)
+    students = cursor.fetchall()
+
+    for student in students:
+        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4]))
+
+    connection.close()
+
+    return students_obj

@@ -116,7 +116,6 @@ def list_classes_by_teacher(prof_id): #-> list:
     classes = cursor.fetchall()
 
     for class_ in classes:
-        print(class_)
         classes_obj.append(Turma(class_[0], class_[1], class_[2]))
 
     connection.close()
