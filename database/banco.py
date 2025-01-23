@@ -59,3 +59,16 @@ def check_login(categoria, user_id, nome, senha):
         pass
 
     return user
+
+def search(table, column, attribute):
+    """Pesquisa por um atributo especifico em uma tabela"""
+    connection, cursor = connect_db()
+
+    try:
+        cursor.execute(f'SELECT * FROM {table} WHERE {column} = ?', (str(attribute),))
+        row = cursor.fetchall()[0]
+    except:
+        row = None
+    
+    return row
+

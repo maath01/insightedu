@@ -6,12 +6,14 @@ from random import randint
 class Gestor:
     """Modelo de dados da tabela gestores"""
     
-    def __init__(self, gestor_id=0, nome='',email='',nascimento='',senha='') -> None:
+    def __init__(self, gestor_id=0, nome='', email='', nascimento='', senha='', cpf='', idade=0) -> None:
         self.gestor_id = gestor_id
         self.nome = nome
         self.email = email
-        self.nascimento=nascimento
-        self.senha=senha
+        self.nascimento = nascimento
+        self.senha = senha
+        self.cpf = cpf
+        self.idade = idade
 
     def __str__(self) -> str:
         return str(self.gestor_id) + ' ' + str(self.nome) 
@@ -23,8 +25,8 @@ def create(gestor: Gestor, escola):
     try:
         gestor_id = generate_manager_id(gestor, escola)
 
-        cursor.execute('INSERT INTO gestores (id, nome, email, nascimento, senha) VALUES (?, ?, ?, ?, ?)',
-                        (gestor_id, gestor.nome, gestor.email, gestor.nascimento,gestor.senha))
+        cursor.execute('INSERT INTO gestores (id, nome, email, nascimento, senha, cpf, idade) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        (gestor_id, gestor.nome, gestor.email, gestor.nascimento, gestor.senha, gestor.cpf, gestor.idade))
         connection.commit()
 
     except sqlite3.IntegrityError:
@@ -42,7 +44,7 @@ def list_managers():
     gestores_2: list[Gestor] = [] # Lista de Objetos(Gestor) com os dados da tabela
 
     for gestor  in gestores_1:
-        gestores_2.append(Gestor(gestor[0], gestor[1], gestor[2],gestor[3],gestor[4]))
+        gestores_2.append(Gestor(gestor[0], gestor[1], gestor[2],gestor[3],gestor[4], gestor[5], gestor[6]))
 
     connection.close()
 
@@ -66,7 +68,7 @@ def get(gestor_id):
 
     cursor.execute('SELECT * FROM gestores WHERE id = ?', (str(gestor_id),))
     row = cursor.fetchall()[0]
-    gestor = Gestor(row[0], row[1], row[2], row[3], row[4])
+    gestor = Gestor(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
 
     connection.close()
 

@@ -6,12 +6,14 @@ from random import randint
 class Coordenador:
     """Modelo de dados da tabela coordenadores"""
     
-    def __init__(self, coordenador_id=0, nome='',email='',nascimento='',senha='') -> None:
+    def __init__(self, coordenador_id=0, nome='',email='',nascimento='',senha='', cpf='', idade='') -> None:
         self.coordenador_id = coordenador_id
         self.nome = nome
         self.email = email
-        self.nascimento=nascimento
-        self.senha=senha
+        self.nascimento = nascimento
+        self.senha = senha
+        self.cpf = cpf
+        self.idade = idade
 
     def __str__(self) -> str:
         return str(self.coordenador_id) + ' ' + str(self.nome) 
@@ -23,8 +25,8 @@ def create(coordenador: Coordenador, escola):
     try:
         coordenador_id = generate_coordinator_id(coordenador, escola)
 
-        cursor.execute('INSERT INTO coordenadores (id,nome,email,nascimento,senha) VALUES (?, ?, ?, ?,?)',
-                        (coordenador_id, coordenador.nome, coordenador.email, coordenador.nascimento,coordenador.senha))
+        cursor.execute('INSERT INTO coordenadores (id, nome, email, nascimento, senha, cpf, idade) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        (coordenador_id, coordenador.nome, coordenador.email, coordenador.nascimento, coordenador.senha, coordenador.cpf, coordenador.idade))
         connection.commit()
 
     except sqlite3.IntegrityError:
@@ -59,7 +61,7 @@ def list_coordinators():
     coordenadores_2: list[Coordenador] = [] # Lista de Objetos(Professor) com os dados da tabela
 
     for coordenador  in coordenadores_1:
-       coordenadores_2.append(Coordenador(coordenador[0],coordenador[1], coordenador[2],coordenador[3],coordenador[4]))
+       coordenadores_2.append(Coordenador(coordenador[0],coordenador[1], coordenador[2], coordenador[3], coordenador[4], coordenador[5], coordenador[6]))
 
     connection.close()
 
@@ -72,7 +74,7 @@ def get(coordenador_id):
 
     cursor.execute('SELECT * FROM coordenadores WHERE id = ?', (str(coordenador_id),))
     row = cursor.fetchall()[0]
-    coordenador = Coordenador(row[0], row[1], row[2], row[3], row[4])
+    coordenador = Coordenador(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
 
     connection.close()
 

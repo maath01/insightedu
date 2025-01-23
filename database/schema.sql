@@ -5,6 +5,8 @@ CREATE TABLE professores (
     senha VARCHAR(15) NOT NULL,
     uf VARCHAR(2) NOT NULL,
     data_nascimento DATE NOT NULL,
+    cpf VARCHAR(15) NOT NULL,
+    idade int NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -14,6 +16,8 @@ CREATE TABLE alunos (
     senha VARCHAR(15) NOT NULL,
     data_nascimento DATE NOT NULL,
     ano_matricula YEAR NOT NULL,
+    cpf VARCHAR(15) NOT NULL,
+    idade int NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -50,6 +54,8 @@ CREATE TABLE gestores (
     email VARCHAR (20) NOT NULL,
     nascimento DATE NOT NULL,
     senha VARCHAR (15) NOT NULL,
+    cpf VARCHAR(15) NOT NULL,
+    idade int NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -59,6 +65,8 @@ CREATE TABLE coordenadores (
     email VARCHAR (20) NOT NULL,
     nascimento DATE NOT NULL,
     senha VARCHAR (15) NOT NULL,
+    cpf VARCHAR(15) NOT NULL,
+    idade int NOT NULL,
     PRIMARY KEY (id)
 );
 

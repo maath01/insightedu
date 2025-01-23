@@ -2,24 +2,24 @@ INSERT INTO escolas (id, nome, cidade, uf) VALUES
 (68921, 'IFCE', 'Crato', 'CE'),
 (60932, 'Maria Violeta Arraes', 'Crato', 'CE');
 
-INSERT INTO professores (id, nome, email, senha, uf, data_nascimento) VALUES
-(199568921436, 'Ana Silva Souza', 'ana.silva@gmail.com', 'anass123', 'CE', '01-01-1995'),
-(199868921543, 'Roberto Gonçalves', 'roberto.goncalves@gmail.com', '12345678', 'CE', '20-04-1998'),
-(199260932821, 'Diego Morais', 'diego.morais@gmail.com', '12345678', 'CE', '07-08-1992');
+INSERT INTO professores (id, nome, email, senha, uf, data_nascimento, cpf, idade) VALUES
+(199568921436, 'Ana Silva Souza', 'ana.silva@gmail.com', 'anass123', 'CE', '01-01-1995', '058.942.809-21', 39),
+(199868921543, 'Roberto Gonçalves', 'roberto.goncalves@gmail.com', '12345678', 'CE', '20-04-1998', '921.748.910-21', 36),
+(199260932821, 'Diego Morais', 'diego.morais@gmail.com', '12345678', 'CE', '07-08-1992', '735.891.318-97', 42);
 
 INSERT INTO escolas_professores (escolas_id, professores_id) VALUES (68921, 199568921436), (68921, 199868921543), (60932, 199260932821);
 
-INSERT INTO coordenadores (id, nome, email, nascimento, senha) VALUES (19896892132, 'Gabriel', 'gabriel@gmail.com', '04-05-1989', '12345678');
+INSERT INTO coordenadores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921329, 'Gabriel', 'gabriel@gmail.com', '04-05-1989', '12345678', '892.309.280-91', 36);
 INSERT INTO escolas_coordenadores (escolas_id, coordenadores_id) VALUES (68921, 19896892132);
 
-INSERT INTO gestores (id, nome, email, nascimento, senha) VALUES (198968921543, 'Gabriela', 'gabriela@gmail.com', '04-05-1989', '12345678');
+INSERT INTO gestores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921543, 'Gabriela', 'gabriela@gmail.com', '04-05-1989', '12345678', '738.927.121-65', 36);
 INSERT INTO escolas_gestores (escolas_id, gestores_id) VALUES (68921, 198968921543);
 
-INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula) VALUES 
-(2010689216742, 'Matheus Soares do Nascimento', '12345678', '02-10-2004', '2010'),
-(2008689215321, 'Suyane Oliveira da Silva', 'abcdefgh', '08-10-2003', '2008'),
-(2010689215413, 'Taislene da Silva Gonçalves', 'abcdefgh', '03-10-2004', '2010'),
-(2007689216223, 'Rozane Raquel da Silva Gonçalves', 'abcdefgh', '10-06-2002', '2007');
+INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula, cpf, idade) VALUES 
+(2010689216742, 'Matheus Soares do Nascimento', '12345678', '02-10-2004', '2010', '192.281.218-21', 20),
+(2008689215321, 'Suyane Oliveira da Silva', 'abcdefgh', '08-10-2003', '2008', '213.312.653-98', 21),
+(2010689215413, 'Taislene da Silva Gonçalves', 'abcdefgh', '03-10-2004', '2010', '812.391.823-32', 20),
+(2007689216223, 'Rozane Raquel da Silva Gonçalves', 'abcdefgh', '10-06-2002', '2007', '307.823.029.80', 22);
 
 INSERT INTO turmas (id, serie, letra) VALUES (689211426, 1, 'A'), (689211832, 1, 'B');
 INSERT INTO turmas_alunos (turmas_id, alunos_id) VALUES 
