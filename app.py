@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
+
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
 from database.connection_tables import professores_turmas_materias
-import database.professor as prof
+import database.professor as prof 
 import database.coordenador as coor
 import database.avaliacao as av
+import sqlite3
+from database.professor import list_teachers_by_school
+from database.escola import get_school_id
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
@@ -35,37 +39,55 @@ def home():
 def login():
     if request.method == 'POST':
         categoria = request.form['categoria']
-        user_id = request.form['id']
+        id = request.form['id']
         nome = request.form['nome']
         senha = request.form['senha']
 
-        user = banco.check_login(categoria, user_id, nome, senha)
+        tabela = ''
+        if categoria == 'aluno':
+            tabela = 'alunos'
+        elif categoria == 'professor':
+            tabela = 'professores'
+        elif categoria == 'coordenador':
+            tabela = 'coordenadores'
+        elif categoria == 'gestor':
+            tabela = 'gestores'
 
-        if user:
-            session['usuario_logado'] = request.form['nome']
-            session['id'] = user_id
-            if categoria == 'aluno':
-                session['user_type'] = 'aluno'
-                flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
+        connection = sqlite3.connect('database/banco.db')
+        cursor = connection.cursor()
 
-            elif categoria == 'professor':
-                session['user_type'] = 'professor'
-                flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
+        try:
+            cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND nome = ? AND senha = ?", (id, nome, senha))
+            user = cursor.fetchone()
 
-            elif categoria == 'coordenador':
-                session['user_type'] = 'coordenador'
-                flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+            if user:
+                session['id'] = id
+                session['usuario_logado'] = request.form['nome']
+                if categoria == 'aluno':
+                    session['user_type'] = 'aluno'
+                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
 
-            elif categoria == 'gestor':
-                session['user_type'] = 'gestor'
-                flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+                elif categoria == 'professor':
+                    session['user_type'] = 'professor'
+                    flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
 
-            return redirect(url_for('home'))
+                elif categoria == 'coordenador':
+                    session['user_type'] = 'coordenador'
+                    flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                elif categoria == 'gestor':
+                    session['user_type'] = 'gestor'
+                    flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                return redirect(url_for('home'))
+                
+            else:
+                flash('Não logado, tente novamente!')
+                return render_template('login.html')
             
-        else:
-            flash('Não logado, tente novamente!')
-            return render_template('login.html')
-        
+        finally:
+            connection.close()
+
     return render_template('login.html')
 
 
@@ -94,11 +116,19 @@ def perfil_aluno(aluno_id):
         pass
 
 
-@app.route('/home/ferramentas')
-def ferramentas():
-    return render_template('ferramentas.html')
+@app.route("/list_teachers")
+def list_teachers():
+    id_gestor=session.get('id')
+    print(id_gestor)
+    school_id = get_school_id(id_gestor)
+    professores = prof.list_teachers_by_school(school_id)
+    return render_template('lista_profs.html', professores=professores)
 
 
-if __name__ == '__main__':
+@app.route('/logout', methods=['POST'])
+def logout():
+     session['nome'] = None
+     redirect(url_for('login'))
+
+if __name__ == "__main__":
     app.run(debug=True)
-

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -28,22 +27,19 @@
                 <h1 style="color: black" >InsightEdu: Gestor</h1>
             </div>
         </div>
-        <form action="/buscar_turma" method="POST">
-            <div class="turma">
-                <label for="turma">Turma:</label>
-                <input type="number" id="turma" name="turma" required placeholder="ID Turma"><br><br>
-                <button type="submit">Procurar</button>
-            </div>
-        </form>
+       
         <div class="menu">
             <ul>
                 <li><a href="#">Início</a></li>
                 <li><a href="#">Sobre</a></li>
                 <li><a href="#">Contato</a></li>
                 <li><a href="#">FAQ</a></li>
-                <li><a href="{{ url_for('ferramentas') }}">Ferramentas</a></li>
+                <li><a href="#">Ferramentas</a></li>
+               
             </ul>
         </div>
+        <a href="/list_teachers">Listar professores</a></li>
     </header>
 </body>
 </html>
+
