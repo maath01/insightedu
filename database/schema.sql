@@ -66,6 +66,8 @@ CREATE TABLE avaliacoes (
     id BIGINT NOT NULL,
     serie int NOT NULL,
     bimestre int NOT NULL,
+    professor_id BIGINT NOT NULL,
+    turma_id BIGINT NOT NULL,
     data_aplicacao DATE,
     PRIMARY KEY(id)
 );
