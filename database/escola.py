@@ -88,3 +88,13 @@ def generate_school_id(escola: Escola):
     
     return cod
 
+
+def get_school_id(p_id):
+    """Recebe um id de um professor, gestor ou coordenador e coleta o id de sua escola"""
+    school_id = ''
+    if len(str(p_id)) == 12:
+        school_id = str(p_id)[4:9]
+    elif len(str(p_id)) == 13:
+        school_id = str(p_id)[4:10]
+    
+    return school_id
