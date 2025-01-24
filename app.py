@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
-from database import aluno, banco, connection_tables, turma, escola, gestor, nota
-
+from database import aluno, banco, connection_tables, turma, escola, gestor, nota, professor
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
 from database.connection_tables import professores_turmas_materias
 import database.professor as prof 
@@ -115,11 +114,21 @@ def perfil_aluno(aluno_id):
     finally:
         pass
 
+@app.route("/perfil_professor/<int:prof_id>")
+def perfil_professor(prof_id):
+    professor = prof.get(prof_id)
+    if professor:
+        return render_template('perfil_professor.html', professor=professor)
+    else:
+        return ("Erro") 
+
 
 @app.route("/list_teachers")
 def list_teachers():
+    if session.get('user_type') != 'gestor':
+        flash("Sem permissão!!!!!")
+        return redirect(url_for('home'))
     id_gestor=session.get('id')
-    print(id_gestor)
     school_id = get_school_id(id_gestor)
     professores = prof.list_teachers_by_school(school_id)
     return render_template('lista_profs.html', professores=professores)
