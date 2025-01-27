@@ -90,4 +90,9 @@ INSERT INTO notas (id, aluno_id, avaliacao_id, nota) VALUES
 (201068921674212343, 2010689216742, 12393742, 8.9),
 (200868921532112362, 2008689215321, 12393742, 8.5),
 (201068921541314156, 2010689215413, 14174829, 6.7),
-(200768921622314198, 2007689216223, 14174829, 7.4)
+(200768921622314198, 2007689216223, 14174829, 7.4);
+
+
+INSERT INTO descritores_port (id, habilidade, serie, numero) VALUES
+(1, 'Identificar letras entre desenhos números e outros simbolos graficos', 1, 1),
+(2, 'Reconhecer as letras do alfabeto', 1, 2)
