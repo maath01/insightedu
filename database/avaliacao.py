@@ -18,7 +18,7 @@ class Avaliacao:
         return f'{self.av_id} - {self.serie} Serie, {self.bimestre} Bimestre, {self.data_aplicacao}'
     
 
-def create(av: Avaliacao, materia: str, turma: str):
+def create(av: Avaliacao, materia: str):
     """Insere uma nova avaliação no banco de dados"""
 
     connection, cursor = connect_db()
@@ -26,12 +26,8 @@ def create(av: Avaliacao, materia: str, turma: str):
     try:
         av_id = generate_av_id(av, materia, cursor)
 
-        # exemplo: turma = 5 A
-        cursor.execute('SELECT * FROM turmas WHERE serie = ? AND letra = ?', (turma[0], turma[2]))
-        tur_id = cursor.fetchall()[0][0]
-
         cursor.execute('INSERT INTO avaliacoes (id, serie, bimestre, professor_id, turma_id data_aplicacao) VALUES (?, ?, ?, ?)',
-                       (av_id, av.serie, av.bimestre, av.professor_id, tur_id, av.data_aplicacao))
+                       (av_id, av.serie, av.bimestre, av.professor_id, av.turma_id, av.data_aplicacao))
         connection.commit()
     
     except sqlite3.IntegrityError:
@@ -76,7 +72,7 @@ def get(av_id):
 
     cursor.execute('SELECT * FROM avaliacoes WHERE id = ?', (str(av_id),))
     row = cursor.fetchall()[0]
-    avaliacao = Avaliacao(row[0], row[1], row[2], row[3], row[4])
+    avaliacao = Avaliacao(row[0], row[1], row[2], row[3], row[4], row[5])
 
     connection.close()
 
