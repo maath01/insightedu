@@ -1,15 +1,15 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 
 class Descritor:
     """Modelo de dados da tabela de Descritores Matemática"""
 
-    def __init__(self,id=None, habilidade='', serie='',numero='',materia=''):
-          self.id= id
-          self.habilidade=habilidade
-          self.serie=serie
-          self.numero=numero
-          self.materia=materia
+    def __init__(self,id=None, habilidade='', serie=0, numero=0, materia=''):
+          self.id = id
+          self.habilidade = habilidade
+          self.serie = serie
+          self.numero = numero
+          self.materia = materia
 
     def __str__(self) -> str:
         return str(self.id) + ' ' + self.habilidade

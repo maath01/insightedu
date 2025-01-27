@@ -4,6 +4,7 @@ from database.turma import list_classes_by_teacher, list_classes_by_coordinator,
 import database.professor as prof
 import database.coordenador as coor
 import database.avaliacao as av
+import database.dominio_descritores_port as dom_port
 import sqlite3
 
 app = Flask(__name__)

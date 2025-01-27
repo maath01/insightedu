@@ -1,4 +1,4 @@
-from banco import connect_db
+from database.banco import connect_db
 import sqlite3
 from random import randint
 
@@ -100,6 +100,3 @@ def get_school_id(p_id):
         school_id = str(p_id)[4:10]
     
     return school_id
-
-print(get(1))
-
