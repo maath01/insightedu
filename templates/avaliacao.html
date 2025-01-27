@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliacao</title>
+</head>
+<body>
+    <h1>
+        Detalhes:
+        <p>serie: {{avaliacao.serie}}</p>
+    
+        <p>bimestre: {{avaliacao.bimestre}}</p>
+
+        <p>data: {{avaliacao.data_aplicacao}}</p>
+
+        <p>materia: {{materia}}</p>
+    </h1>
+
+    <h2>Alunos da Turma</h2>
+    <ul>
+        {% for aluno in alunos %}
+        <li>{{ aluno.nome }} ({{ aluno.matricula }})</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

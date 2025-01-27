@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota, professor
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
+from database.avaliacao import list_evaluations_by_teacher, get_matter
+from database.aluno import list_students_by_class
 from database.connection_tables import professores_turmas_materias
 import database.professor as prof 
 import database.coordenador as coor
@@ -114,7 +116,7 @@ def perfil_aluno(aluno_id):
     finally:
         pass
 
-@app.route("/perfil_professor/<int:prof_id>")
+@app.route('/perfil_professor/<int:prof_id>')
 def perfil_professor(prof_id):
     professor = prof.get(prof_id)
     if professor:
@@ -123,16 +125,40 @@ def perfil_professor(prof_id):
         return ("Erro") 
 
 
-@app.route("/list_teachers")
+@app.route('/home/ferramentas/lista_professores')
 def list_teachers():
-    if session.get('user_type') != 'gestor':
-        flash("Sem permissão!!!!!")
-        return redirect(url_for('home'))
-    id_gestor=session.get('id')
-    school_id = get_school_id(id_gestor)
-    professores = prof.list_teachers_by_school(school_id)
-    return render_template('lista_profs.html', professores=professores)
+    if session.get('user_type') == 'gestor':
+        id_gestor=session.get('id')
+        school_id = get_school_id(id_gestor)
+        professores = prof.list_teachers_by_school(school_id)
+        return render_template('lista_profs.html', professores=professores)
+    
 
+@app.route('/home/ferramentas/avaliacoes')
+def avaliacoes():
+    if session.get('user_type') == 'professor':
+        avaliacoes = av.list_evaluations_by_teacher(session['id'])
+        return render_template('avaliacoes.html', avaliacoes=avaliacoes)
+    
+@app.route('/home/ferramentas/avaliacao/<int:av_id>')
+def avaliacao(av_id):
+    if session.get('user_type') == 'professor':
+        avaliacao = av.get(av_id)
+        alunos = list_students_by_class(avaliacao.turma_id)
+        materia = get_matter(avaliacao)
+        return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos,materia=materia)
+
+@app.route('/home/ferramentas')
+def ferramentas():
+     if session['user_type'] == 'aluno':
+        return render_template('ferramentas_aluno.html')
+     elif session['user_type'] == 'professor':
+        return render_template('ferramentas_prof.html')
+     elif session['user_type'] == 'coordenador':
+        return render_template('ferramentas_coordenador.html')
+     elif session['user_type'] == 'gestor':
+        return render_template('ferramentas_gestor.html')
+    
 
 @app.route('/logout', methods=['POST'])
 def logout():
