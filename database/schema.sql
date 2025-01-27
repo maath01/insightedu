@@ -97,6 +97,14 @@ CREATE TABLE descritores_port (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE descritores_mat (
+    id INTEGER PRIMARY KEY,
+    habilidade VARCHAR (100) NOT NULL,
+    serie INT NOT NULL,
+    numero INT NOT NULL,
+    materia VARCHAR (25) DEFAULT 'Matemática'
+);
+
 -- Tabelas de conexão
 CREATE TABLE turmas_alunos (
     turmas_id BIGINT NOT NULL,
@@ -214,13 +222,4 @@ CREATE TABLE dominio_descritores_mat (
     descritor_29 INT NOT NULL, 
     descritor_30 INT NOT NULL, 
     descritor_31 INT NOT NULL 
-);
-
-
-     CREATE TABLE descritores_mat (
-     id INTEGER PRIMARY KEY AUTOINCREMENT,
-     habilidade VARCHAR (100) NOT NULL,
-     serie INT NOT NULL,
-     numero INT NOT NULL,
-     materia VARCHAR (25) DEFAULT 'Matemática'
 );
