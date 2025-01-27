@@ -132,6 +132,8 @@ def list_teachers():
         school_id = get_school_id(id_gestor)
         professores = prof.list_teachers_by_school(school_id)
         return render_template('lista_profs.html', professores=professores)
+    else:
+        return render_template('home.html')
     
 
 @app.route('/home/ferramentas/avaliacoes')
@@ -139,6 +141,8 @@ def avaliacoes():
     if session.get('user_type') == 'professor':
         avaliacoes = av.list_evaluations_by_teacher(session['id'])
         return render_template('avaliacoes.html', avaliacoes=avaliacoes)
+    else:
+        return render_template('home.html')
     
 @app.route('/home/ferramentas/avaliacao/<int:av_id>')
 def avaliacao(av_id):
@@ -147,6 +151,8 @@ def avaliacao(av_id):
         alunos = list_students_by_class(avaliacao.turma_id)
         materia = get_matter(avaliacao)
         return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos,materia=materia)
+    else:
+        return render_template('home.html')
 
 @app.route('/home/ferramentas')
 def ferramentas():
