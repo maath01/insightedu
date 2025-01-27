@@ -124,3 +124,84 @@ CREATE TABLE materias_avaliacoes (
     materias_id int NOT NULL,
     avaliacoes_id BIGINT NOT NULL
 );
+
+-- Tabela de domínio de descritores para português
+CREATE TABLE dominio_descritores_port ( 
+    id INTEGER PRIMARY KEY AUTOINCREMENT,        
+    aluno_id INT NOT NULL,                    
+    descritor_1 INT NOT NULL,                          
+    descritor_2 INT NOT NULL,                          
+    descritor_3 INT NOT NULL,                           
+    descritor_4 INT NOT NULL,                           
+    descritor_5 INT NOT NULL,                           
+    descritor_6 INT NOT NULL,                           
+    descritor_7 INT NOT NULL,                           
+    descritor_8 INT NOT NULL,                           
+    descritor_9 INT NOT NULL,                           
+    descritor_10 INT NOT NULL,                         
+    descritor_11 INT NOT NULL,                          
+    descritor_12 INT NOT NULL,                           
+    descritor_13 INT NOT NULL,                        
+    descritor_14 INT NOT NULL,                          
+    descritor_15 INT NOT NULL,                          
+    descritor_16 INT NOT NULL,                           
+    descritor_17 INT NOT NULL,                          
+    descritor_18 INT NOT NULL,                          
+    descritor_19 INT NOT NULL,                           
+    descritor_20 INT NOT NULL,                          
+    descritor_21 INT NOT NULL,                         
+    descritor_22 INT NOT NULL,                           
+    descritor_23 INT NOT NULL,                          
+    descritor_24 INT NOT NULL,                        
+    descritor_25 INT NOT NULL,                        
+    descritor_26 INT NOT NULL,                          
+    descritor_27 INT NOT NULL,                          
+    descritor_28 INT NOT NULL,                       
+    descritor_29 INT NOT NULL                           
+);
+
+-- Tabela de domínio de descritores para matemática
+CREATE TABLE dominio_descritores_mat (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,        
+    aluno_id INT NOT NULL,                    
+    descritor_1 INT NOT NULL,                          
+    descritor_2 INT NOT NULL,                          
+    descritor_3 INT NOT NULL,                           
+    descritor_4 INT NOT NULL,                           
+    descritor_5 INT NOT NULL,                           
+    descritor_6 INT NOT NULL,                           
+    descritor_7 INT NOT NULL,                           
+    descritor_8 INT NOT NULL,                           
+    descritor_9 INT NOT NULL,                           
+    descritor_10 INT NOT NULL,                         
+    descritor_11 INT NOT NULL,                          
+    descritor_12 INT NOT NULL,                           
+    descritor_13 INT NOT NULL,                        
+    descritor_14 INT NOT NULL,                          
+    descritor_15 INT NOT NULL,                          
+    descritor_16 INT NOT NULL,                           
+    descritor_17 INT NOT NULL,                          
+    descritor_18 INT NOT NULL,                          
+    descritor_19 INT NOT NULL,                           
+    descritor_20 INT NOT NULL,                          
+    descritor_21 INT NOT NULL,                         
+    descritor_22 INT NOT NULL,                           
+    descritor_23 INT NOT NULL,                          
+    descritor_24 INT NOT NULL,                        
+    descritor_25 INT NOT NULL,                        
+    descritor_26 INT NOT NULL,                          
+    descritor_27 INT NOT NULL,                          
+    descritor_28 INT NOT NULL,                       
+    descritor_29 INT NOT NULL, 
+    descritor_30 INT NOT NULL, 
+    descritor_31 INT NOT NULL 
+);
+
+
+     CREATE TABLE descritores_mat (
+     id INTEGER PRIMARY KEY AUTOINCREMENT,
+     habilidade VARCHAR (100) NOT NULL,
+     serie INT NOT NULL,
+     numero INT NOT NULL,
+     materia VARCHAR (25) DEFAULT 'Matemática'
+);

@@ -74,13 +74,14 @@ def get(escola_id):
 
     return escola
 
-
-def update_school(id, novo_nome, nova_cidade,nova_uf):
+def update_school(escola_id,escola: Escola):
+    """Atualiza um elemento no banco de dados"""
     connection, cursor = connect_db()
-    cursor.execute("UPDATE escolas SET  nome= ?, cidade = ?, uf = ? WHERE id = ?", (novo_nome, nova_cidade,nova_uf, id))
+
+    cursor.execute("UPDATE escolas SET  nome= ?, cidade = ?, uf = ? WHERE id = ?",
+                  (escola.nome, escola.cidade,escola.uf, escola_id))
     connection.commit()
     connection.close()  
-
 
 def generate_school_id(escola: Escola):
     """Gera um id para a escola"""
@@ -90,5 +91,15 @@ def generate_school_id(escola: Escola):
     
     return cod
 
+def get_school_id(p_id):
+    """Recebe um id de um professor, gestor ou coordenador e coleta o id de sua escola"""
+    school_id = ''
+    if len(str(p_id)) == 12:
+        school_id = str(p_id)[4:9]
+    elif len(str(p_id)) == 13:
+        school_id = str(p_id)[4:10]
+    
+    return school_id
 
+print(get(1))
 

@@ -78,11 +78,16 @@ def get(coordenador_id):
 
     return coordenador
 
-def update_coordinator(id, novo_nome, novo_email,novo_nascimento,nova_senha):
+def update_coordinator(coordenador_id,coordenador: Coordenador):
+    """Atualiza um elemento no banco de dados"""
     connection, cursor = connect_db()
-    cursor.execute("UPDATE coordenadores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", (novo_nome, novo_email,novo_nascimento,nova_senha, id))
+
+    cursor.execute("UPDATE coordenadores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", 
+                   (coordenador.nome, coordenador.email,coordenador.nascimento,coordenador.senha, coordenador_id))
+    
     connection.commit()
     connection.close()  
+
 
 
 def generate_coordinator_id(coordenador: Coordenador, escola):

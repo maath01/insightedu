@@ -72,9 +72,13 @@ def get(gestor_id):
 
     return gestor
 
-def update_managers(id, novo_nome, novo_email,novo_nascimento,nova_senha):
+def update_managers(gestor_id,gestor: Gestor):
+    """Atualiza um elemento no banco de dados"""
     connection, cursor = connect_db()
-    cursor.execute("UPDATE gestores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", (novo_nome, novo_email,novo_nascimento,nova_senha, id))
+
+    cursor.execute("UPDATE gestores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", 
+                   (gestor.nome, gestor.email,gestor.nascimento,gestor.senha, gestor_id))
+    
     connection.commit()
     connection.close()  
 

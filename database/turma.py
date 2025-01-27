@@ -1,5 +1,5 @@
-from database.banco import connect_db
-from database.connection_tables import escolas_turmas
+from banco import connect_db
+from connection_tables import escolas_turmas
 import sqlite3
 from random import randint
 
