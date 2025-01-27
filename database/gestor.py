@@ -74,6 +74,16 @@ def get(gestor_id):
 
     return gestor
 
+def update_managers(gestor_id,gestor: Gestor):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute("UPDATE gestores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", 
+                   (gestor.nome, gestor.email,gestor.nascimento,gestor.senha, gestor_id))
+    
+    connection.commit()
+    connection.close()  
+
 def generate_manager_id(gestor: Gestor, escola):
     """Gera um id para o gestor"""
     nascimento = gestor.nascimento[6:]

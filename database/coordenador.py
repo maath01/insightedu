@@ -80,6 +80,17 @@ def get(coordenador_id):
 
     return coordenador
 
+def update_coordinator(coordenador_id,coordenador: Coordenador):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute("UPDATE coordenadores SET  nome= ?, email = ?, nascimento = ?, senha = ? WHERE id = ?", 
+                   (coordenador.nome, coordenador.email,coordenador.nascimento,coordenador.senha, coordenador_id))
+    
+    connection.commit()
+    connection.close()  
+
+
 
 def generate_coordinator_id(coordenador: Coordenador, escola):
     nascimento = coordenador.nascimento[6:]
@@ -89,3 +100,5 @@ def generate_coordinator_id(coordenador: Coordenador, escola):
         cod += str(randint(0, 9))
     
     return cod
+
+

@@ -74,6 +74,14 @@ def get(escola_id):
 
     return escola
 
+def update_school(escola_id,escola: Escola):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute("UPDATE escolas SET  nome= ?, cidade = ?, uf = ? WHERE id = ?",
+                  (escola.nome, escola.cidade,escola.uf, escola_id))
+    connection.commit()
+    connection.close()  
 
 def generate_school_id(escola: Escola):
     """Gera um id para a escola"""
