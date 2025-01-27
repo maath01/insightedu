@@ -5,6 +5,7 @@ from database.connection_tables import professores_turmas_materias
 import database.professor as prof
 import database.coordenador as coor
 import database.avaliacao as av
+import database.descritor_port as desc_p
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'

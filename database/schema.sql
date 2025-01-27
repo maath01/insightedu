@@ -88,6 +88,15 @@ CREATE TABLE notas (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE descritores_port (
+    id int NOT NULL,
+    habilidade VARCHAR(100) NOT NULL,
+    serie int NOT NULL,
+    numero int NOT NULL,
+    materia VARCHAR(15) DEFAULT 'Português',
+    PRIMARY KEY(id)
+);
+
 -- Tabelas de conexão
 CREATE TABLE turmas_alunos (
     turmas_id BIGINT NOT NULL,
