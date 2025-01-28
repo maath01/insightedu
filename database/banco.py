@@ -58,6 +58,8 @@ def check_login(categoria, user_id, nome, senha):
     except:
         pass
 
+    connection.close()
+
     return user
 
 def search(table, column, attribute):
@@ -69,6 +71,8 @@ def search(table, column, attribute):
         row = cursor.fetchall()[0]
     except:
         row = None
+
+    connection.close()
     
     return row
 
