@@ -127,8 +127,30 @@ def get_student_average_general(al_id, serie):
             if nota != None:
                 soma += nota
                 count += 1
+    try:
+        media = soma/count
+    except ZeroDivisionError:
+        return 0
     
-    media = soma/count
+    return media
+
+
+def get_student_average_by_bim(al_id, serie, bimestre):
+    """Calcula a media de um aluno em uma determinada serie e bimestre"""
+    notes = get_student_notes(al_id)
+    soma = 0
+    count = 0
+
+    for materia in notes[f'{str(serie)} ano'].values():
+        for bim, nota in materia.items():
+            if nota != None and bim[0] == str(bimestre):
+                soma += nota
+                count += 1
+    
+    try:
+        media = soma/count
+    except ZeroDivisionError:
+        return 0
     return media
 
 
@@ -144,7 +166,10 @@ def get_class_average_general(alunos, tur_id):
         soma += media
         count += 1
     
-    media = soma/count
+    try:
+        media = soma/count
+    except ZeroDivisionError:
+        return 0
 
     return media
 

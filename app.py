@@ -2,16 +2,9 @@ from flask import Flask, render_template, request, session, flash, redirect, url
 from io import BytesIO
 import matplotlib.pyplot as plt
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
-from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
-from database.avaliacao import list_evaluations_by_teacher, get_matter
-from database.aluno import list_students_by_class
-from database.connection_tables import professores_turmas_materias
 import database.professor as prof 
 import database.coordenador as coor
 import database.avaliacao as av
-import sqlite3
-from database.professor import list_teachers_by_school
-from database.escola import get_school_id
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
@@ -113,7 +106,7 @@ def perfil_professor(prof_id):
 def list_teachers():
     if session.get('user_type') == 'gestor':
         id_gestor=session.get('id')
-        school_id = get_school_id(id_gestor)
+        school_id = escola.get_school_id(id_gestor)
         professores = prof.list_teachers_by_school(school_id)
         return render_template('lista_profs.html', professores=professores)
     else:
@@ -132,8 +125,8 @@ def avaliacoes():
 def avaliacao(av_id):
     if session.get('user_type') == 'professor':
         avaliacao = av.get(av_id)
-        alunos = list_students_by_class(avaliacao.turma_id)
-        materia = get_matter(avaliacao)
+        alunos = aluno.list_students_by_class(avaliacao.turma_id)
+        materia = av.get_matter(avaliacao)
         return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos, materia=materia)
     else:
         return render_template('home.html')
