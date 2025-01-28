@@ -158,20 +158,113 @@ def avaliacao(av_id):
 
 @app.route('/home/ferramentas')
 def ferramentas():
-     if session['user_type'] == 'aluno':
+    if session['user_type'] == 'aluno':
         return render_template('ferramentas_aluno.html')
-     elif session['user_type'] == 'professor':
+    elif session['user_type'] == 'professor':
         return render_template('ferramentas_prof.html')
-     elif session['user_type'] == 'coordenador':
+    elif session['user_type'] == 'coordenador':
         return render_template('ferramentas_coordenador.html')
-     elif session['user_type'] == 'gestor':
+    elif session['user_type'] == 'gestor':
         return render_template('ferramentas_gestor.html')
     
 
 @app.route('/logout', methods=['POST'])
 def logout():
-     session['nome'] = None
-     redirect(url_for('login'))
+    session['nome'] = None
+    redirect(url_for('login'))
+
+#ainda não revisado
+
+@app.route('/home/ferramentas/alunos/<int:school_id>')
+def lista_alunos_por_escola(school_id):
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta página.")
+        return redirect(url_for('home'))
+
+    try:
+        gestor_id = session.get('id')
+        escola_id = get_school_id(gestor_id)
+
+        alunos = aluno.list_student_by_school(escola_id)
+
+        return render_template('lista_alunos_por_escola.html', alunos=alunos, escola_id=escola_id)
+    except Exception as e:
+        flash("Ocorreu um erro ao listar os alunos. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+
+
+@app.route('/cadastro/aluno', methods=['POST'])
+def cadastro_aluno():
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+
+    try:
+        nome = request.form['nome']
+        data_nascimento = request.form['data_nascimento']
+        ano_matricula = request.form['ano_matricula']
+        cpf = request.form['cpf']
+        idade = request.form['idade']
+
+        gestor_id = session.get('id')
+        escola_id = get_school_id(gestor_id)
+
+        connection = sqlite3.connect('database/banco.db')
+        cursor = connection.cursor()
+        cursor.execute(
+            "INSERT INTO alunos (nome, data_nascimento, ano_matricula, cpf, idade, escola_id) VALUES (?, ?, ?, ?, ?, ?)",
+            (nome, data_nascimento, ano_matricula, cpf, idade, escola_id)
+        )
+        connection.commit()
+        connection.close()
+
+        flash("Aluno cadastrado com sucesso!")
+        return redirect(url_for('lista_alunos_por_escola', school_id=escola_id))
+    except Exception as e:
+        flash("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+
+@app.route('/home/ferramentas/turmas/<int:turma_id>')
+def lista_alunos(turma_id):
+    try:
+        alunos = aluno.list_students_by_class(turma_id)
+        return render_template('lista_alunos.html', turma_id=turma_id, alunos=alunos)
+    except Exception as e:
+        flash(f"Erro ao carregar alunos: {e}")
+        return redirect(url_for('turmas'))
+
+    try:
+        turmas = turma.list_classes_by_teacher(session['id'])
+        return render_template('turmas.html', turmas=turmas)
+    except Exception as e:
+        flash(f"Erro ao carregar as turmas: {e}")
+        return redirect(url_for('home'))
+
+
+@app.route('/cadastro/turma', methods=['POST'])
+def cadastro_turma():
+    if 'user_type' not in session or session['user_type'] != 'professor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+
+    try:
+        serie = request.form.get('serie')
+        letra = request.form.get('letra')
+
+        if not serie or not letra:
+            flash("Todos os campos são obrigatórios!")
+            return redirect(url_for('turmas'))
+
+        nova_turma = turma.Turma(0, serie, letra)
+        turma.create(nova_turma)
+
+        flash("Turma cadastrada com sucesso!")
+        return redirect(url_for('turmas'))
+    except Exception as e:
+        flash(f"Erro ao cadastrar turma: {e}")
+        return redirect(url_for('turmas'))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
