@@ -3,11 +3,15 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
+from database.avaliacao import list_evaluations_by_teacher, get_matter
+from database.aluno import list_students_by_class
 from database.connection_tables import professores_turmas_materias
-import database.professor as prof
+import database.professor as prof 
 import database.coordenador as coor
 import database.avaliacao as av
-import database.descritor_port as desc_p
+import sqlite3
+from database.professor import list_teachers_by_school
+from database.escola import get_school_id
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
@@ -38,37 +42,55 @@ def home():
 def login():
     if request.method == 'POST':
         categoria = request.form['categoria']
-        user_id = request.form['id']
+        id = request.form['id']
         nome = request.form['nome']
         senha = request.form['senha']
 
-        user = banco.check_login(categoria, user_id, nome, senha)
+        tabela = ''
+        if categoria == 'aluno':
+            tabela = 'alunos'
+        elif categoria == 'professor':
+            tabela = 'professores'
+        elif categoria == 'coordenador':
+            tabela = 'coordenadores'
+        elif categoria == 'gestor':
+            tabela = 'gestores'
 
-        if user:
-            session['usuario_logado'] = request.form['nome']
-            session['id'] = user_id
-            if categoria == 'aluno':
-                session['user_type'] = 'aluno'
-                flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
+        connection = sqlite3.connect('database/banco.db')
+        cursor = connection.cursor()
 
-            elif categoria == 'professor':
-                session['user_type'] = 'professor'
-                flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
+        try:
+            cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND nome = ? AND senha = ?", (id, nome, senha))
+            user = cursor.fetchone()
 
-            elif categoria == 'coordenador':
-                session['user_type'] = 'coordenador'
-                flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+            if user:
+                session['id'] = id
+                session['usuario_logado'] = request.form['nome']
+                if categoria == 'aluno':
+                    session['user_type'] = 'aluno'
+                    flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
 
-            elif categoria == 'gestor':
-                session['user_type'] = 'gestor'
-                flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+                elif categoria == 'professor':
+                    session['user_type'] = 'professor'
+                    flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
 
-            return redirect(url_for('home'))
+                elif categoria == 'coordenador':
+                    session['user_type'] = 'coordenador'
+                    flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                elif categoria == 'gestor':
+                    session['user_type'] = 'gestor'
+                    flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+
+                return redirect(url_for('home'))
+                
+            else:
+                flash('Não logado, tente novamente!')
+                return render_template('login.html')
             
-        else:
-            flash('Não logado, tente novamente!')
-            return render_template('login.html')
-        
+        finally:
+            connection.close()
+
     return render_template('login.html')
 
 
@@ -96,12 +118,60 @@ def perfil_aluno(aluno_id):
     finally:
         pass
 
+@app.route('/perfil_professor/<int:prof_id>')
+def perfil_professor(prof_id):
+    professor = prof.get(prof_id)
+    if professor:
+        return render_template('perfil_professor.html', professor=professor)
+    else:
+        return ("Erro") 
+
+
+@app.route('/home/ferramentas/lista_professores')
+def list_teachers():
+    if session.get('user_type') == 'gestor':
+        id_gestor=session.get('id')
+        school_id = get_school_id(id_gestor)
+        professores = prof.list_teachers_by_school(school_id)
+        return render_template('lista_profs.html', professores=professores)
+    else:
+        return render_template('home.html')
+    
+
+@app.route('/home/ferramentas/avaliacoes')
+def avaliacoes():
+    if session.get('user_type') == 'professor':
+        avaliacoes = av.list_evaluations_by_teacher(session['id'])
+        return render_template('avaliacoes.html', avaliacoes=avaliacoes)
+    else:
+        return render_template('home.html')
+    
+@app.route('/home/ferramentas/avaliacoes/<int:av_id>')
+def avaliacao(av_id):
+    if session.get('user_type') == 'professor':
+        avaliacao = av.get(av_id)
+        alunos = list_students_by_class(avaliacao.turma_id)
+        materia = get_matter(avaliacao)
+        return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos,materia=materia)
+    else:
+        return render_template('home.html')
 
 @app.route('/home/ferramentas')
 def ferramentas():
-    return render_template('ferramentas.html')
+     if session['user_type'] == 'aluno':
+        return render_template('ferramentas_aluno.html')
+     elif session['user_type'] == 'professor':
+        return render_template('ferramentas_prof.html')
+     elif session['user_type'] == 'coordenador':
+        return render_template('ferramentas_coordenador.html')
+     elif session['user_type'] == 'gestor':
+        return render_template('ferramentas_gestor.html')
+    
 
+@app.route('/logout', methods=['POST'])
+def logout():
+     session['nome'] = None
+     redirect(url_for('login'))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
-
