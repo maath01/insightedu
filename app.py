@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, session, flash, redirect, url_for
+from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
+from io import BytesIO
+import matplotlib.pyplot as plt
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
 from database.turma import list_classes_by_teacher, list_classes_by_coordinator, list_classes_by_school
 from database.connection_tables import professores_turmas_materias
