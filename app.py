@@ -181,10 +181,10 @@ def lista_alunos_por_escola(school_id):
         return redirect(url_for('home'))
 
     try:
-        gestor_id = session('id')
-        escola_id = get_school_id(session('id'))
+        gestor_id = session['id']
+        escola_id = get_school_id(session['id'])
 
-        alunos = aluno.list_student_by_school(escola_id)
+        alunos = aluno.list_students_by_school(escola_id)
 
         return render_template('lista_alunos_por_escola.html', alunos=alunos, escola_id=escola_id)
     except Exception as e:
@@ -209,7 +209,7 @@ def cadastro_aluno():
         esc = escola.get(escola_id)
         
         novo_aluno = aluno.Aluno(
-            id=0,
+            al_id=0,
             nome=nome,
             data_nascimento=data_nascimento,
             ano_matricula=ano_matricula,
@@ -217,7 +217,7 @@ def cadastro_aluno():
             idade=idade
         )
         
-        novo_aluno.create(esc)
+        aluno.create(novo_aluno,esc)
         
         flash("Aluno cadastrado com sucesso!")
         return redirect(url_for('lista_alunos_por_escola', school_id=escola_id))
@@ -230,6 +230,10 @@ def cadastro_aluno():
         flash("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.")
         return redirect(url_for('home'))
 
+@app.route('/home/ferramentas/turmas')
+def turmas():
+    turmas = turma.list_classes_by_teacher(session['id'])
+    return render_template('turmas.html', turmas_=turmas_)
 
 @app.route('/cadastro/turma', methods=['POST'])
 def cadastro_turma():
