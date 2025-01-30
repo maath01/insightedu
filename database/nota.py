@@ -184,6 +184,27 @@ def get_class_average_general(alunos, tur_id):
     return media
 
 
+def get_class_average_by_bim_and_matter(alunos, turma_id, bimestre, materia):
+    """Devolve a media da classe em uma materia em um determinado bimestre"""
+    turma_ = turma.get(turma_id)
+    soma = 0
+    count = 0
+
+    for aluno in alunos:
+        notes = get_student_notes(aluno.al_id)
+        nota = acess_notes_data(notes, turma_.serie, bimestre, materia)
+        if nota != None:
+            soma += nota
+            count += 1
+    
+    try:
+        media = soma/count
+    except ZeroDivisionError:
+        return 0
+
+    return media
+
+
 def acess_notes_data(notes: dict, serie: int, bimestre: int, materia: str):
     """Recebe um dicionario de notas, juntamente a serie, o bimestre e a materia e devolve a nota correspondente"""
     if 0 <= serie >= 10:
