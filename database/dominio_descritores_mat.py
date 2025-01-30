@@ -88,9 +88,11 @@ def get(aluno_id):
     return dominio_mat
 
 
+def get_dom_by_class(alunos):
+    connection, cursor = connect_db()
 
-
-
-
-
-
+    doms = []
+    for aluno in alunos:
+        dom = get(aluno.al_id)
+    
+    return doms
