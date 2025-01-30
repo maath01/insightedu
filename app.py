@@ -133,13 +133,13 @@ def avaliacao(av_id):
 
 @app.route('/home/ferramentas')
 def ferramentas():
-     if session['user_type'] == 'aluno':
+    if session['user_type'] == 'aluno':
         return render_template('ferramentas_aluno.html')
-     elif session['user_type'] == 'professor':
+    elif session['user_type'] == 'professor':
         return render_template('ferramentas_prof.html')
-     elif session['user_type'] == 'coordenador':
+    elif session['user_type'] == 'coordenador':
         return render_template('ferramentas_coordenador.html')
-     elif session['user_type'] == 'gestor':
+    elif session['user_type'] == 'gestor':
         return render_template('ferramentas_gestor.html')
     
 
@@ -149,6 +149,113 @@ def logout():
      session.pop('id')
      session.pop('user_type')
      redirect(url_for('login'))
+
+#ainda não revisado
+@app.route('/home/ferramentas/alunos/<int:school_id>')
+def lista_alunos_por_escola(school_id):
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta página.")
+        return redirect(url_for('home'))
+
+    try:
+        gestor_id = session['id']
+        escola_id = escola.get_school_id(session['id'])
+
+        alunos = aluno.list_students_by_school(escola_id)
+
+        return render_template('lista_alunos_por_escola.html', alunos=alunos, escola_id=escola_id)
+    except Exception as e:
+        flash("Ocorreu um erro ao listar os alunos. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+
+@app.route('/cadastro/aluno', methods=['POST'])
+def cadastro_aluno():
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+        
+    try:
+        nome = request.form['nome']
+        data_nascimento = request.form['data_nascimento']
+        ano_matricula = request.form['ano_matricula']
+        cpf = request.form['cpf']
+        idade = int(request.form['idade'])
+        
+        gestor_id = session.get('id')
+        escola_id = escola.get_school_id(gestor_id)
+        esc = escola.get(escola_id)
+        
+        novo_aluno = aluno.Aluno(
+            al_id=0,
+            nome=nome,
+            data_nascimento=data_nascimento,
+            ano_matricula=ano_matricula,
+            cpf=cpf,
+            idade=idade
+        )
+        
+        aluno.create(novo_aluno,esc)
+        
+        flash("Aluno cadastrado com sucesso!")
+        return redirect(url_for('lista_alunos_por_escola', school_id=escola_id))
+    
+    except ValueError as e:
+        flash(f"Erro nos dados fornecidos: {str(e)}")
+        return redirect(url_for('home'))
+    
+    except Exception as e:
+        flash("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+
+@app.route('/home/ferramentas/turmas')
+def turmas():
+    turmas_ = turma.list_classes_by_teacher(session['id'])
+    return render_template('turmas.html', turmas=turmas_)
+
+@app.route('/cadastro/turma', methods=['POST'])
+def cadastro_turma():
+    
+    if 'user_type' not in session or session['user_type'] != 'professor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+    
+    try:
+        serie = request.form.get('serie')
+        letra = request.form.get('letra')
+        
+        if not validar_dados_turma(serie, letra):
+            return redirect(url_for('turmas'))
+
+        escola_id = escola.get_school_id( session['id'])
+        esc = escola.get(escola_id)
+        
+        nova_turma = turma.Turma(0, serie, letra.upper())
+        turma.create(nova_turma, esc)
+        
+        flash("Turma cadastrada com sucesso!")
+        return redirect(url_for('turmas'))
+    
+    except Exception as e:
+        app.logger.error(f"Erro ao cadastrar turma: {e}")
+        flash("Ocorreu um erro ao cadastrar a turma. Por favor, tente novamente.")
+        return redirect(url_for('turmas'))
+
+
+def validar_dados_turma(serie, letra):
+
+    if not serie or not letra:
+        flash("Todos os campos são obrigatórios!")
+        return False
+    
+    if not serie.isdigit() or int(serie) not in range(1, 10):
+        flash("A série deve ser um número entre 1 e 9.")
+        return False
+    
+    if not letra.isalpha() or len(letra) != 1:
+        flash("A letra deve ser um único caractere alfabético.")
+        return False
+    
+    return True
 
 if __name__ == "__main__":
     app.run(debug=True)
