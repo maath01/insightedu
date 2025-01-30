@@ -36,18 +36,10 @@
                 <li><a href="#">Contato</a></li>
                 <li><a href="#">FAQ</a></li>
                 <li><a href="{{ url_for('ferramentas') }}">Ferramentas</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
-        <h2>Turmas </h2>
-        <ul>
-            {% if turmas %}
-                {% for turma in turmas %}
-                    <li>Turma: {{ turma.serie }} ano -  {{ turma.letra }}</li>
-                {% endfor %}
-            {% else %}
-                <p>Nenhuma turma ou matéria associada.</p>
-            {% endif %}
-        </ul>        
+        <h2>Turmas </h2>   
     </header>
 </body>
 </html>
