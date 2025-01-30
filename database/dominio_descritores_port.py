@@ -94,6 +94,7 @@ def get_dom_by_class(alunos):
     doms = []
     for aluno in alunos:
         dom = get(aluno.al_id)
+        doms.append(dom)
     
     return doms
 
