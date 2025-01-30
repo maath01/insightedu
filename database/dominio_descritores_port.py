@@ -90,7 +90,6 @@ def get(aluno_id):
    
 
 def get_dom_by_class(alunos):
-    connection, cursor = connect_db()
 
     doms = []
     for aluno in alunos:
