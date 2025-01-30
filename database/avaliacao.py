@@ -116,4 +116,6 @@ def get_matter(av: Avaliacao):
     cursor.execute('SELECT * FROM materias WHERE id = ?', (str(materia_id),))
     materia = cursor.fetchall()[0][1]
 
+    connection.close()
+
     return materia

@@ -36,29 +36,27 @@ def login():
     if request.method == 'POST':
         categoria = request.form['categoria']
         user_id = request.form['id']
-        nome = request.form['nome']
         senha = request.form['senha']
 
-        user = banco.check_login(categoria, user_id, nome, senha)
+        user = banco.check_login(categoria, user_id, senha)
 
         if user:
             session['id'] = user_id
-            session['usuario_logado'] = request.form['nome']
             if categoria == 'aluno':
                 session['user_type'] = 'aluno'
-                flash(f"Aluno(a) {request.form['nome']} foi logado(a) com sucesso!")   
+                flash(f"Aluno(a) foi logado(a) com sucesso!")   
 
             elif categoria == 'professor':
                 session['user_type'] = 'professor'
-                flash(f"Professor(a) {request.form['nome']} foi logado(a) com sucesso!")
+                flash(f"Professor(a) foi logado(a) com sucesso!")
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
-                flash(f"coordenador(a) {request.form['nome']} foi logado(a) com sucesso!")
+                flash(f"coordenador(a) foi logado(a) com sucesso!")
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
-                flash(f"gestor(a) {request.form['nome']} foi logado(a) com sucesso!")
+                flash(f"gestor(a) foi logado(a) com sucesso!")
 
             return redirect(url_for('home'))
             
@@ -93,6 +91,7 @@ def perfil_aluno(aluno_id):
     finally:
         pass
 
+
 @app.route('/perfil_professor/<int:prof_id>')
 def perfil_professor(prof_id):
     professor = prof.get(prof_id)
@@ -121,6 +120,7 @@ def avaliacoes():
     else:
         return render_template('home.html')
     
+
 @app.route('/home/ferramentas/avaliacoes/<int:av_id>')
 def avaliacao(av_id):
     if session.get('user_type') == 'professor':
@@ -143,12 +143,32 @@ def ferramentas():
         return render_template('ferramentas_gestor.html')
     
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout')
 def logout():
-     session.pop('usuario_logado')
-     session.pop('id')
-     session.pop('user_type')
-     redirect(url_for('login'))
+    session.pop('id')
+    session.pop('user_type')
+    return redirect(url_for('login'))
+
+
+@app.route('/cadastro/notas/<int:av_id>', methods=['POST'])
+def cadastro_notas(av_id):
+    for aluno_id, nt in request.form.items():
+        avl = av.get(av_id)
+        materia = av.get_matter(avl)
+        notes = nota.get_student_notes(aluno_id[5:])
+
+        if notes[f'{avl.serie} ano'][materia][f'{avl.bimestre} bim'] == None:
+            nota_ = nota.Nota(0, aluno_id[5:], av_id, nt)
+            nota.create(nota_)
+        elif notes[f'{avl.serie} ano'][materia][f'{avl.bimestre} bim'] != None:
+            notas = banco.search('notas', 'avaliacao_id', av_id)
+            for n in notas:
+                if str(n[1]) == aluno_id[5:]:
+                    nt_ = nota.get(n[0])
+                    nt_.nota = nt
+                    nota.update(nt_.nota_id, nt_)
+    return redirect(url_for('avaliacao', av_id=av_id))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -38,7 +38,7 @@ def create_database():
         connection.close()
 
 
-def check_login(categoria, user_id, nome, senha):
+def check_login(categoria, user_id, senha):
     tabela = ''
     if categoria == 'aluno':
         tabela = 'alunos'
@@ -53,7 +53,7 @@ def check_login(categoria, user_id, nome, senha):
     user = None
 
     try:
-        cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND nome = ? AND senha = ?", (user_id, nome, senha))
+        cursor.execute(f"SELECT * FROM {tabela} WHERE id = ? AND senha = ?", (user_id, senha))
         user = cursor.fetchone()
     except:
         pass
@@ -68,7 +68,7 @@ def search(table, column, attribute):
 
     try:
         cursor.execute(f'SELECT * FROM {table} WHERE {column} = ?', (str(attribute),))
-        row = cursor.fetchall()[0]
+        row = cursor.fetchall()
     except:
         row = None
 

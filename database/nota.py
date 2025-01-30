@@ -75,6 +75,16 @@ def get(nota_id):
 
     return nota
 
+def update(nota_id, nota: Nota):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    cursor.execute('UPDATE notas SET aluno_id = ?, avaliacao_id = ?, nota = ? WHERE id = ?',
+                (nota.al_id, nota.av_id, nota.nota, nota_id))
+    
+    connection.commit()
+    connection.close()
+
 def generate_nota_id(al_id, av_id):
     """Gera um ID único para a nota."""
     nota_id = f"{al_id}{str(av_id)[0:3]}"
