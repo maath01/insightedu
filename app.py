@@ -5,6 +5,8 @@ from database import aluno, banco, connection_tables, turma, escola, gestor, not
 import database.professor as prof 
 import database.coordenador as coor
 import database.avaliacao as av
+import database.dominio_descritores_port as dom_dp
+import database.dominio_descritores_mat as dom_mt
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'

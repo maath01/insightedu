@@ -2,48 +2,23 @@ from database.banco import connect_db
 import sqlite3
 
 class DominioDescritoresPort:
-    def __init__(self, id=None, aluno_id=0, descritor_1=0, descritor_2=0, descritor_3=0, 
-                 descritor_4=0, descritor_5=0, descritor_6=0, descritor_7=0, descritor_8=0, 
-                 descritor_9=0, descritor_10=0, descritor_11=0, descritor_12=0, descritor_13=0, 
-                 descritor_14=0, descritor_15=0, descritor_16=0, descritor_17=0, descritor_18=0, 
-                 descritor_19=0, descritor_20=0, descritor_21=0, descritor_22=0, descritor_23=0, 
-                 descritor_24=0, descritor_25=0, descritor_26=0, descritor_27=0, descritor_28=0, 
-                 descritor_29=0):
+    def __init__(self, id=None, aluno_id=0, ds: list[int]=[]):
         self.id =id
         self.aluno_id = aluno_id
-        self.descritor_1 = descritor_1
-        self.descritor_2 = descritor_2
-        self.descritor_3 = descritor_3
-        self.descritor_4 = descritor_4
-        self.descritor_5 = descritor_5
-        self.descritor_6 = descritor_6
-        self.descritor_7 = descritor_7
-        self.descritor_8 = descritor_8
-        self.descritor_9 = descritor_9
-        self.descritor_10 = descritor_10
-        self.descritor_11 = descritor_11
-        self.descritor_12 = descritor_12
-        self.descritor_13 = descritor_13
-        self.descritor_14 = descritor_14
-        self.descritor_15 = descritor_15
-        self.descritor_16 = descritor_16
-        self.descritor_17 = descritor_17
-        self.descritor_18 = descritor_18
-        self.descritor_19 = descritor_19
-        self.descritor_20 = descritor_20
-        self.descritor_21 = descritor_21
-        self.descritor_22 = descritor_22
-        self.descritor_23 = descritor_23
-        self.descritor_24 = descritor_24
-        self.descritor_25 = descritor_25
-        self.descritor_26 = descritor_26
-        self.descritor_27 = descritor_27
-        self.descritor_28 = descritor_28
-        self.descritor_29 = descritor_29
+        self.dominio = ds
     
+    def return_list(self):
+        lista = self.dominio.copy()
+        lista.insert(0, self.aluno_id)
+        tupla = tuple(lista)
+        return tupla
 
     def __str__(self) -> str:
-      return str(self.id) + ' ' + str(self.descritor_1) + ' ' + str(self.descritor_2) + ' ' + str(self.descritor_3) + ' ' + str(self.descritor_4) + ' ' + str(self.descritor_5) + ' ' + str(self.descritor_6) + ' ' + str(self.descritor_7) + ' ' + str(self.descritor_8) + ' ' + str(self.descritor_9) + ' ' + str(self.descritor_10) + ' ' + str(self.descritor_11) + ' ' + str(self.descritor_12) + ' ' + str(self.descritor_13) + ' ' + str(self.descritor_14) + ' ' + str(self.descritor_15) + ' ' + str(self.descritor_16) + ' ' + str(self.descritor_17) + ' ' + str(self.descritor_18) + ' ' + str(self.descritor_19) + ' ' + str(self.descritor_20) + ' ' + str(self.descritor_21) + ' ' + str(self.descritor_22) + ' ' + str(self.descritor_23) + ' ' + str(self.descritor_24) + ' ' + str(self.descritor_25) + ' ' + str(self.descritor_26) + ' ' + str(self.descritor_27) + ' ' + str(self.descritor_28) + ' ' + str(self.descritor_29)
+        string = str(self.id) + ' ' + str(self.aluno_id)
+        for d in self.dominio:
+            string += f' - {str(d)}'
+        
+        return string
 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,33 +34,11 @@ def create(dominiodescritoresport: DominioDescritoresPort):
             print (f"Erro: O aluno com ID {dominiodescritoresport.aluno_id} já está cadastrado no banco de dados.")
             return
 
-        aluno_id = dominiodescritoresport.aluno_id
         cursor.execute('''
-            INSERT INTO dominio_descritores_port (
-                aluno_id, descritor_1, descritor_2, descritor_3, descritor_4, 
-                descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, 
-                descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, 
-                descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, 
-                descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, 
-                descritor_25, descritor_26, descritor_27, descritor_28, descritor_29) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (
-            aluno_id, dominiodescritoresport.descritor_1, dominiodescritoresport.descritor_2, 
-            dominiodescritoresport.descritor_3, dominiodescritoresport.descritor_4, 
-            dominiodescritoresport.descritor_5, dominiodescritoresport.descritor_6, 
-            dominiodescritoresport.descritor_7, dominiodescritoresport.descritor_8, 
-            dominiodescritoresport.descritor_9, dominiodescritoresport.descritor_10, 
-            dominiodescritoresport.descritor_11, dominiodescritoresport.descritor_12, 
-            dominiodescritoresport.descritor_13, dominiodescritoresport.descritor_14, 
-            dominiodescritoresport.descritor_15, dominiodescritoresport.descritor_16, 
-            dominiodescritoresport.descritor_17, dominiodescritoresport.descritor_18, 
-            dominiodescritoresport.descritor_19, dominiodescritoresport.descritor_20, 
-            dominiodescritoresport.descritor_21, dominiodescritoresport.descritor_22, 
-            dominiodescritoresport.descritor_23, dominiodescritoresport.descritor_24, 
-            dominiodescritoresport.descritor_25, dominiodescritoresport.descritor_26, 
-            dominiodescritoresport.descritor_27, dominiodescritoresport.descritor_28, 
-            dominiodescritoresport.descritor_29
-        ))
+            INSERT INTO dominio_descritores_port (aluno_id, descritor_1, descritor_2, descritor_3, descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+            dominiodescritoresport.return_list()   
+        )
 
         connection.commit()
 
@@ -95,50 +48,45 @@ def create(dominiodescritoresport: DominioDescritoresPort):
     connection.close()
 
 
-def delete(id):
+def delete(aluno_id):
     """Deleta um registro de descritores de portugues no banco de dados"""
     connection, cursor = connect_db()
 
-    cursor.execute('DELETE FROM dominio_descritores_port WHERE id = ?', (str(id),))
+    cursor.execute('DELETE FROM dominio_descritores_port WHERE aluno_id = ?', (str(aluno_id),))
     connection.commit()
 
     connection.close()
 
 
-def list():
+def list_dom_desc():
     connection, cursor = connect_db()
 
     cursor.execute('SELECT * FROM dominio_descritores_port')
     dominio_port_1 = cursor.fetchall() # Lista com os dados da tabela
     dominio_port_2: list[DominioDescritoresPort] = [] # Lista de Objetos com os dados da tabela
 
-    for dominio_port  in dominio_port_1:
-        dominio_port_2.append(DominioDescritoresPort(dominio_port[0], dominio_port[1], dominio_port[2], dominio_port[3], dominio_port[4]))
+    for dominio_port in dominio_port_1:
+        lista = [dominio_port[2], dominio_port[3], dominio_port[4], dominio_port[5], dominio_port[6], dominio_port[7], dominio_port[8], dominio_port[9], dominio_port[10], dominio_port[11], dominio_port[12], dominio_port[13], dominio_port[14], dominio_port[15], dominio_port[16], dominio_port[17], dominio_port[18], dominio_port[19], dominio_port[20], dominio_port[21], dominio_port[22], dominio_port[23], dominio_port[24], dominio_port[25], dominio_port[26], dominio_port[27], dominio_port[28], dominio_port[29], dominio_port[30]]
+        dominio_port_2.append(DominioDescritoresPort(dominio_port[0], dominio_port[1], lista))
 
     connection.close()
 
-    return '\n'.join(str(obj) for obj in dominio_port_2)
+    return dominio_port_2
 
 
 
-def get(id):
+def get(aluno_id):
     """Pega um registro de descritores de portugues especifico no banco de dados """
     connection, cursor = connect_db()
-    cursor.execute('SELECT 1 FROM dominio_descritores_port WHERE id = ?', (id,))
-    existe = cursor.fetchone() 
-    if existe:
-         cursor.execute('SELECT * FROM dominio_descritores_port WHERE id = ?', (str(id),))
-         row = cursor.fetchall()[0]
-         dominio_port = DominioDescritoresPort(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
 
-         connection.close()
+    cursor.execute('SELECT * FROM dominio_descritores_port WHERE aluno_id = ?', (str(aluno_id),))
+    row = cursor.fetchall()[0]
+    lista = [row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21], row[22], row[23], row[24], row[25], row[26], row[27], row[28], row[29], row[30], ]
+    dominio_port = DominioDescritoresPort(row[0], row[1], lista)
 
-         return dominio_port
-    else:
-        print("O ID informado não existe no banco de dados")
+    connection.close()
 
-
-
-
+    return dominio_port
+   
 
 
