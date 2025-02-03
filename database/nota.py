@@ -3,6 +3,7 @@ from database.banco import connect_db
 import database.avaliacao as avl
 import database.turma as turma
 from random import randint
+from database.aluno import list_students_by_class
 
 
 class Nota:
@@ -105,15 +106,15 @@ def get_student_notes(al_id):
     connection.close()
 
     notas = {
-        '1 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '2 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '3 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '4 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '5 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '6 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '7 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '8 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
-        '9 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matêmatica': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '1 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '2 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '3 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '4 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '5 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '6 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '7 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '8 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
+        '9 ano': {'Português': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Matemática': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Ciencias': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Geografia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}, 'Historia': {'1 bim': None, '2 bim': None, '3 bim': None, '4 bim': None}},
         }
 
     for row in rows:
@@ -214,3 +215,65 @@ def acess_notes_data(notes: dict, serie: int, bimestre: int, materia: str):
     
     nota = notes[f'{str(serie)} ano'][materia][f'{str(bimestre)} bim']
     return nota
+
+
+def get_student_average_by_matter(id_aluno, materia, serie_atual):
+    """Função que calcula a média de determinado aluno na matéria solicitada"""
+    
+    notas = get_student_notes(id_aluno)
+    soma = 0
+    count = 0
+    serie= str(serie_atual)+' ano'
+    for nota in notas[serie][materia].items():
+        if nota[1] is not None:
+                  soma +=nota[1]
+                  count +=1
+
+    try:
+        media = soma / count
+    except ZeroDivisionError:
+        return 0 
+    
+    return media
+ 
+ 
+def get_averages_by_matter(materia, id_turma, serie):
+    """Função que retorna uma lista com a média das notas dos alunos que pertencem a mesma turma em determinada matéria  """
+
+    lista_alunos=list_students_by_class(id_turma)
+    media_list=[]
+    for aluno in lista_alunos:
+       media=get_student_average_by_matter(aluno.al_id, materia,serie)
+       media_list.append(media)
+
+    return media_list
+
+
+def get_class_average_by_matter(materia, id_turma, serie):
+    """Função que calcula a médias das notas dos alunos que pertencem a mesma turma em determinada matéria  """
+
+    aluno_notas =get_averages_by_matter( materia,id_turma,serie )
+    soma=0
+    count=0
+    for nota in aluno_notas:
+        if nota != None:
+            soma +=nota
+            count +=1
+    try:
+        media=soma/count
+    except ZeroDivisionError:
+        return 0
+    return media
+
+
+def get_averages_general(id_turma, serie):
+    """Função que retorna uma lista com as médias de notas de todas as matérias dos alunos que pertencem a mesma turma """
+
+    lista_alunos=list_students_by_class(id_turma)
+    list_notas_gerais=[]
+    for aluno in lista_alunos:
+        notas_gerais=get_student_average_general(aluno.al_id,serie)
+        print(notas_gerais)
+        list_notas_gerais.append(notas_gerais)
+
+    return list_notas_gerais
