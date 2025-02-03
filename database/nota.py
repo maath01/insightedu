@@ -187,7 +187,6 @@ def acess_notes_data(notes: dict, serie: int, bimestre: int, materia: str):
 
 
 def get_student_average_by_matter(id_aluno, materia, serie_atual):
-
     """Função que calcula a média de determinado aluno na matéria solicitada"""
     
     notas = get_student_notes(id_aluno)
@@ -205,9 +204,9 @@ def get_student_average_by_matter(id_aluno, materia, serie_atual):
         return 0 
     
     return media
-
-def get_averages_by_matter( materia,id_turma,serie ):
-
+ 
+ 
+def get_averages_by_matter(materia, id_turma, serie):
     """Função que retorna uma lista com a média das notas dos alunos que pertencem a mesma turma em determinada matéria  """
 
     lista_alunos=list_students_by_class(id_turma)
@@ -218,8 +217,8 @@ def get_averages_by_matter( materia,id_turma,serie ):
 
     return media_list
 
-def get_class_average_by_matter( materia,id_turma,serie):
 
+def get_class_average_by_matter(materia, id_turma, serie):
     """Função que calcula a médias das notas dos alunos que pertencem a mesma turma em determinada matéria  """
 
     aluno_notas =get_averages_by_matter( materia,id_turma,serie )
@@ -235,8 +234,8 @@ def get_class_average_by_matter( materia,id_turma,serie):
         return 0
     return media
 
-def get_averages_general(id_turma,serie):
 
+def get_averages_general(id_turma, serie):
     """Função que retorna uma lista com as médias de notas de todas as matérias dos alunos que pertencem a mesma turma """
 
     lista_alunos=list_students_by_class(id_turma)
