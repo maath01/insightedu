@@ -124,7 +124,10 @@ def get_student_notes(al_id):
         av = avl.get(row[2])
         materia = avl.get_matter(av)
 
-        notas[f'{str(av.serie)} ano'][materia][f'{str(av.bimestre)} bim'] = row[3]
+        if notas[f'{str(av.serie)} ano'][materia][f'{str(av.bimestre)} bim'] == None:
+            notas[f'{str(av.serie)} ano'][materia][f'{str(av.bimestre)} bim'] = row[3]
+        else:
+            notas[f'{str(av.serie)} ano'][materia][f'{str(av.bimestre)} bim'] += row[3]
 
     return notas
 
