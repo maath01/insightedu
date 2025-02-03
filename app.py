@@ -31,19 +31,19 @@ def login():
             session['id'] = user_id
             if categoria == 'aluno':
                 session['user_type'] = 'aluno'
-                flash(f"Aluno(a) foi logado(a) com sucesso!")   
+                flash(f"Aluno(a) {user[1]}, foi logado(a) com sucesso!")   
 
             elif categoria == 'professor':
                 session['user_type'] = 'professor'
-                flash(f"Professor(a) foi logado(a) com sucesso!")
+                flash(f"Professor(a) {user[1]}, foi logado(a) com sucesso!")
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
-                flash(f"coordenador(a) foi logado(a) com sucesso!")
+                flash(f"coordenador(a) {user[1]}, foi logado(a) com sucesso!")
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
-                flash(f"gestor(a) foi logado(a) com sucesso!")
+                flash(f"gestor(a) {user[1]}, foi logado(a) com sucesso!")
 
             return redirect(url_for('home'))
             
@@ -144,8 +144,14 @@ def avaliacao(av_id):
 
 @app.route('/home/ferramentas/turmas')
 def turmas():
-    turmas_ = turma.list_classes_by_teacher(session['id'])
-    return render_template('turmas.html', turmas=turmas_)
+    if session['user_type'] == 'gestor':
+        escola_id = escola.get_school_id(session['id'])
+        turmas_ = turma.list_classes_by_school(escola_id)
+        profs = prof.list_teachers_by_school(escola_id)
+        return render_template('turmas.html', turmas=turmas_, professores=profs, user_type=session['user_type'])
+    elif session['user_type'] == 'professor': 
+        turmas_ = turma.list_classes_by_teacher(session['id'])
+        return render_template('turmas.html', turmas=turmas_, user_type=session['user_type'])
 
 
 @app.route ('/home/ferramentas/turmas/<int:turma_id>')
@@ -241,13 +247,18 @@ def cadastro_aluno():
 @app.route('/cadastro/turma', methods=['POST'])
 def cadastro_turma():
     
-    if 'user_type' not in session or session['user_type'] != 'professor':
+    if 'user_type' not in session or session['user_type'] != 'gestor':
         flash("Você não tem permissão para acessar esta funcionalidade.")
         return redirect(url_for('home'))
     
     try:
         serie = request.form.get('serie')
         letra = request.form.get('letra')
+        prof_port = request.form.get('prof-portugues')
+        prof_mat = request.form.get('prof-matematica')
+        prof_cie = request.form.get('prof-ciencias')
+        prof_hist = request.form.get('prof-historia')
+        prof_geo = request.form.get('prof-geografia')
         
         if not validar_dados_turma(serie, letra):
             return redirect(url_for('turmas'))
@@ -257,6 +268,13 @@ def cadastro_turma():
         
         nova_turma = turma.Turma(0, serie, letra.upper())
         turma.create(nova_turma, esc)
+        connection, cursor = banco.connect_db()
+        connection_tables.professores_turmas_materias(prof_port, nova_turma.tur_id, 1, cursor, connection)
+        connection_tables.professores_turmas_materias(prof_mat, nova_turma.tur_id, 2, cursor, connection)
+        connection_tables.professores_turmas_materias(prof_cie, nova_turma.tur_id, 3, cursor, connection)
+        connection_tables.professores_turmas_materias(prof_hist, nova_turma.tur_id, 4, cursor, connection)
+        connection_tables.professores_turmas_materias(prof_geo, nova_turma.tur_id, 5, cursor, connection)
+        connection.close()
         
         flash("Turma cadastrada com sucesso!")
         return redirect(url_for('turmas'))
@@ -282,6 +300,7 @@ def validar_dados_turma(serie, letra):
         return False
     
     return True
+
 
 if __name__ == "__main__":
     app.run(debug=True)

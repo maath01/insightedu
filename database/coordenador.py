@@ -33,7 +33,8 @@ def create(coordenador: Coordenador, escola):
         print('ID duplicado')
     else:
         escolas_coordenadores(escola.escola_id, coordenador_id, cursor, connection)
-    
+        coordenador.coordenador_id = coordenador_id
+
     connection.close()
 
 
@@ -91,7 +92,6 @@ def update_coordinator(coordenador_id,coordenador: Coordenador):
     connection.close()  
 
 
-
 def generate_coordinator_id(coordenador: Coordenador, escola):
     nascimento = coordenador.nascimento[6:]
     cod = nascimento + str(escola.escola_id)
@@ -101,4 +101,28 @@ def generate_coordinator_id(coordenador: Coordenador, escola):
     
     return cod
 
+
+def list_coordinators_by_school(school_id):
+    """Lista os coordenadores de uma escola"""
+
+    connection, cursor = connect_db()
+    cursor.execute('SELECT * FROM escolas_coordenadores WHERE escolas_id = ?', (str(school_id),))
+    coordinators_id = []
+    coordinators_obj = []
+    rows = cursor.fetchall()
+
+    for row in rows:
+        if row[1] not in coordinators_id:
+            coordinators_id.append(row[1])
+
+    placeholders = ', '.join('?' for _ in coordinators_id)
+    cursor.execute(f'SELECT * FROM coordenadores WHERE id IN ({placeholders})', coordinators_id)
+    coordinators = cursor.fetchall()
+
+    for coor in coordinators:
+        coordinators_obj.append(Coordenador(coor[0], coor[1], coor[2], coor[3], coor[4], coor[5], coor[6]))
+
+    connection.close()
+
+    return coordinators_obj
 

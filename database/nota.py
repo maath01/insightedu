@@ -31,6 +31,9 @@ def create(nota: Nota):
 
     except sqlite3.IntegrityError:
         print('ID duplicado')
+    
+    else:
+        nota.nota_id = nota_id
 
     connection.close()
 

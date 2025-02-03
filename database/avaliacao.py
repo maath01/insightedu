@@ -34,6 +34,7 @@ def create(av: Avaliacao, materia: str):
         print('ID duplicado')
     else:
         materias_avaliacoes(materia, av_id, cursor, connection)
+        av.av_id = av_id
     
     connection.close()
 

@@ -33,6 +33,7 @@ def create(gestor: Gestor, escola):
         print('ID duplicado')
     else:
         escolas_gestores(escola.escola_id, gestor_id, cursor, connection)
+        gestor.gestor_id = gestor_id
     
     connection.close()
 

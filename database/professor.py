@@ -35,6 +35,7 @@ def create(professor: Professor, escola):
         print('ID duplicado')
     else:
         escolas_professores(escola.escola_id, prof_id, cursor, connection)
+        professor.prof_id = prof_id
     
     connection.close()
 

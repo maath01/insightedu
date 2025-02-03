@@ -5,6 +5,7 @@ def turmas_alunos(turma_id, aluno_id, cursor, connection):
 
     connection.commit()
 
+    
 def professores_turmas_materias(professor_id, turma_id, materia_id, cursor, connection):
     """Associa uma turma a professores e os professores a materias"""
     cursor.execute('INSERT INTO professores_turmas_materias (professores_id, turmas_id, materias_id) VALUES (?, ?, ?)',

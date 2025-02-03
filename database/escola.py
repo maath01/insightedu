@@ -27,6 +27,8 @@ def create(escola: Escola):
 
     except sqlite3.IntegrityError:
         print('ID duplicado')
+    else:
+        escola.escola_id = escola_id
     
     connection.commit()
     connection.close()

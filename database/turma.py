@@ -29,6 +29,7 @@ def create(turma: Turma, escola):
         print('ID duplicado')
     else:
         escolas_turmas(escola.escola_id, tur_id, cursor, connection)
+        turma.tur_id = tur_id
 
     connection.close()
 
