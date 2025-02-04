@@ -3,6 +3,7 @@ from database.banco import connect_db
 from database.connection_tables import materias_avaliacoes
 from database.aluno import *
 from random import randint
+from datetime import datetime
 
 class Avaliacao:
 
@@ -119,3 +120,16 @@ def get_matter(av: Avaliacao):
     connection.close()
 
     return materia
+
+
+def update_av(av_id,av: Avaliacao):
+    """Atualiza um elemento no banco de dados"""
+    connection, cursor = connect_db()
+
+    data_atual = datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
+
+    cursor.execute("UPDATE avaliacoes SET  serie= ?, bimestre = ?,professor_id  = ?,turma_id=?,data_aplicacao= ? WHERE id = ?",
+                  ( av.serie, av.bimestre, av.professor_id, av.turma_id,data_atual, av_id))
+    connection.commit()
+    connection.close()  
+
