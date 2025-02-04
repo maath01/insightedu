@@ -90,12 +90,12 @@ def ferramentas():
     
 
 @app.route('/perfil_aluno/<int:aluno_id>')
-def perfil_aluno(aluno_id):
+def perfil_aluno(aluno_id, serie):
 
     try:  
         student = aluno.get(aluno_id) 
         if student:
-            return render_template('perfil_aluno.html', aluno=student)
+            return render_template('perfil_aluno.html', aluno=student, serie=serie)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
@@ -152,8 +152,9 @@ def turmas():
 def lista_alunos(turma_id):
     try:    
         alunos = aluno.list_students_by_class(turma_id)
+        turma_ = turma.get(turma_id)
         if alunos:
-            return render_template('lista_alunos.html', turma=turma_id, alunos=alunos)
+            return render_template('lista_alunos.html', turma=turma_, alunos=alunos)
         else:
             return f"<h1>Não há alunos cadastrados na turma {turma_id}.</h1>"
     finally:
@@ -282,6 +283,43 @@ def validar_dados_turma(serie, letra):
         return False
     
     return True
+
+
+
+@app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
+def plot_class_matters_average(turma_id, materia):
+    turma_ = turma.get(turma_id)
+    alunos = aluno.list_students_by_class(turma_id)
+    medias = nota.get_averages_by_matter(alunos, turma_id, turma_.serie)
+    alunos_nome = []
+    for a in alunos:
+        alunos_nome.append(a.nome)
+
+    fig, ax = plt.subplots(figsize=(5, 2.7))
+    ax.bar(alunos_nome, medias)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
+
+@app.route('/plot/aluno/materias/medias/<int:al_id>/<int:serie>')
+def plot_student_matters_average(al_id=0, serie=0):
+    lista_materias = ['Português', 'Matemática','Ciencias', 'Historia', 'Geografia']
+    lista_medias = []
+    for materia in lista_materias:
+        media = nota.get_student_average_by_matter(al_id, materia, serie)
+        lista_medias.append(media)
+    
+    fig, ax = plt.subplots(figsize=(5, 2.7))
+    ax.bar(lista_materias, lista_medias)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
 
 if __name__ == "__main__":
     app.run(debug=True)
