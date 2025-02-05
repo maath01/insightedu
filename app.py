@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
 from io import BytesIO
 import matplotlib.pyplot as plt
-from database import aluno, banco, connection_tables, turma, escola, gestor, nota
+from database import aluno, banco, connection_tables, turma, escola, gestor, nota, questao
 import database.professor as prof 
 import database.coordenador as coor
 import database.avaliacao as av
@@ -182,6 +182,25 @@ def lista_alunos_por_escola(school_id):
     except Exception as e:
         flash("Ocorreu um erro ao listar os alunos. Por favor, tente novamente.")
         return redirect(url_for('home'))
+    
+
+@app.route('/home/ferramentas/questoes')
+def questoes():
+    """Acessa o banco de questões"""
+    questions = questao.list_questions()
+    return render_template('questoes.html', questions=questions)
+
+@app.route('/home/ferramentas/questoes/filtradas', methods=['POST'])
+def questoes_filtradas():
+    """Recebe parametros e pesquisa questoes no banco de dados"""
+    serie = request.form['serie']
+    materia = request.form['materia']
+    assunto = request.form['assunto']
+    if serie == 'todas' and materia == 'todas' and assunto != '':
+        return redirect(url_for('questoes'))
+    
+    questions = questao.list_questions_filtered(serie, materia, assunto)
+    return render_template('questoes.html', questions=questions)
 
 
 @app.route('/cadastro/notas/<int:av_id>', methods=['POST'])

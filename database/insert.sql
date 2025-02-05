@@ -109,4 +109,8 @@ INSERT INTO descritores_port (id, habilidade, serie, numero) VALUES
 
 INSERT INTO dominio_descritores_port (id, aluno_id, descritor_1, descritor_2, descritor_3,  descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29) VALUES
 (0, 2010689216742, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1),
-(1, 2008689215321, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1)
+(1, 2008689215321, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1);
+
+INSERT INTO questoes (id, enunciado, serie, materia, assunto) VALUES
+(51557832, 'Na frase "O gato preto dorme na cadeira.", qual é o substantivo e qual é o adjetivo?', 5, 'Português', 'Classes de palavras'),
+(51589712, 'Leia a frase abaixo e responda à pergunta. "Ana correu para a escola porque estava atrasada.", Por que Ana correu para a escola?', 5, 'Português', 'Interpretação de texto')

@@ -105,6 +105,15 @@ CREATE TABLE descritores_mat (
     materia VARCHAR (25) DEFAULT 'Matemática'
 );
 
+CREATE TABLE questoes (
+    id BIGINT NOT NULL,
+    enunciado VARCHAR(150) NOT NULL,
+    serie int NOT NULL,
+    materia int NOT NULL,
+    assunto int NOT NULL,
+    PRIMARY KEY(id)
+);
+
 -- Tabelas de conexão
 CREATE TABLE turmas_alunos (
     turmas_id BIGINT NOT NULL,

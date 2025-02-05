@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightEdu</title>
+</head>
+<body>
+    <form action="/home/ferramentas/questoes/filtradas" method="post">
+        <label for="serie">serie</label>
+        <select name="serie" id="serie">
+            {% for i in range(1, 10) %}:
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+            <option value="todas">Todas</option>
+        </select>
+        <label for="materia">Materia</label>
+        <select name="materia" id="materia">
+            <option value="portugues">Português</option>
+            <option value="matematica">Matematica</option>
+            <option value="ciencias">Ciencias</option>
+            <option value="historia">Historia</option>
+            <option value="geografia">Geografia</option>
+            <option value="todas">Todas</option>
+        </select>
+        <label for="assunto">Assunto</label>
+        <input type="text" name="assunto" id="assunto">
+        <button type="submit">Pesquisar</button>
+    </form>
+    <ul>
+        {% for question in questions %}
+        <li>
+            <h2>{{ question.serie }} ano - {{ question.materia }} - {{ question.assunto }}</h2>
+            <p>{{ question.enunciado }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
