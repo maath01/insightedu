@@ -90,7 +90,7 @@ def ferramentas():
         return render_template('ferramentas_gestor.html')
     
 
-@app.route('/perfil_aluno/<int:aluno_id>')
+@app.route('/perfil_aluno/<int:aluno_id>/<int:serie>')
 def perfil_aluno(aluno_id, serie):
 
     try:  
@@ -293,7 +293,7 @@ def plot_class_matters_average(turma_id, materia):
     alunos_nome = []
     for a in list_students_by_class(turma_id):
         alunos_nome.append(a.nome)
-
+    
     fig, ax = plt.subplots(figsize=(5, 2.7))
     ax.bar(alunos_nome, medias)
     buf = BytesIO()
@@ -310,7 +310,7 @@ def plot_student_matters_average(al_id=0, serie=0):
     for materia in lista_materias:
         media = nota.get_student_average_by_matter(al_id, materia, serie)
         lista_medias.append(media)
-    
+        
     fig, ax = plt.subplots(figsize=(5, 2.7))
     ax.bar(lista_materias, lista_medias)
     buf = BytesIO()
