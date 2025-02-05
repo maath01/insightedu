@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
 from io import BytesIO
 import matplotlib.pyplot as plt
+from database.aluno import list_students_by_class
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota
 import database.professor as prof 
 import database.coordenador as coor
@@ -285,14 +286,12 @@ def validar_dados_turma(serie, letra):
     return True
 
 
-
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
 def plot_class_matters_average(turma_id, materia):
     turma_ = turma.get(turma_id)
-    alunos = aluno.list_students_by_class(turma_id)
-    medias = nota.get_averages_by_matter(alunos, turma_id, turma_.serie)
+    medias = nota.get_averages_by_matter(materia, turma_id, turma_.serie)
     alunos_nome = []
-    for a in alunos:
+    for a in list_students_by_class(turma_id):
         alunos_nome.append(a.nome)
 
     fig, ax = plt.subplots(figsize=(5, 2.7))
