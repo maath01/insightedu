@@ -89,13 +89,13 @@ def ferramentas():
         return render_template('ferramentas_gestor.html')
     
 
-@app.route('/perfil_aluno/<int:aluno_id>/<int:serie>')
-def perfil_aluno(aluno_id, serie):
+@app.route('/perfil_aluno/<int:aluno_id>')
+def perfil_aluno(aluno_id):
 
     try:  
         student = aluno.get(aluno_id) 
         if student:
-            return render_template('perfil_aluno.html', aluno=student, serie=serie)
+            return render_template('perfil_aluno.html', aluno=student)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
@@ -167,16 +167,14 @@ def lista_alunos(turma_id):
         pass
 
 
-@app.route('/home/ferramentas/alunos/<int:school_id>')
-def lista_alunos_por_escola(school_id):
+@app.route('/home/ferramentas/alunos')
+def lista_alunos_por_escola():
     if session.get('user_type') != 'gestor':
         flash("Você não tem permissão para acessar esta página.")
         return redirect(url_for('home'))
 
     try:
-        gestor_id = session['id']
         escola_id = escola.get_school_id(session['id'])
-
         alunos = aluno.list_students_by_school(escola_id)
 
         return render_template('lista_alunos_por_escola.html', alunos=alunos, escola_id=escola_id)
@@ -339,12 +337,13 @@ def plot_class_matters_average(turma_id, materia):
 
     return Response(buf, mimetype='image/png')
 
-@app.route('/plot/aluno/materias/medias/<int:al_id>/<int:serie>')
-def plot_student_matters_average(al_id=0, serie=0):
+@app.route('/plot/aluno/materias/medias/<int:al_id>')
+def plot_student_matters_average(al_id=0):
     lista_materias = ['Português', 'Matemática','Ciencias', 'Historia', 'Geografia']
     lista_medias = []
+    turma_ = aluno.get_class(al_id)
     for materia in lista_materias:
-        media = nota.get_student_average_by_matter(al_id, materia, serie)
+        media = nota.get_student_average_by_matter(al_id, materia, turma_.serie)
         lista_medias.append(media)
         
     fig, ax = plt.subplots(figsize=(5, 2.7))

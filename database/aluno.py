@@ -2,6 +2,7 @@ import sqlite3
 from random import randint
 from database.banco import connect_db
 from database.connection_tables import escolas_alunos
+import database.turma as turma
 
 
 class Aluno:
@@ -153,3 +154,19 @@ def list_students_by_school(school_id): #-> list:
     connection.close()
 
     return students_obj
+
+
+def get_class(aluno_id):
+    """Retorna a classe de um aluno"""
+    connection, cursor = connect_db()
+    try:
+        cursor.execute('SELECT * FROM turmas_alunos WHERE alunos_id = ?', (str(aluno_id),))
+        row = cursor.fetchone()
+        turma_id = row[0]
+        turma_ = turma.get(turma_id)
+    except:
+        return None
+    
+    connection.close()
+
+    return turma_

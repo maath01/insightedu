@@ -11,9 +11,8 @@
     
     <ul>
         {% for aluno in alunos %}
-            <a href="{{ url_for('perfil_aluno', aluno_id=aluno.al_id, serie=turma.serie)}}">{{ aluno }}</a>
+            <li><a href="{{ url_for('perfil_aluno', aluno_id=aluno.al_id)}}">{{ aluno }}</a></li>
         {% endfor %}
-
     </ul>
     <li><a href="{{ url_for('turmas') }}">Listar Turmas</a></li>
     <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Português')}}">
