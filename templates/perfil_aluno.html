@@ -15,7 +15,7 @@
         <p><b>Turma:</b> {{ aluno.turma }}</p>
         <p><b>Email:</b> {{ aluno.email }}</p>
     </div>
-    
+    <img src="{{ url_for('plot_student_matters_average', al_id=aluno.al_id, serie=serie)}}">
     <a href="/">Voltar para a página inicial</a>
 </body>
 </html>
