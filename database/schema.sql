@@ -194,7 +194,23 @@ CREATE TABLE dominio_descritores_port (
     descritor_26 INT NOT NULL,                          
     descritor_27 INT NOT NULL,                          
     descritor_28 INT NOT NULL,                       
-    descritor_29 INT NOT NULL                           
+    descritor_29 INT NOT NULL,
+    descritor_30 INT NOT NULL, 
+    descritor_31 INT NOT NULL,
+    descritor_32 INT NOT NULL,
+    descritor_33 INT NOT NULL,
+    descritor_34 INT NOT NULL,
+    descritor_35 INT NOT NULL,
+    descritor_36 INT NOT NULL,
+    descritor_37 INT NOT NULL,
+    descritor_38 INT NOT NULL,
+    descritor_39 INT NOT NULL,
+    descritor_40 INT NOT NULL,
+    descritor_41 INT NOT NULL,
+    descritor_42 INT NOT NULL,
+    descritor_43 INT NOT NULL,
+    descritor_44 INT NOT NULL,
+    descritor_45 INT NOT NULL                      
 );
 
 -- Tabela de domínio de descritores para matemática
@@ -231,5 +247,19 @@ CREATE TABLE dominio_descritores_mat (
     descritor_28 INT NOT NULL,                       
     descritor_29 INT NOT NULL, 
     descritor_30 INT NOT NULL, 
-    descritor_31 INT NOT NULL 
+    descritor_31 INT NOT NULL,
+    descritor_32 INT NOT NULL,
+    descritor_33 INT NOT NULL,
+    descritor_34 INT NOT NULL,
+    descritor_35 INT NOT NULL,
+    descritor_36 INT NOT NULL,
+    descritor_37 INT NOT NULL,
+    descritor_38 INT NOT NULL,
+    descritor_39 INT NOT NULL,
+    descritor_40 INT NOT NULL,
+    descritor_41 INT NOT NULL,
+    descritor_42 INT NOT NULL,
+    descritor_43 INT NOT NULL,
+    descritor_44 INT NOT NULL,
+    descritor_45 INT NOT NULL
 );
