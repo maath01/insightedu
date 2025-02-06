@@ -307,6 +307,21 @@ def validar_dados_turma(serie, letra):
     return True
 
 
+@app.route('/cadastro/questao', methods=['POST'])
+def cadastro_questao():
+    """Cadastra uma questão no banco de dados"""
+    enunciado = request.form['enunciado']
+    serie = request.form['serie']
+    materia = request.form['materia']
+    assunto = request.form['assunto']
+    resposta = request.form['resposta']
+
+    nova_questao = questao.Questao(0, enunciado, serie, materia, assunto, resposta)
+    questao.create(nova_questao)
+
+    return redirect(url_for('questoes'))
+
+
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
 def plot_class_matters_average(turma_id, materia):
     turma_ = turma.get(turma_id)

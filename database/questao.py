@@ -5,12 +5,13 @@ from random import randint
 class Questao:
     """Modelo de dados da tabela banco_de_questoes"""
 
-    def __init__(self, q_id=0, enunciado='', serie='', materia='', assunto='') -> None:
+    def __init__(self, q_id=0, enunciado='', serie='', materia='', assunto='', resposta='') -> None:
         self.q_id = q_id
         self.enunciado = enunciado
         self.serie = serie
         self.materia = materia
         self.assunto = assunto
+        self.resposta = resposta
 
     def __str__(self) -> str:
         return f"{self.q_id} {self.enunciado}"
@@ -23,8 +24,8 @@ def create(questao: Questao):
     try:
         questao_id = generate_question_id(questao, cursor)
 
-        cursor.execute('INSERT INTO questoes (id, enunciado, serie, materia, assunto) VALUES (?, ?, ?, ?, ?)',
-                       (questao_id, questao.enunciado, questao.serie, questao.materia, questao.assunto))
+        cursor.execute('INSERT INTO questoes (id, enunciado, serie, materia, assunto, resposta) VALUES (?, ?, ?, ?, ?, ?)',
+                       (questao_id, questao.enunciado, questao.serie, questao.materia, questao.assunto, questao.resposta))
         connection.commit()
 
 
@@ -87,8 +88,8 @@ def update(questao_id, questao: Questao):
     """Atualiza uma questão no banco de dados"""
     connection, cursor = connect_db()
 
-    cursor.execute('UPDATE questoes SET enunciado = ?, serie = ?, materia = ?, assunto = ? WHERE id = ?',
-                   (questao.enunciado, questao.serie, questao.materia, questao.assunto, questao_id))
+    cursor.execute('UPDATE questoes SET enunciado = ?, serie = ?, materia = ?, assunto = ?, resposta = ? WHERE id = ?',
+                   (questao.enunciado, questao.serie, questao.materia, questao.assunto, questao.resposta, questao_id))
     
     connection.commit()
     connection.close()
@@ -136,6 +137,8 @@ def list_questions_filtered(serie, materia, assunto):
         cursor.execute(query, tuple(params))
         rows = cursor.fetchall()
         connection.close()
+
+        print(query, params)
 
         for row in rows:
             questions.append(Questao(*row))

@@ -111,6 +111,7 @@ CREATE TABLE questoes (
     serie int NOT NULL,
     materia int NOT NULL,
     assunto int NOT NULL,
+    resposta VARCHAR(200) NOT NULL,
     PRIMARY KEY(id)
 );
 

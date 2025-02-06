@@ -111,6 +111,6 @@ INSERT INTO dominio_descritores_port (id, aluno_id, descritor_1, descritor_2, de
 (0, 2010689216742, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1),
 (1, 2008689215321, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1);
 
-INSERT INTO questoes (id, enunciado, serie, materia, assunto) VALUES
-(51557832, 'Na frase "O gato preto dorme na cadeira.", qual é o substantivo e qual é o adjetivo?', 5, 'Português', 'Classes de palavras'),
-(51589712, 'Leia a frase abaixo e responda à pergunta. "Ana correu para a escola porque estava atrasada.", Por que Ana correu para a escola?', 5, 'Português', 'Interpretação de texto')
+INSERT INTO questoes (id, enunciado, serie, materia, assunto, resposta) VALUES
+(51557832, 'Na frase "O gato preto dorme na cadeira.", qual é o substantivo e qual é o adjetivo?', 5, 'Português', 'Classes de palavras', 'Gato e preto'),
+(51589712, 'Leia a frase abaixo e responda à pergunta. "Ana correu para a escola porque estava atrasada.", Por que Ana correu para a escola?', 5, 'Português', 'Interpretação de texto', 'Porque estava atrasada')
