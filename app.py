@@ -67,26 +67,13 @@ def home():
         return render_template('home_aluno.html')
     
     elif session['user_type'] == 'professor':
-        turmas = turma.list_classes_by_teacher(session['id'])
-        return render_template('home_professor.html', turmas=turmas)
+        return render_template('home_professor.html')
 
     elif session['user_type'] == 'coordenador':
         return render_template('home_coordenador.html')
     
     elif session['user_type'] == 'gestor':
         return render_template('home_gestor.html')
-
-
-@app.route('/home/ferramentas')
-def ferramentas():
-    if session['user_type'] == 'aluno':
-        return render_template('ferramentas_aluno.html')
-    elif session['user_type'] == 'professor':
-        return render_template('ferramentas_prof.html')
-    elif session['user_type'] == 'coordenador':
-        return render_template('ferramentas_coordenador.html')
-    elif session['user_type'] == 'gestor':
-        return render_template('ferramentas_gestor.html')
     
 
 @app.route('/perfil_aluno/<int:aluno_id>')
@@ -102,7 +89,7 @@ def perfil_aluno(aluno_id):
         pass
 
 
-@app.route('/home/ferramentas/lista_professores')
+@app.route('/home/lista_professores')
 def list_teachers():
     if session.get('user_type') == 'gestor':
         id_gestor=session.get('id')
@@ -113,7 +100,7 @@ def list_teachers():
         return render_template('home.html')
 
 
-@app.route('/home/ferramentas/lista_professores/<int:prof_id>')
+@app.route('/home/lista_professores/<int:prof_id>')
 def perfil_professor(prof_id):
     professor = prof.get(prof_id)
     if professor:
@@ -122,7 +109,7 @@ def perfil_professor(prof_id):
         return ("Erro") 
 
 
-@app.route('/home/ferramentas/avaliacoes')
+@app.route('/home/avaliacoes')
 def avaliacoes():
     if session.get('user_type') == 'professor':
         avaliacoes = av.list_evaluations_by_teacher(session['id'])
@@ -131,7 +118,7 @@ def avaliacoes():
         return render_template('home.html')
     
 
-@app.route('/home/ferramentas/avaliacoes/<int:av_id>')
+@app.route('/home/avaliacoes/<int:av_id>')
 def avaliacao(av_id):
     if session.get('user_type') == 'professor':
         avaliacao = av.get(av_id)
@@ -142,7 +129,7 @@ def avaliacao(av_id):
         return render_template('home.html')
     
 
-@app.route('/home/ferramentas/turmas')
+@app.route('/home/turmas')
 def turmas():
     if session['user_type'] == 'gestor':
         escola_id = escola.get_school_id(session['id'])
@@ -154,7 +141,7 @@ def turmas():
         return render_template('turmas.html', turmas=turmas_, user_type=session['user_type'])
 
 
-@app.route ('/home/ferramentas/turmas/<int:turma_id>')
+@app.route ('/home/turmas/<int:turma_id>')
 def lista_alunos(turma_id):
     try:    
         alunos = aluno.list_students_by_class(turma_id)
@@ -167,7 +154,7 @@ def lista_alunos(turma_id):
         pass
 
 
-@app.route('/home/ferramentas/alunos')
+@app.route('/home/alunos')
 def lista_alunos_por_escola():
     if session.get('user_type') != 'gestor':
         flash("Você não tem permissão para acessar esta página.")
@@ -183,13 +170,13 @@ def lista_alunos_por_escola():
         return redirect(url_for('home'))
     
 
-@app.route('/home/ferramentas/questoes')
+@app.route('/home/questoes')
 def questoes():
     """Acessa o banco de questões"""
     questions = questao.list_questions()
     return render_template('questoes.html', questions=questions)
 
-@app.route('/home/ferramentas/questoes/filtradas', methods=['POST'])
+@app.route('/home/questoes/filtradas', methods=['POST'])
 def questoes_filtradas():
     """Recebe parametros e pesquisa questoes no banco de dados"""
     serie = request.form['serie']

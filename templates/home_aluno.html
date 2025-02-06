@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Aluno</title>
-    <link rel="stylesheet" href="../static/style.css">
 </head>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -34,8 +33,6 @@
                 <li><a href="#">Início</a></li>
                 <li><a href="#">Sobre</a></li>
                 <li><a href="#">Contato</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="{{ url_for('ferramentas') }}">Ferramentas</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
