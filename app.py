@@ -375,5 +375,50 @@ def cadastro_avaliacao():
     
     return redirect(url_for('avaliacoes'))
 
+@app.route('/plot/aluno/desempenho/notas/<int:al_id>/<int:serie>')
+def plot_student_performance_by_notes(al_id, serie):
+    notas = nota.get_student_notes(al_id)
+    
+    portugues = []
+    matematica = []
+    ciencias = []
+    historia = []
+    geografia = []
+    
+    for series in notas.values():
+        for materias in series.values():
+            for bim, nota in materias.items():
+                if series[0] == str(serie): 
+                    if materias == 'Português':
+                        portugues.append(nota if nota is not None else 0)
+                    elif materias == 'Matemática':
+                        matematica.append(nota if nota is not None else 0)
+                    elif materias == 'Ciências':
+                        ciencias.append(nota if nota is not None else 0)
+                    elif materias == 'História':
+                        historia.append(nota if nota is not None else 0)
+                    elif materias == 'Geografia':
+                        geografia.append(nota if nota is not None else 0)
+    
+
+    fig, ax = plt.subplots()
+    ax.plot(['1', '2', '3', '4'], portugues, label='Português')
+    ax.plot(['1', '2', '3', '4'], matematica, label='Matemática')
+    ax.plot(['1', '2', '3', '4'], ciencias, label='Ciências')
+    ax.plot(['1', '2', '3', '4'], historia, label='História')
+    ax.plot(['1', '2', '3', '4'], geografia, label='Geografia')
+    
+    ax.set_xlabel('Bimestres')
+    ax.set_ylabel('Notas')
+    ax.set_title(f'Desempenho do Aluno (Série {serie})')
+    ax.legend()
+    
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+    buf.seek(0)
+    
+    return Response(buf, mimetype='image/png')
+
 if __name__ == "__main__":
     app.run(debug=True)

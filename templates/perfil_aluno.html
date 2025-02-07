@@ -17,5 +17,12 @@
     </div>
     <img src="{{ url_for('plot_student_matters_average', al_id=aluno.al_id)}}">
     <a href="/">Voltar para a página inicial</a>
+    <h1>Perfil do Aluno</h1>
+    <p>Nome: {{ aluno.nome }}</p>
+    <p>Série: {{ serie }}</p>
+    
+    <!-- Exibir o gráfico de desempenho -->
+    <h2>Desempenho nas Notas</h2>
+    <img src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id, serie=serie) }}" alt="Desempenho do Aluno">
 </body>
 </html>
