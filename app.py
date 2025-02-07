@@ -185,7 +185,7 @@ def questoes_filtradas():
     serie = request.form['serie']
     materia = request.form['materia']
     assunto = request.form['assunto']
-    if serie == 'todas' and materia == 'todas' and assunto != '':
+    if serie == 'todas' and materia == 'todas' and assunto == '':
         return redirect(url_for('questoes'))
     
     questions = questao.list_questions_filtered(serie, materia, assunto)
