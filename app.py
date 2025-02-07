@@ -371,7 +371,7 @@ def cadastro_avaliacao():
     
     nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
     
-    av.create(nova_avaliacao, materia, turma_id)
+    av.create(nova_avaliacao, materia)
     
     return redirect(url_for('avaliacoes'))
 
