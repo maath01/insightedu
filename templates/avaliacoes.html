@@ -6,6 +6,57 @@
     <title>Avaliações</title>
 </head>
 <body>
+    <div class="container mt-4">
+        <h2>Avaliações</h2>
+        <!-- Botão para abrir o modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+            Cadastrar Avaliação
+        </button>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Avaliação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/cadastro/avaliacao" method="POST">
+                        <div class="mb-3">
+                            <label for="serie" class="form-label">Série</label>
+                            <input type="text" class="form-control" id="serie" name="serie" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bimestre" class="form-label">Bimestre</label>
+                            <input type="number" class="form-control" id="bimestre" name="bimestre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="turma_id" class="form-label">ID da Turma</label>
+                            <input type="text" class="form-control" id="turma_id" name="turma_id" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_aplicacao" class="form-label">Data de Aplicação</label>
+                            <input type="date" class="form-control" id="data_aplicacao" name="data_aplicacao" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="materia" class="form-label">Matéria</label>
+                            <input type="text" class="form-control" id="materia" name="materia" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <h1>
         <ul>
             {% for av in avaliacoes %}

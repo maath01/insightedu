@@ -357,5 +357,23 @@ def plot_student_matters_average(al_id=0):
 
     return Response(buf, mimetype='image/png')
 
+#felipe 
+
+@app.route('/cadastro/avaliacao', methods=['POST'])
+def cadastro_avaliacao():
+    serie = request.form['serie']
+    bimestre = request.form['bimestre']
+    turma_id = request.form['turma_id']
+    data_aplicacao = request.form['data_aplicacao']
+    materia = request.form['materia']
+    
+    professor_id = session['id']
+    
+    nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
+    
+    av.create(nova_avaliacao, materia, turma_id)
+    
+    return redirect(url_for('avaliacoes'))
+
 if __name__ == "__main__":
     app.run(debug=True)
