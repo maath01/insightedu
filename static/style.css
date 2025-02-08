@@ -1,42 +1,53 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
-
+label {
+    color: white;
+    text-align: left;
+}
 form {
     background-color: #2A7EBA;
-    border-radius: 15px;
-    padding: 40px 30px;
-    width: 350px;
+    border-radius: 20px;
+    padding: 40px;
+    width: 380px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-h1 {
+
+.icon {
+    font-size: 30px;
     color: #ffffff;
-    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.categoria {
-    text-align: left;
-    margin-bottom: 20px;
-    color: #ffffff;
-    font-size: 16px;
-}
-
-label {
-    display: block;
-    color: #ffffff;
-    margin-bottom: 5px;
+.category-buttons button {
+    background-color: #22689B;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
     font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
+.category-buttons button.selected {
+    background-color: #f8f8f8;
+    color: #22689B;
+}
 
 input[type="text"],
 input[type="password"] {
@@ -47,14 +58,11 @@ input[type="password"] {
     border-radius: 5px;
     outline: none;
     font-size: 14px;
-}
-
-input::placeholder {
-    color: #cccccc;
+    background: #f0f0f0;
 }
 
 button {
-    background-color: #184A6D;
+    background-color: #0e3c5d;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -67,16 +75,7 @@ button {
 }
 
 button:hover {
-    background-color: #0e3c5d;
-}
-
-.alert {
-    background-color: #2A7EBA;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    text-align: center;
+    background-color: #082b40;
 }
 
 @media (max-width: 400px) {
