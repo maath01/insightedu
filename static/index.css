@@ -1,0 +1,43 @@
+/* Resetando margens e padding para um estilo limpo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cor de fundo suave e fonte agradável */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo do título */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #4A90E2;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo do link de login */
+a {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #4A90E2;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    background-color: #357ABD;
+    transform: translateY(-3px);
+}

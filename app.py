@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from database import aluno, banco, connection_tables, turma, escola, gestor, nota, questao
 import database.professor as prof 
 import database.coordenador as coor
+import database.gestor as gestor
+import database.aluno as aluno
 import database.avaliacao as av
 import database.dominio_descritores_port as dom_dp
 import database.dominio_descritores_mat as dom_mt
@@ -34,26 +36,24 @@ def login():
             session['id'] = user_id
             if categoria == 'aluno':
                 session['user_type'] = 'aluno'
-                flash(f"Aluno(a) {user[1]}, foi logado(a) com sucesso!")   
+                flash(f"Aluno(a) {user[1]}, foi logado(a) com sucesso!", 'sucess')   
 
             elif categoria == 'professor':
                 session['user_type'] = 'professor'
-                flash(f"Professor(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Professor(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
-                flash(f"Coordenador(a) foi logado(a) com sucesso!")
-                flash(f"coordenador(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Coordenador(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
-                flash(f"Gestor(a) foi logado(a) com sucesso!")
-                flash(f"gestor(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Gestor(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             return redirect(url_for('home'))
             
         else:
-            flash('Não logado, tente novamente!')
+            flash("Não logado, tente novamente!", 'danger')
             return render_template('login.html')
 
     return render_template('login.html')
@@ -69,27 +69,32 @@ def logout():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if session['user_type'] == 'aluno':
-        return render_template('home_aluno.html')
+        aluno_obj = aluno.get(session['id'])
+        return render_template('home_aluno.html', aluno=aluno_obj)
     
     elif session['user_type'] == 'professor':
-        return render_template('home_professor.html')
+        professor = prof.get(session['id'])
+        return render_template('home_professor.html', professor=professor)
 
     elif session['user_type'] == 'coordenador':
-        return render_template('home_coordenador.html')
+        coordenador = coor.get(session['id'])
+        return render_template('home_coordenador.html', coordenador=coordenador)
     
     elif session['user_type'] == 'gestor':
-        return render_template('home_gestor.html')
+        gestor_obj = gestor.get(session['id'])
+        return render_template('home_gestor.html', gestor=gestor_obj)
     
 
 @app.route('/perfil_aluno/<int:aluno_id>')
 def perfil_aluno(aluno_id):
+    serie_selecionada = request.args.get('serie', None)
 
     try:  
         student = aluno.get(aluno_id) 
         notas = nota.get_student_notes(aluno_id)
+        
         if student:
-
-            return render_template('perfil_aluno.html', aluno=student, notas=notas)
+            return render_template('perfil_aluno.html', aluno=student, notas=notas, serie_selecionada=serie_selecionada)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
