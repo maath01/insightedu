@@ -321,6 +321,21 @@ def cadastro_questao():
 
     return redirect(url_for('questoes'))
 
+@app.route('/cadastro/avaliacao', methods=['POST'])
+def cadastro_avaliacao():
+    serie = request.form['serie']
+    bimestre = request.form['bimestre']
+    turma_id = request.form['turma_id']
+    data_aplicacao = request.form['data_aplicacao']
+    materia = request.form['materia']
+    
+    professor_id = session['id']
+    
+    nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
+    
+    av.create(nova_avaliacao, materia)
+    
+    return redirect(url_for('avaliacoes'))
 
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
 def plot_class_matters_average(turma_id, materia):
@@ -358,22 +373,6 @@ def plot_student_matters_average(al_id=0):
     return Response(buf, mimetype='image/png')
 
 #felipe 
-
-@app.route('/cadastro/avaliacao', methods=['POST'])
-def cadastro_avaliacao():
-    serie = request.form['serie']
-    bimestre = request.form['bimestre']
-    turma_id = request.form['turma_id']
-    data_aplicacao = request.form['data_aplicacao']
-    materia = request.form['materia']
-    
-    professor_id = session['id']
-    
-    nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
-    
-    av.create(nova_avaliacao, materia)
-    
-    return redirect(url_for('avaliacoes'))
 
 @app.route('/plot/aluno/desempenho/notas/<int:al_id>/<int:serie>')
 def plot_student_performance_by_notes(al_id, serie):

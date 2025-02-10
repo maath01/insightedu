@@ -6,68 +6,82 @@
     <title>Avaliações</title>
 </head>
 <body>
-    <div class="container mt-4">
-        <h2>Avaliações</h2>
-        <!-- Botão para abrir o modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroModal">
-            Cadastrar Avaliação
-        </button>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Avaliação</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/cadastro/avaliacao" method="POST">
-                        <div class="mb-3">
-                            <label for="serie" class="form-label">Série</label>
-                            <input type="text" class="form-control" id="serie" name="serie" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bimestre" class="form-label">Bimestre</label>
-                            <input type="number" class="form-control" id="bimestre" name="bimestre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="turma_id" class="form-label">ID da Turma</label>
-                            <input type="text" class="form-control" id="turma_id" name="turma_id" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="data_aplicacao" class="form-label">Data de Aplicação</label>
-                            <input type="date" class="form-control" id="data_aplicacao" name="data_aplicacao" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="materia" class="form-label">Matéria</label>
-                            <input type="text" class="form-control" id="materia" name="materia" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <!-- Botão para acionar o modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAvaliacao">
+    Adicionar Avaliação
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalAvaliacao" tabindex="-1" role="dialog" aria-labelledby="modalAvaliacaoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAvaliacaoLabel">Cadastrar Avaliação</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <form action="{{ url_for('cadastro_avaliacao') }}" method="POST">
+            <!-- Campo Série -->
+            <div class="form-group">
+              <label for="serie">Série</label>
+              <select class="form-control" id="serie" name="serie" required>
+                <option value="" disabled selected>Selecione a série</option>
+                <option value="1">1º Ano</option>
+                <option value="2">2º Ano</option>
+                <option value="3">3º Ano</option>
+                <option value="4">4º Ano</option>
+                <option value="5">5º Ano</option>
+                <option value="6">6º Ano</option>
+                <option value="7">7º Ano</option>
+                <option value="8">8º Ano</option>
+                <option value="9">9º Ano</option>
+              </select>
+            </div>
+  
+            <!-- Campo Bimestre -->
+            <div class="form-group">
+              <label for="bimestre">Bimestre</label>
+              <select class="form-control" id="bimestre" name="bimestre" required>
+                <option value="" disabled selected>Selecione o bimestre</option>
+                <option value="1">1º Bimestre</option>
+                <option value="2">2º Bimestre</option>
+                <option value="3">3º Bimestre</option>
+                <option value="4">4º Bimestre</option>
+              </select>
+            </div>
+  
+            <!-- Campo Matéria -->
+            <div class="form-group">
+              <label for="materia">Matéria</label>
+              <select class="form-control" id="materia" name="materia" required>
+                <option value="" disabled selected>Selecione a matéria</option>
+                <option value="Português">Português</option>
+                <option value="Matemática">Matemática</option>
+                <option value="Ciências">Ciências</option>
+                <option value="História">História</option>
+                <option value="Geografia">Geografia</option>
+              </select>
+            </div>
+  
+            <!-- Outros campos -->
+            <div class="form-group">
+              <label for="turma_id">ID da Turma</label>
+              <input type="number" class="form-control" id="turma_id" name="turma_id" required>
+            </div>
+            <div class="form-group">
+              <label for="data_aplicacao">Data de Aplicação</label>
+              <input type="date" class="form-control" id="data_aplicacao" name="data_aplicacao" required>
+            </div>
+  
+            <!-- Botão de envio -->
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+        </div>
+      </div>
     </div>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <h1>
-        <ul>
-            {% for av in avaliacoes %}
-            <li>
-                <a href="{{ url_for('avaliacao', av_id=av.av_id)}}">
-                    {{av.av_id}} {{av.serie}} {{av.bimestre}}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </h1>
+  </div>
 
 </body>
 </html>

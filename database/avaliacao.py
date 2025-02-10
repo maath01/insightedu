@@ -26,8 +26,8 @@ def create(av: Avaliacao, materia: str):
     try:
         av_id = generate_av_id(av, materia, cursor)
 
-        cursor.execute('INSERT INTO avaliacoes (id, serie, bimestre, professor_id, turma_id data_aplicacao) VALUES (?, ?, ?, ?)',
-                       (av_id, av.serie, av.bimestre, av.professor_id, av.turma_id, av.data_aplicacao))
+        cursor.execute('INSERT INTO avaliacoes (id, serie, bimestre, professor_id, turma_id, data_aplicacao) VALUES (?, ?, ?, ?, ?, ?)',
+                    (av_id, av.serie, av.bimestre, av.professor_id, av.turma_id, av.data_aplicacao))
         connection.commit()
     
     except sqlite3.IntegrityError:
