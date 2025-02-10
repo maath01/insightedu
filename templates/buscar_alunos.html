@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Alunos</title>
+</head>
+<body>
+    <h2>Buscar Alunos</h2>
+    
+    <form action="/buscar/alunos" method="POST">
+        <input type="text" id="nome" name="nome" placeholder="Digite o nome do aluno">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h3>Resultados:</h3>
+    {% if alunos %}
+        <ul>
+            {% for aluno in alunos %}
+                <li>{{ aluno.nome }} - ID: {{ aluno.al_id }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum aluno encontrado.</p>
+    {% endif %}
+</body>
+</html>
