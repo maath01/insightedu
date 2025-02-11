@@ -9,6 +9,7 @@ import database.dominio_descritores_port as dom_dp
 import database.dominio_descritores_mat as dom_mt
 import database.descritor_port as desc_p
 import database.descritor_mat as desc_m
+from database.aluno import Aluno
 
 
 app = Flask(__name__)
@@ -79,11 +80,11 @@ def home():
     
     elif session['user_type'] == 'gestor':
         return render_template('home_gestor.html')
-    
+
+
 
 @app.route('/perfil_aluno/<int:aluno_id>')
 def perfil_aluno(aluno_id):
-
     try:  
         student = aluno.get(aluno_id) 
         notas = nota.get_student_notes(aluno_id)
@@ -364,5 +365,49 @@ def plot_student_matters_average(al_id=0):
 
     return Response(buf, mimetype='image/png')
 
+
+'''Busca por aluno através do nome enviado por requisição no form do arquivo buscar_alunos.html'''
+@app.route('/buscar/alunos', methods=['GET', 'POST'])
+def buscar_alunos():
+    try:
+        name = request.form['nome'] 
+    except:
+        return render_template('buscar_alunos.html', alunos=[])  
+    connection, cursor = banco.connect_db()  
+    query = "SELECT * FROM alunos WHERE nome LIKE ?"  
+    cursor.execute(query, (f"%{name}%",)) 
+    resultados = cursor.fetchall()  
+    connection.close()  
+    alunos = [Aluno(*dados) for dados in resultados]
+    return render_template('buscar_alunos.html', alunos=alunos)
+
+
+
+@app.route('/matricular/aluno/<int:aluno_id>')
+def matricular_aluno(aluno_id):
+    try:
+        connection, cursor = banco.connect_db()
+        escola_id = escola.get_school_id(session.get('id'))
+  
+        if escola_id is None:
+            flash("Erro: ID da escola não encontrado!", "error")
+            return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
+        
+        connection_tables.escolas_alunos(escola_id, aluno_id, cursor, connection)
+        
+        connection.commit()
+    except Exception as e:
+        flash(f"Erro ao matricular aluno: {str(e)}", "error")
+    
+    finally:
+        if connection:
+            connection.close()
+    return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
