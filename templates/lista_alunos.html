@@ -33,17 +33,25 @@
             <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Matemática') }}" class="img-fluid" alt="Média Matemática">
         </div>
         <div class="col-md-4">
-            <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciências') }}" class="img-fluid" alt="Média Ciências">
+            <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciencias') }}" class="img-fluid" alt="Média Ciencias">
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='História') }}" class="img-fluid" alt="Média História">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Historia') }}" class="img-fluid" alt="Média Historia">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia') }}" class="img-fluid" alt="Média Geografia">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('plot_descs_port_class', turma_id=turma.tur_id)}}">
+            </div>
+
+            <div class="col-md-4">
+                <img src="{{ url_for('plot_descs_mat_class', turma_id=turma.tur_id)}}">
+            </div>
+
         </div>
-        <div class="col-md-4">
-            <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia') }}" class="img-fluid" alt="Média Geografia">
-        </div>
-    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

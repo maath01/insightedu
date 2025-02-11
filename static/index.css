@@ -1,11 +1,10 @@
-/* Resetando margens e padding para um estilo limpo */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Cor de fundo suave e fonte agradável */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
@@ -16,7 +15,6 @@ body {
     height: 100vh;
 }
 
-/* Estilo do título */
 h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -25,7 +23,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Estilo do link de login */
 a {
     display: inline-block;
     font-size: 1.2rem;

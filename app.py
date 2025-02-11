@@ -11,7 +11,9 @@ import database.dominio_descritores_port as dom_dp
 import database.dominio_descritores_mat as dom_mt
 import database.descritor_port as desc_p
 import database.descritor_mat as desc_m
-
+import seaborn as sns
+import numpy as np
+import base64
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
@@ -362,6 +364,47 @@ def plot_student_matters_average(al_id=0):
         
     fig, ax = plt.subplots(figsize=(5, 2.7))
     ax.bar(lista_materias, lista_medias)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
+
+@app.route('/plot/descs_port/turma/<int:turma_id>')
+def plot_descs_port_class(turma_id):
+    alunos = aluno.list_students_by_class(turma_id)
+    dominios = dom_dp.get_dom_by_class(alunos)
+
+    quantidades = [0 for i in range(45)]
+
+    for dom in dominios:
+        for i, desc in enumerate(dom.dominio):
+            quantidades[i] += desc
+
+    fig, ax = plt.subplots()
+    ax.bar([str(i) for i in range(45)], quantidades)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
+
+
+@app.route('/plot/descs_mat/turma/<int:turma_id>')
+def plot_descs_mat_class(turma_id):
+    alunos = aluno.list_students_by_class(turma_id)
+    dominios = dom_mt.get_dom_by_class(alunos)
+
+    quantidades = [0 for i in range(45)]
+
+    for dom in dominios:
+        for i, desc in enumerate(dom.dominio):
+            quantidades[i] += desc
+
+    fig, ax = plt.subplots()
+    ax.bar([str(i) for i in range(45)], quantidades)
     buf = BytesIO()
     plt.savefig(buf, format='png')
     buf.seek(0)
