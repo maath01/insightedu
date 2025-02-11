@@ -1,5 +1,5 @@
 import sqlite3
-from database.banco import connect_db
+from database.scripts.banco import connect_db
 from random import randint
 
 class Questao:

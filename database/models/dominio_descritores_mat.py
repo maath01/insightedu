@@ -1,4 +1,4 @@
-from database.banco import connect_db
+from database.scripts.banco import connect_db
 import sqlite3
 
 class DominioDescritoresMat:
@@ -35,8 +35,8 @@ def create(dominiodescritoresmat: DominioDescritoresMat):
 
         cursor.execute('''
             INSERT INTO dominio_descritores_mat (
-            aluno_id, descritor_1, descritor_2, descritor_3, descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29, descritor_30, descritor_31) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)''',
+            aluno_id, descritor_1, descritor_2, descritor_3, descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29, descritor_30, descritor_31, descritor_32, descritor_33, descritor_34, descritor_35, descritor_36, descritor_37, descritor_38, descritor_39, descritor_40, descritor_41, descritor_42, descritor_43, descritor_44, descritor_45) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
             dominiodescritoresmat.return_list())
 
         connection.commit()
@@ -99,32 +99,27 @@ def get_dom_by_class(alunos):
     return doms
 
 
-def update_descritores(id, dominiodescritoresmat: DominioDescritoresMat):
+def update_descritores(aluno_id, dom_mat: DominioDescritoresMat):
     """Atualiza um elemento no banco de dados com base no id ."""
     connection, cursor = connect_db()
 
-    descritores = dominiodescritoresmat.return_list()
+    dominios = dom_mat.dominio.copy()
+    dominios.append(aluno_id)
 
-    
-    print(len(descritores))  
     cursor.execute("""
         UPDATE dominio_descritores_mat
-        SET aluno_id = ?, descritor_1 = ?, descritor_2 = ?, descritor_3 = ?, descritor_4 = ?, 
+        SET descritor_1 = ?, descritor_2 = ?, descritor_3 = ?, descritor_4 = ?, 
             descritor_5 = ?, descritor_6 = ?, descritor_7 = ?, descritor_8 = ?, descritor_9 = ?, 
             descritor_10 = ?, descritor_11 = ?, descritor_12 = ?, descritor_13 = ?, descritor_14 = ?, 
             descritor_15 = ?, descritor_16 = ?, descritor_17 = ?, descritor_18 = ?, descritor_19 = ?, 
             descritor_20 = ?, descritor_21 = ?, descritor_22 = ?, descritor_23 = ?, descritor_24 = ?, 
             descritor_25 = ?, descritor_26 = ?, descritor_27 = ?, descritor_28 = ?, descritor_29 = ?,
-            descritor_30 = ?, descritor_31 = ?
-        WHERE id = ?
-    """, tuple(descritores) + (id,)) 
+            descritor_30 = ?, descritor_31 = ?, descritor_32 = ?, descritor_33 = ?, descritor_34 = ?,
+            descritor_35 = ?, descritor_36 = ?, descritor_37 = ?, descritor_38 = ?, descritor_39 = ?,
+            descritor_40 = ?, descritor_41 = ?, descritor_42 = ?, descritor_43 = ?, descritor_44 = ?, descritor_45 = ?
+            WHERE aluno_id = ?
+    """, tuple(dominios)) 
 
     connection.commit()
     connection.close()
 
-
-descritores = ['{}'.format(1) for i in range(1, 32)]  # Lista de 29 descritores
-dominio_descritores = DominioDescritoresMat(id=1, aluno_id=123, ds=descritores)
-
-# Chamando a função para atualizar a base de dados
-update_descritores(1, dominio_descritores)

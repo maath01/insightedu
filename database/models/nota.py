@@ -1,10 +1,9 @@
 import sqlite3
-from database.banco import connect_db
-import database.avaliacao as avl
-import database.turma as turma
+from database.scripts.banco import connect_db
+import database.models.avaliacao as avl
+import database.models.turma as turma
+from database.models.aluno import list_students_by_class
 from random import randint
-from database.aluno import list_students_by_class
-from database.aluno import list_students_by_class
 
 
 class Nota:

@@ -1,21 +1,31 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
 from io import BytesIO
+from functools import wraps
 import matplotlib.pyplot as plt
-from database import aluno, banco, connection_tables, turma, escola, gestor, nota, questao
-import database.professor as prof 
-import database.coordenador as coor
-import database.avaliacao as av
-import database.dominio_descritores_port as dom_dp
-import database.dominio_descritores_mat as dom_mt
-import database.descritor_port as desc_p
-import database.descritor_mat as desc_m
-from database.aluno import Aluno
+from database.models import aluno, turma, escola, nota, questao
+from database.scripts import banco, connection_tables
+import database.models.professor as prof 
+import database.models.coordenador as coor
+import database.models.avaliacao as av
+import database.models.dominio_descritores_port as dom_pt
+import database.models.dominio_descritores_mat as dom_mt
+import database.models.descritor_port as desc_p
+import database.models.descritor_mat as desc_m
 
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
 
 banco.create_database()
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'id' not in session:  # Verifica se o usuário está autenticado
+            return redirect(url_for('login'))  # Redireciona para a página de login
+        return f(*args, **kwargs)  # Permite o acesso à rota protegida
+    return decorated_function
+
 
 @app.route('/')
 def index():
@@ -43,13 +53,11 @@ def login():
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
-                flash(f"Coordenador(a) foi logado(a) com sucesso!")
-                flash(f"coordenador(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Coordenador(a) {user[1]}, foi logado(a) com sucesso!")
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
-                flash(f"Gestor(a) foi logado(a) com sucesso!")
-                flash(f"gestor(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Gestor(a) {user[1]}, foi logado(a) com sucesso!")
 
             return redirect(url_for('home'))
             
@@ -68,6 +76,7 @@ def logout():
 
 
 @app.route('/home', methods=['GET', 'POST'])
+@login_required
 def home():
     if session['user_type'] == 'aluno':
         return render_template('home_aluno.html')
@@ -84,6 +93,7 @@ def home():
 
 
 @app.route('/perfil_aluno/<int:aluno_id>')
+@login_required
 def perfil_aluno(aluno_id):
     try:  
         student = aluno.get(aluno_id) 
@@ -98,6 +108,7 @@ def perfil_aluno(aluno_id):
 
 
 @app.route('/home/lista_professores')
+@login_required
 def list_teachers():
     if session.get('user_type') == 'gestor':
         id_gestor=session.get('id')
@@ -109,6 +120,7 @@ def list_teachers():
 
 
 @app.route('/home/lista_professores/<int:prof_id>')
+@login_required
 def perfil_professor(prof_id):
     professor = prof.get(prof_id)
     if professor:
@@ -118,6 +130,7 @@ def perfil_professor(prof_id):
 
 
 @app.route('/home/avaliacoes')
+@login_required
 def avaliacoes():
     if session.get('user_type') == 'professor':
         avaliacoes = av.list_evaluations_by_teacher(session['id'])
@@ -127,6 +140,7 @@ def avaliacoes():
     
 
 @app.route('/home/avaliacoes/<int:av_id>')
+@login_required
 def avaliacao(av_id):
     if session.get('user_type') == 'professor':
         avaliacao = av.get(av_id)
@@ -138,6 +152,7 @@ def avaliacao(av_id):
     
 
 @app.route('/home/turmas')
+@login_required
 def turmas():
     if session['user_type'] == 'gestor':
         escola_id = escola.get_school_id(session['id'])
@@ -150,6 +165,7 @@ def turmas():
 
 
 @app.route ('/home/turmas/<int:turma_id>')
+@login_required
 def lista_alunos(turma_id):
     try:    
         alunos = aluno.list_students_by_class(turma_id)
@@ -163,6 +179,7 @@ def lista_alunos(turma_id):
 
 
 @app.route('/home/alunos')
+@login_required
 def lista_alunos_por_escola():
     if session.get('user_type') != 'gestor':
         flash("Você não tem permissão para acessar esta página.")
@@ -179,12 +196,14 @@ def lista_alunos_por_escola():
     
 
 @app.route('/home/questoes')
+@login_required
 def questoes():
     """Acessa o banco de questões"""
     questions = questao.list_questions()
     return render_template('questoes.html', questions=questions)
 
 @app.route('/home/questoes/filtradas', methods=['POST'])
+@login_required
 def questoes_filtradas():
     """Recebe parametros e pesquisa questoes no banco de dados"""
     serie = request.form['serie']
@@ -198,6 +217,7 @@ def questoes_filtradas():
 
 
 @app.route('/cadastro/notas/<int:av_id>', methods=['POST'])
+@login_required
 def cadastro_notas(av_id):
     for aluno_id, nt in request.form.items():
         avl = av.get(av_id)
@@ -218,6 +238,7 @@ def cadastro_notas(av_id):
 
 
 @app.route('/cadastro/aluno', methods=['POST'])
+@login_required
 def cadastro_aluno():
     if session.get('user_type') != 'gestor':
         flash("Você não tem permissão para acessar esta funcionalidade.")
@@ -258,6 +279,7 @@ def cadastro_aluno():
 
 
 @app.route('/cadastro/turma', methods=['POST'])
+@login_required
 def cadastro_turma():
     
     if 'user_type' not in session or session['user_type'] != 'gestor':
@@ -316,6 +338,7 @@ def validar_dados_turma(serie, letra):
 
 
 @app.route('/cadastro/questao', methods=['POST'])
+@login_required
 def cadastro_questao():
     """Cadastra uma questão no banco de dados"""
     enunciado = request.form['enunciado']
@@ -331,6 +354,7 @@ def cadastro_questao():
 
 
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
+@login_required
 def plot_class_matters_average(turma_id, materia):
     turma_ = turma.get(turma_id)
     medias = nota.get_averages_by_matter(materia, turma_id, turma_.serie)
@@ -348,6 +372,7 @@ def plot_class_matters_average(turma_id, materia):
     return Response(buf, mimetype='image/png')
 
 @app.route('/plot/aluno/materias/medias/<int:al_id>')
+@login_required
 def plot_student_matters_average(al_id=0):
     lista_materias = ['Português', 'Matemática','Ciencias', 'Historia', 'Geografia']
     lista_medias = []
@@ -368,6 +393,7 @@ def plot_student_matters_average(al_id=0):
 
 '''Busca por aluno através do nome enviado por requisição no form do arquivo buscar_alunos.html'''
 @app.route('/buscar/alunos', methods=['GET', 'POST'])
+@login_required
 def buscar_alunos():
     try:
         name = request.form['nome'] 
@@ -378,12 +404,13 @@ def buscar_alunos():
     cursor.execute(query, (f"%{name}%",)) 
     resultados = cursor.fetchall()  
     connection.close()  
-    alunos = [Aluno(*dados) for dados in resultados]
+    alunos = [aluno.Aluno(*dados) for dados in resultados]
     return render_template('buscar_alunos.html', alunos=alunos)
 
 
 
 @app.route('/matricular/aluno/<int:aluno_id>')
+@login_required
 def matricular_aluno(aluno_id):
     try:
         connection, cursor = banco.connect_db()

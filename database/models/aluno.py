@@ -1,8 +1,10 @@
 import sqlite3
 from random import randint
-from database.banco import connect_db
-from database.connection_tables import escolas_alunos
-import database.turma as turma
+from database.scripts.banco import connect_db
+from database.scripts.connection_tables import escolas_alunos
+import database.models.turma as turma
+import database.models.dominio_descritores_mat as dom_mt
+import database.models.dominio_descritores_port as dom_pt
 
 
 class Aluno:
@@ -37,6 +39,10 @@ def create(aluno: Aluno, escola):
     else:
         escolas_alunos(escola.escola_id, al_id, cursor, connection)
         aluno.al_id = al_id
+        dom_mat = dom_mt.DominioDescritoresMat(0, al_id, [0 for _ in range(45)])
+        dom_mt.create(dom_mat)
+        dom_port = dom_pt.DominioDescritoresPort(0, al_id, [0 for _ in range(45)])
+        dom_pt.create(dom_port)
     
     connection.close()
 

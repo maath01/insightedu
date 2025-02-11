@@ -1,7 +1,7 @@
 import sqlite3
-from database.banco import connect_db
-from database.connection_tables import materias_avaliacoes
-from database.aluno import *
+from database.scripts.banco import connect_db
+from database.scripts.connection_tables import materias_avaliacoes
+from database.models.aluno import *
 from random import randint
 from datetime import datetime
 

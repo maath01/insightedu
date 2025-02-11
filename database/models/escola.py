@@ -1,4 +1,4 @@
-from database.banco import connect_db
+from database.scripts.banco import connect_db
 import sqlite3
 from random import randint
 
