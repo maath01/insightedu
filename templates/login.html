@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
     <title>Login</title>
-
 </head>
-<body>
 
+<body>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul id="messages" class="list-unstyled">
@@ -19,29 +19,42 @@
         {% endif %}
     {% endwith %}
 
-
-    <h1>Login</h1>
+    <!-- <div class="logo">
+        <img src="../static/logo.png" alt="Logo">
+    </div> -->
 
     <form action="/login" method="POST">
-        <p><b>Escolha uma opção: </b></p>
+        
+        
+        <!--<div class="icon">👤</div> -->
 
-        <select name="categoria" id="categoria">
-            <option value="aluno">Aluno</option>
-            <option value="professor">Professor</option>
-            <option value="coordenador">Coordenador</option>
-            <option value="gestor">Gestor</option>
-        </select>
+        <div class="category-buttons">
+            <button type="button" class="selected" onclick="selectCategory(this, 'aluno')">Aluno</button>
+            <button type="button" onclick="selectCategory(this, 'coordenador')">Coordenador</button>
+            <button type="button" onclick="selectCategory(this, 'gestor')">Gestor</button>
+            <button type="button" onclick="selectCategory(this, 'professor')">Professor</button>
+        </div>
+        <input type="hidden" name="categoria" id="categoria" value="aluno">
 
         <div class="login">
             <label for="id">ID:</label>
-            <input type="text" id="id" name="id" required placeholder="ID"><br><br>
+            <input type="text" id="id" name="id" required placeholder="ID"><br>
 
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required placeholder="Senha"><br><br>
+            <input type="password" id="senha" name="senha" required placeholder="Senha"><br>
         </div>
-
 
         <button type="submit">Entrar</button>
     </form>
+
+    <script>
+        function selectCategory(element, category) {
+            document.querySelectorAll('.category-buttons button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('categoria').value = category;
+        }
+    </script>
 </body>
 </html>

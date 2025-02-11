@@ -42,10 +42,12 @@ def login():
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
+                flash(f"Coordenador(a) foi logado(a) com sucesso!")
                 flash(f"coordenador(a) {user[1]}, foi logado(a) com sucesso!")
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
+                flash(f"Gestor(a) foi logado(a) com sucesso!")
                 flash(f"gestor(a) {user[1]}, foi logado(a) com sucesso!")
 
             return redirect(url_for('home'))
@@ -84,8 +86,10 @@ def perfil_aluno(aluno_id):
 
     try:  
         student = aluno.get(aluno_id) 
+        notas = nota.get_student_notes(aluno_id)
         if student:
-            return render_template('perfil_aluno.html', aluno=student)
+
+            return render_template('perfil_aluno.html', aluno=student, notas=notas)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
