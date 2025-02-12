@@ -261,6 +261,54 @@ def cadastro_aluno():
     except Exception as e:
         flash("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.")
         return redirect(url_for('home'))
+    
+
+
+
+@app.route('/cadastro/professor', methods=['POST'])
+def cadastro_professor():
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+    try:
+        nome = request.form['nome']
+        email = request.form['email']
+        uf = request.form['uf']
+        data_nascimento = request.form['data_nascimento']
+        cpf = request.form['cpf']
+        idade = int(request.form['idade'])
+        
+        gestor_id = session.get('id')
+        escola_id = escola.get_school_id(gestor_id)
+        esc = escola.get(escola_id)
+        
+        novo_professor = prof.Professor(
+            prof_id=0,
+            nome=nome,
+            email=email,
+            senha='12345678',
+            uf=uf,
+            data_nascimento=data_nascimento,
+            cpf=cpf,
+            idade=idade
+        )
+        
+        prof.create(novo_professor, esc)
+        
+        flash("Professor cadastrado com sucesso!")
+        return redirect(url_for('list_teachers'))
+    
+    except ValueError as e:
+        flash(f"Erro nos dados fornecidos: {str(e)}")
+        return redirect(url_for('home'))
+    
+    except Exception as e:
+        flash("Ocorreu um erro ao cadastrar o professor. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+    
+
+
+
 
 
 @app.route('/cadastro/turma', methods=['POST'])
