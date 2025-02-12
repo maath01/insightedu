@@ -448,7 +448,7 @@ def cadastro_avaliacao():
     av.create(nova_avaliacao, materia)
     
     return redirect(url_for('avaliacoes'))
-
+#funcionando 
 
 @app.route('/cadastro/coordenador', methods=['POST'])
 def cadastro_coordenador():
@@ -467,7 +467,6 @@ def cadastro_coordenador():
     return redirect(url_for('lista_coordenadores'))
 
 #desempenho da turma
-'''
 @app.route('/plot/turma/materias/bimestre/<int:turma_id>')
 def plot_class_matter_bim_average(turma_id):
     materias = ['Português', 'Matemática', 'Ciências', 'História', 'Geografia']
@@ -509,9 +508,8 @@ def plot_class_matter_bim_average(turma_id):
     plt.close()
     
     return Response(buf.getvalue(), mimetype='image/png')
-'''
+
 #desempenho do aluno
-'''
 @app.route('/plot/aluno/desempenho/notas/<int:al_id>/<int:serie>')
 def plot_student_performance_by_notes(al_id, serie):
     notas = nota.get_student_notes(al_id)
@@ -543,7 +541,6 @@ def plot_student_performance_by_notes(al_id, serie):
     buf.seek(0)
     
     return Response(buf.getvalue(), mimetype='image/png')
-'''
 
 if __name__ == "__main__":
     app.run(debug=True)
