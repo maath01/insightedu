@@ -469,7 +469,7 @@ def cadastro_coordenador():
 #desempenho da turma
 @app.route('/plot/turma/materias/bimestre/<int:turma_id>')
 def plot_class_matter_bim_average(turma_id):
-    materias = ['Português', 'Matemática', 'Ciências', 'História', 'Geografia']
+    materias = ['Português', 'Matemática', 'Ciencias', 'Historia', 'Geografia']
     
     alunos = aluno.list_students_by_class(turma_id)
     
@@ -487,9 +487,9 @@ def plot_class_matter_bim_average(turma_id):
                 portugues.append(media)
             elif materia == 'Matemática':
                 matematica.append(media)
-            elif materia == 'Ciências':
+            elif materia == 'Ciencias':
                 ciencias.append(media)
-            elif materia == 'História':
+            elif materia == 'Historia':
                 historia.append(media)
             elif materia == 'Geografia':
                 geografia.append(media)
@@ -497,8 +497,8 @@ def plot_class_matter_bim_average(turma_id):
     fig, ax = plt.subplots()
     ax.plot(['1', '2', '3', '4'], portugues, label='Português')
     ax.plot(['1', '2', '3', '4'], matematica, label='Matemática')
-    ax.plot(['1', '2', '3', '4'], ciencias, label='Ciências')
-    ax.plot(['1', '2', '3', '4'], historia, label='História')
+    ax.plot(['1', '2', '3', '4'], ciencias, label='Ciencias')
+    ax.plot(['1', '2', '3', '4'], historia, label='Historia')
     ax.plot(['1', '2', '3', '4'], geografia, label='Geografia')
     ax.legend()
     
@@ -510,20 +510,23 @@ def plot_class_matter_bim_average(turma_id):
     return Response(buf.getvalue(), mimetype='image/png')
 
 #desempenho do aluno
-@app.route('/plot/aluno/desempenho/notas/<int:al_id>/<int:serie>')
-def plot_student_performance_by_notes(al_id, serie):
+@app.route('/plot/aluno/desempenho/notas/<int:al_id>')
+def plot_student_performance_by_notes(al_id):
+
     notas = nota.get_student_notes(al_id)
 
-    materias_dict = {"Português": [], "Matemática": [], "Ciências": [], "História": [], "Geografia": []}
+    serie = aluno.get_class(al_id).serie
+
+    materias_dict = {"Português": [], "Matemática": [], "Ciencias": [], "Historia": [], "Geografia": []}
     
 
     for serie_nome, materias in notas.items():
-        if serie_nome.startswith(str(serie)):
+        if serie_nome.startswith(str()):
             for materia, bimestres in materias.items():
                 if materia in materias_dict:
                     for bim in range(1, 5):  # 4 bimestres
-                        nota = bimestres.get(f"{bim} bim", 0)
-                        materias_dict[materia].append(nota if nota is not None else 0)
+                        nota_ = bimestres.get(f"{bim} bim", 0)
+                        materias_dict[materia].append(nota_ if nota_ is not None else 0)
 
     fig, ax = plt.subplots()
     bimestres_labels = ['1', '2', '3', '4']

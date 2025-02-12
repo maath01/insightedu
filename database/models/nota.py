@@ -407,8 +407,9 @@ def get_class_average_by_bim_and_matter(alunos, id_turma, bim, materia):
     for aluno in alunos:
         notas = get_student_notes(aluno.al_id)
         nota = acess_notes_data(notas, turma_.serie, bim, materia)
-        total += nota
-        count += 1
+        if nota != None:
+            total += nota
+            count += 1
 
     try:
         media = total / count
