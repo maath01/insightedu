@@ -38,7 +38,130 @@
     <a href="{{ url_for('matricular_aluno', aluno_id=aluno.al_id) }}" class="btn btn-primary">
         Matricular Aluno
     </a>
-{% endif %}
+    {% endif %}
 
+    <table>
+        <tr>
+            <th>N° do descritor</th>
+            <th>Portguês</th>
+            <th>Matematica</th>
+        </tr>
+        {% for dom in dominios %}
+            <tr>
+                <td>Descritor {{ loop.index }}</td>
+                {% if dom[0] == 1 %}
+                    <td>Domina</td>
+                {% endif %}
+                {% if dom[0] == 0 %}
+                    <td>Não domina</td>
+                {% endif %}
+                {% if dom[1] == 1 %}
+                    <td>Domina</td>
+                {% endif %}
+                {% if dom[1] == 0 %}
+                    <td>Não domina</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+    </table>
+    <!-- Botão para abrir o modal -->
+    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#modalEdicaoPort">
+        Editar Português
+    </button>
+    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#modalEdicaoMat">
+        Editar Matematica
+    </button>
+    <!-- Modal Portugues-->
+    <div class="modal fade" id="modalEdicaoPort" tabindex="-1" aria-labelledby="modalEdicaoPortLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdicaoPortLabel">Editar Português</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('edicao_portugues', aluno_id=aluno.al_id) }}" method="POST">
+                        
+                        {% for i in range(45) %}
+                            <div class="mb-3">
+                                <label for="descritor{{ i }}" class="form-label">Descritor {{ i+1 }}</label>
+                                <select class="form-control" id="descritor{{ i }}" name="descritor{{ i }}" required>
+                                    <option value="1" {% if dominios[i][0] == 1 %}selected{% endif %}>Domina</option>
+                                    <option value="0" {% if dominios[i][0] == 0 %}selected{% endif %}>Não domina</option>
+
+                                </select>
+                            </div>
+                        {% endfor %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Portugues-->
+    <div class="modal fade" id="modalEdicaoPort" tabindex="-1" aria-labelledby="modalEdicaoPortLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdicaoPortLabel">Editar Português</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('edicao_portugues', aluno_id=aluno.al_id) }}" method="POST">
+                        
+                        {% for i in range(45) %}
+                            <div class="mb-3">
+                                <label for="descritor{{ i }}" class="form-label">Descritor {{ i+1 }}</label>
+                                <select class="form-control" id="descritor{{ i }}" name="descritor{{ i }}" required>
+                                    <option value="1" {% if dominios[i][0] == 1 %}selected{% endif %}>Domina</option>
+                                    <option value="0" {% if dominios[i][0] == 0 %}selected{% endif %}>Não domina</option>
+
+                                </select>
+                            </div>
+                        {% endfor %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div><!-- Modal matematica-->
+    <div class="modal fade" id="modalEdicaoMat" tabindex="-1" aria-labelledby="modalEdicaoMatLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdicaoMatLabel">Editar Matematica</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('edicao_matematica', aluno_id=aluno.al_id) }}" method="POST">
+                        
+                        {% for i in range(45) %}
+                            <div class="mb-3">
+                                <label for="descritor{{ i }}" class="form-label">Descritor {{ i+1 }}</label>
+                                <select class="form-control" id="descritor{{ i }}" name="descritor{{ i }}" required>
+                                    <option value="1" {% if dominios[i][1] == 1 %}selected{% endif %}>Domina</option>
+                                    <option value="0" {% if dominios[i][1] == 0 %}selected{% endif %}>Não domina</option>
+
+                                </select>
+                            </div>
+                        {% endfor %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

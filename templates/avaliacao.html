@@ -23,7 +23,7 @@
             {% for aluno in alunos %}
               <li>{{ aluno.nome }} - {{ aluno.al_id }}</li>
               <!-- <label for="cpf" class="form-label">CPF</label> -->
-              <input type="text" class="form-control" id="nota_{{ aluno.al_id }}" name="nota_{{ aluno.al_id }}" required>
+              <input type="text" class="form-control" id="nota_{{ aluno.al_id }}" name="nota_{{ aluno.al_id }}" value="{{ aluno.nota }}" required>
             {% endfor %}
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </ul>

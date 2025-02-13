@@ -96,11 +96,18 @@ def home():
 @login_required
 def perfil_aluno(aluno_id):
     try:  
-        student = aluno.get(aluno_id) 
-        notas = nota.get_student_notes(aluno_id)
+        student = aluno.get(aluno_id)
         if student:
+            notas = nota.get_student_notes(aluno_id)
+            dom_port = dom_pt.get(aluno_id) 
+            dom_mat = dom_mt.get(aluno_id)
+            dominios = []
+            for i in range(45):
+                dominios.append(
+                    [dom_port.dominio[i], dom_mat.dominio[i]]
+                )
 
-            return render_template('perfil_aluno.html', aluno=student, notas=notas)
+            return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
@@ -145,6 +152,15 @@ def avaliacao(av_id):
     if session.get('user_type') == 'professor':
         avaliacao = av.get(av_id)
         alunos = aluno.list_students_by_class(avaliacao.turma_id)
+
+        connection, cursor = banco.connect_db()
+        for aluno_ in alunos:
+            try:
+                cursor.execute('SELECT * FROM notas WHERE aluno_id = ? AND avaliacao_id = ?', (aluno_.al_id, av_id))
+                aluno_.nota = cursor.fetchall()[0][3]
+            except:
+                aluno_.nota = 0
+            
         materia = av.get_matter(avaliacao)
         return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos, materia=materia)
     else:
@@ -351,6 +367,34 @@ def cadastro_questao():
     questao.create(nova_questao)
 
     return redirect(url_for('questoes'))
+
+
+@app.route('/edicao/portugues/<int:aluno_id>', methods=['POST'])
+def edicao_portugues(aluno_id):
+    """Edita o dominio de descritores de um aluno"""
+    dominio = []
+    for i in range(45):
+        d = request.form[f'descritor{i}']
+        dominio.append(d)
+    
+    dom = dom_pt.get(aluno_id)
+    dom.dominio = dominio.copy()
+    dom_pt.update_descritores(aluno_id, dom)
+    return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
+
+
+@app.route('/edicao/matematica/<int:aluno_id>', methods=['POST'])
+def edicao_matematica(aluno_id):
+    """Edita o dominio de descritores de um aluno"""
+    dominio = []
+    for i in range(45):
+        d = request.form[f'descritor{i}']
+        dominio.append(d)
+    
+    dom = dom_mt.get(aluno_id)
+    dom.dominio = dominio.copy()
+    dom_mt.update_descritores(aluno_id, dom)
+    return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
 
 
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
