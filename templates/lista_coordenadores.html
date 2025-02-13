@@ -7,6 +7,15 @@
     <title>Avaliações</title>
 </head>
 <body>
+
+    <h1>Coordenadores</h1>
+    <ul>
+        {% for coor in coordenadores %}
+            <li>{{ coor.nome }}</li>
+        {% endfor %}
+    </ul>
+    
+    
   <!-- Botão para abrir o modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroCoordenadorModal">
   Cadastrar Coordenador

@@ -545,6 +545,15 @@ def plot_student_performance_by_notes(al_id):
     
     return Response(buf.getvalue(), mimetype='image/png')
 
+
+
+
+@app.route('/home/lista_coordenadores')
+def lista_coordenadores():
+    escola_id = escola.get_school_id(session['id'])
+    coordenadores = coor.list_coordinators_by_school(escola_id)
+    return render_template('lista_coordenadores.html', coordenadores=coordenadores)
+
 if __name__ == "__main__":
     app.run(debug=True)
 
