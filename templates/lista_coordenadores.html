@@ -4,100 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <title>Avaliações</title>
+    <title>lista_coordenadores</title>
 </head>
 <body>
 
-    <h1>Coordenadores</h1>
-    <ul>
-        {% for coor in coordenadores %}
-            <li>{{ coor.nome }}</li>
-        {% endfor %}
-    </ul>
+    <h1>Lista de Coordenadores</h1>
+        <ul>
+            {% for coor in coordenadores %}
+            <li>{{ coor.nome }}</li> <!-- Substitua 'nome' pelo campo correto que contém o nome do coordenador -->
+            {% endfor %}
+        </ul>
     
     
-  <!-- Botão para abrir o modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroCoordenadorModal">
-  Cadastrar Coordenador
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="cadastroCoordenadorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="modalLabel">Cadastro de Coordenador</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <form action="/cadastro/coordenador" method="POST">
-                  <div class="mb-3">
-                      <label for="nome" class="form-label">Nome</label>
-                      <input type="text" class="form-control" id="nome" name="nome" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="email" class="form-label">E-mail</label>
-                      <input type="email" class="form-control" id="email" name="email" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                      <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="cpf" class="form-label">CPF</label>
-                      <input type="text" class="form-control" id="cpf" name="cpf" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="idade" class="form-label">Idade</label>
-                      <input type="number" class="form-control" id="idade" name="idade" required>
-                  </div>
-                  <button type="submit" class="btn btn-success">Cadastrar</button>
-              </form>
-          </div>
-      </div>
-  </div>
-</div>
-<!-- Botão para abrir o modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cadastroCoordenadorModal">
-  Cadastrar Coordenador
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="cadastroCoordenadorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="modalLabel">Cadastro de Coordenador</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <form action="/cadastro/coordenador" method="POST">
-                  <div class="mb-3">
-                      <label for="nome" class="form-label">Nome</label>
-                      <input type="text" class="form-control" id="nome" name="nome" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="email" class="form-label">E-mail</label>
-                      <input type="email" class="form-control" id="email" name="email" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                      <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="cpf" class="form-label">CPF</label>
-                      <input type="text" class="form-control" id="cpf" name="cpf" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="idade" class="form-label">Idade</label>
-                      <input type="number" class="form-control" id="idade" name="idade" required>
-                  </div>
-                  <button type="submit" class="btn btn-success">Cadastrar</button>
-              </form>
-          </div>
-      </div>
-  </div>
-</div>
+        <!-- Botão para abrir o modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAvaliacao">
+            Abrir Modal
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="cadastroCoordenadorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <form action="/cadastro/coordenador" method="POST">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idade" class="form-label">Idade</label>
+                            <input type="number" class="form-control" id="idade" name="idade" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
 
 </body>
 </html>
