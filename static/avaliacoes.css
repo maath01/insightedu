@@ -1,0 +1,57 @@
+body {
+    font-family: 'Figtree';
+}
+
+.list-group-item {
+    transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+    background-color: #2A7EBA;
+    color: white;
+}
+
+.list-group-item a {
+    color: inherit;
+}
+
+.btn-back {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #2A7EBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background-color: #082b40;
+    color: white;
+}
+
+h1 {
+    color: #2A7EBA;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.container {
+    min-height: 80vh;
+    padding-bottom: 50px;
+}

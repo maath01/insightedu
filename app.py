@@ -149,6 +149,9 @@ def turmas():
         escola_id = escola.get_school_id(session['id'])
         turmas_ = turma.list_classes_by_school(escola_id)
         profs = prof.list_teachers_by_school(escola_id)
+        for turma_ in turmas_:
+            alunos = aluno.list_students_by_class(turma_.tur_id)
+            turma_.media = nota.get_class_average_general(alunos, turma_.tur_id)
         return render_template('turmas.html', turmas=turmas_, professores=profs, user_type=session['user_type'])
     elif session['user_type'] == 'professor': 
         turmas_ = turma.list_classes_by_teacher(session['id'])
@@ -163,7 +166,8 @@ def lista_alunos(turma_id):
         if alunos:
             return render_template('lista_alunos.html', turma=turma_, alunos=alunos)
         else:
-            return f"<h1>Não há alunos cadastrados na turma {turma_id}.</h1>"
+            flash(f"Não há alunos cadastrados na turma {turma_id}.", "warning")
+            return redirect(url_for('turmas'))
     finally:
         pass
 
@@ -220,6 +224,7 @@ def cadastro_notas(av_id):
                     nt_ = nota.get(n[0])
                     nt_.nota = nt
                     nota.update(nt_.nota_id, nt_)
+    flash("Notas cadastradas com sucesso!")
     return redirect(url_for('avaliacao', av_id=av_id))
 
 
@@ -297,10 +302,6 @@ def cadastro_professor():
         
         flash("Professor cadastrado com sucesso!")
         return redirect(url_for('list_teachers'))
-    
-    except ValueError as e:
-        flash(f"Erro nos dados fornecidos: {str(e)}")
-        return redirect(url_for('home'))
     
     except Exception as e:
         flash("Ocorreu um erro ao cadastrar o professor. Por favor, tente novamente.")

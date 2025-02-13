@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/avaliacoes.css">
 </head>
-<body>
-    <h1>
-        <ul>
+<body class="bg-light">
+    <div class="container mt-5">
+    
+        <a href="{{ url_for('home') }}" class="btn-back">Voltar</a>
+
+        <h1 class="text-center mb-4">Lista de Avaliações</h1>
+        <ul class="list-group">
             {% for av in avaliacoes %}
-            <li>
-                <a href="{{ url_for('avaliacao', av_id=av.av_id)}}">
-                    {{av.av_id}} {{av.serie}} {{av.bimestre}}
+            <li class="list-group-item">
+                <a href="{{ url_for('avaliacao', av_id=av.av_id)}}" class="text-decoration-none">
+                    <strong>ID:</strong> {{ av.av_id }} | 
+                    <strong>Série:</strong> {{ av.serie }} | 
+                    <strong>Bimestre:</strong> {{ av.bimestre }}
                 </a>
             </li>
             {% endfor %}
         </ul>
-    </h1>
+    </div>
 
+    <footer>
+        <p>&copy; 2025 InsightEdu - Todos os direitos reservados</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

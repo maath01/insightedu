@@ -1,0 +1,107 @@
+body {
+    font-family: 'Figtree';
+    background-color: #f8f8f8;
+}
+
+h1 {
+    color: #2A7EBA;
+}
+
+.table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e2e2e2;
+}
+
+.btn-primary {
+    background-color: #2A7EBA;
+    border-color: #2A7EBA;
+}
+
+.btn-primary:hover {
+    background-color: #1f5c87;
+    border-color: #1f5c87;
+}
+
+.btn-primary:focus, .btn-primary:active {
+    background-color: #2A7EBA !important;
+    border-color: #2A7EBA !important;
+    outline: none;
+}
+
+.btn-success {
+    background-color: #2A7EBA;
+    border-color: #2A7EBA;
+}
+
+.btn-success:hover {
+    background-color: #22689B;
+    border-color: #22689B;
+}
+
+.btn-success:focus, .btn-success:active {
+    background-color: #2A7EBA !important;
+    border-color: #2A7EBA !important;
+    outline: none;
+}
+
+.btn-back {
+    margin-bottom: 20px;
+    background-color: #2A7EBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-back:hover {
+    background-color: #082b40;
+}
+
+.modal-header {
+    background-color: #2A7EBA;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #f8f8f8;
+}
+
+.modal-body input,
+.modal-body select {
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+}
+
+.modal-body input:focus,
+.modal-body select:focus {
+    border-color: #22689B;
+    box-shadow: 0 0 0 0.2rem rgba(34, 104, 155, 0.25);
+}
+
+.container {
+    min-height: 80vh;
+    padding-bottom: 50px;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}

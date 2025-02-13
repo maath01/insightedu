@@ -1,0 +1,138 @@
+
+@font-face {
+    font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+html, body {
+    font-family: 'Figtree', sans-serif;
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0); /* Degradê de cima até embaixo */
+}
+
+h1 {
+    color: #2A7EBA;
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #2A7EBA;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.list-group {
+    margin-top: 30px;
+}
+
+.list-group-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #bebebe;
+    color: black;
+}
+
+a {
+    color: #2A7EBA;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.btn-success {
+    background-color: #22689B;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: auto;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #0e3c5d;
+}
+
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #22689B;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #f8f8f8;
+}
+
+
+.form-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #f0f0f0;
+}
+
+.form-control:focus {
+    border-color: #e6e5e5; 
+    box-shadow: 0 0 0 0.2rem rgba(168, 168, 168, 0.25);
+}
+
+button.close {
+    color: #ffffff;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+    border-radius: 5px;
+    position: relative;
+}

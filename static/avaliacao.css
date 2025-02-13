@@ -1,0 +1,113 @@
+@font-face {
+    font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Figtree';
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0);
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #2A7EBA;
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #2A7EBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #082b40;
+    color: white;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    background: #f0f0f0;
+}
+.form-control:focus {
+    border-color: #e6e5e5; 
+    box-shadow: 0 0 0 0.2rem rgba(168, 168, 168, 0.25);
+}
+
+.btn-primary {
+    background-color: #22689B;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0e3c5d;
+}
+
+.list-group {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 12px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #bebebe;
+    color: black;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+    border-radius: 5px;
+    width: 100%;
+    position: static; 
+    left: 0; 
+    bottom: 0;
+}

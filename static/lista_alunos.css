@@ -1,0 +1,70 @@
+body {
+    font-family: 'Figtree';
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #2A7EBA;
+}
+
+.list-group-item {
+    transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+    background-color: #2A7EBA;
+    color: white;
+}
+
+.list-group-item a {
+    color: inherit;
+}
+
+.btn-secondary {
+    background-color: #22689B;
+    border-color: #22689B;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-secondary:hover {
+    background-color: #082b40;
+}
+
+.btn-back {
+    background-color: #22689B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.btn-back:hover {
+    background-color: #082b40;
+    color: white;
+}
+
+.img-fluid {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.container {
+    flex: 1;
+}
