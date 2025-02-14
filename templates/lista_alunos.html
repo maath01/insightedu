@@ -20,9 +20,12 @@
     <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciencias')}}">
     <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Historia')}}">
     <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia')}}">
-    {% for aluno in alunos %}
-        <img src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id) }}">
-    {% endfor %}
-
+    
+    <ul>
+        {% for turma in turmas %}
+                <img src="{{ url_for('plot_class_matter_bim_average', turma_id=turma.id) }}">
+        {% endfor %}
+    </ul>
+    
 </body>
 </html>

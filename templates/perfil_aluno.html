@@ -40,9 +40,6 @@
     </a>
 {% endif %}
 
-{% for aluno in alunos %}
-    <img src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id) }}">
-{% endfor %}
-
+    <img src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id, serie=serie) }}">
 </body>
 </html>
