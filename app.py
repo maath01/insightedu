@@ -352,6 +352,39 @@ def cadastro_questao():
 
     return redirect(url_for('questoes'))
 
+@app.route('/cadastro/avaliacao', methods=['POST'])
+def cadastro_avaliacao():
+    serie = request.form['serie']
+    bimestre = request.form['bimestre']
+    turma_id = request.form['turma_id']
+    data_aplicacao = request.form['data_aplicacao']
+    materia = request.form['materia']
+    
+    professor_id = session['id']
+    
+    nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
+    
+    av.create(nova_avaliacao, materia)
+    
+    return redirect(url_for('avaliacoes'))
+#funcionando 
+
+@app.route('/cadastro/coordenador', methods=['POST'])
+def cadastro_coordenador():
+    nome = request.form['nome']
+    email = request.form['email']
+    data_nascimento = request.form['data_nascimento']
+    cpf = request.form['cpf']
+    idade = request.form['idade']
+    
+    escola_id = escola.get_school_id(session['id'])
+    esc = escola.get(escola_id)
+    
+    novo_coordenador = coor.Coordenador(0, nome, email, data_nascimento, '12345678', cpf, idade)
+    coor.create(novo_coordenador, esc)
+    
+    return redirect(url_for('lista_coordenadores'))
+
 
 @app.route('/plot/turma/materias/medias/<int:turma_id>/<string:materia>')
 @login_required
@@ -432,39 +465,6 @@ def matricular_aluno(aluno_id):
     return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
 
 #felipe 
-
-@app.route('/cadastro/avaliacao', methods=['POST'])
-def cadastro_avaliacao():
-    serie = request.form['serie']
-    bimestre = request.form['bimestre']
-    turma_id = request.form['turma_id']
-    data_aplicacao = request.form['data_aplicacao']
-    materia = request.form['materia']
-    
-    professor_id = session['id']
-    
-    nova_avaliacao = av.Avaliacao(0, serie, bimestre, professor_id, turma_id, data_aplicacao)
-    
-    av.create(nova_avaliacao, materia)
-    
-    return redirect(url_for('avaliacoes'))
-#funcionando 
-
-@app.route('/cadastro/coordenador', methods=['POST'])
-def cadastro_coordenador():
-    nome = request.form['nome']
-    email = request.form['email']
-    data_nascimento = request.form['data_nascimento']
-    cpf = request.form['cpf']
-    idade = request.form['idade']
-    
-    escola_id = escola.get_school_id(session['id'])
-    esc = escola.get(escola_id)
-    
-    novo_coordenador = coor.Coordenador(0, nome, email, data_nascimento, '12345678', cpf, idade)
-    coor.create(novo_coordenador, esc)
-    
-    return redirect(url_for('lista_coordenadores'))
 
 #desempenho da turma
 @app.route('/plot/turma/materias/bimestre/<int:turma_id>')
