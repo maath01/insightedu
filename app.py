@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, flash, redirect, url
 from io import BytesIO
 from functools import wraps
 import matplotlib.pyplot as plt
-from database.models import aluno, turma, escola, nota, questao
+from database.models import aluno, turma, escola, nota, questao, gestor, escola
 from database.scripts import banco, connection_tables
 import database.models.professor as prof 
 import database.models.coordenador as coor
@@ -90,7 +90,8 @@ def home():
         return render_template('home_coordenador.html', coordenador=coordenador)
     
     elif session['user_type'] == 'gestor':
-        return render_template('home_gestor.html')
+        gestor_ = gestor.get(session['id'])
+        return render_template('home_gestor.html', gestor=gestor)
     
 
 
@@ -111,8 +112,15 @@ def perfil_aluno(aluno_id):
                 dominios.append(
                     [dom_port.dominio[i], dom_mat.dominio[i]]
                 )
+            turma_ = aluno.get_class(aluno_id)
 
-            return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios, serie_selecionada=serie_selecionada)
+            if session['user_type'] == 'gestor':
+                escola_id = escola.get_school_id(session['id'])
+                turmas_ = turma.list_classes_by_school(escola_id)
+
+                return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios, serie_selecionada=serie_selecionada, turma=turma_, turmas=turmas_)
+            else:
+                return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios, serie_selecionada=serie_selecionada, turma=turma_)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
@@ -165,6 +173,7 @@ def avaliacao(av_id):
                 aluno_.nota = cursor.fetchall()[0][3]
             except:
                 aluno_.nota = 0
+        connection.close()
             
         materia = av.get_matter(avaliacao)
         return render_template('avaliacao.html', avaliacao=avaliacao, alunos=alunos, materia=materia)
@@ -695,6 +704,22 @@ def lista_coordenadores():
     coordenadores = coor.list_coordinators_by_school(escola_id)
     return render_template('lista_coordenadores.html', coordenadores=coordenadores)
 
+
+@app.route('/associar/aluno/turma/<int:aluno_id>', methods=['POST'])
+def associar_aluno_turma(aluno_id):
+    turma_id = request.form['associar_aluno_turma']
+
+    connection, cursor = banco.connect_db()
+
+    turma_ = aluno.get_class(aluno_id)
+    if turma_ != None:
+        cursor.execute('DELETE FROM turmas_alunos WHERE alunos_id = ?', (aluno_id,))
+
+    cursor.execute('INSERT INTO turmas_alunos (turmas_id, alunos_id) VALUES (?, ?)', (turma_id, aluno_id))
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

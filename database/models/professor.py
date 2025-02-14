@@ -96,7 +96,7 @@ def update(prof_id, prof: Professor):
 
 def generate_teacher_id(professor: Professor, escola):
     """Gera um id para o professor"""
-    nascimento = professor.data_nascimento[6:]
+    nascimento = professor.data_nascimento[:4]
     cod = nascimento + str(escola.escola_id)
     
     for n in range(3):

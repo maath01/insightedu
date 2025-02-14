@@ -14,6 +14,7 @@ CREATE TABLE professores (
 CREATE TABLE alunos (
     id BIGINT NOT NULL,
     nome VARCHAR(100) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     senha VARCHAR(15) NOT NULL,
     data_nascimento DATE NOT NULL,
     ano_matricula YEAR NOT NULL,

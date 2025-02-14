@@ -93,7 +93,7 @@ def update_coordinator(coordenador_id,coordenador: Coordenador):
 
 
 def generate_coordinator_id(coordenador: Coordenador, escola):
-    nascimento = coordenador.nascimento[6:]
+    nascimento = coordenador.nascimento[:4]
     cod = nascimento + str(escola.escola_id)
     
     for n in range(3):

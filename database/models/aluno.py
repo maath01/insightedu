@@ -10,9 +10,10 @@ import database.models.dominio_descritores_port as dom_pt
 class Aluno:
     """Modelo de dados da tabela alunos"""
 
-    def __init__(self, al_id=0, nome='', senha='', data_nascimento='', ano_matricula='', cpf='', idade=0) -> None:
+    def __init__(self, al_id=0, nome='', email='', senha='', data_nascimento='', ano_matricula='', cpf='', idade=0) -> None:
         self.al_id = al_id
         self.nome = nome
+        self.email = email
         self.senha = senha
         self.data_nascimento = data_nascimento
         self.ano_matricula = ano_matricula
@@ -30,8 +31,8 @@ def create(aluno: Aluno, escola):
     try:
         al_id = generate_student_id(aluno, escola)
 
-        cursor.execute('INSERT INTO alunos (id, nome, senha, data_nascimento, ano_matricula, cpf, idade) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                        (al_id, aluno.nome, aluno.senha, aluno.data_nascimento, aluno.ano_matricula, aluno.cpf, aluno.idade))
+        cursor.execute('INSERT INTO alunos (id, nome, email, senha, data_nascimento, ano_matricula, cpf, idade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                        (al_id, aluno.nome, aluno.email, aluno.senha, aluno.data_nascimento, aluno.ano_matricula, aluno.cpf, aluno.idade))
         connection.commit()
 
     except sqlite3.IntegrityError:
@@ -71,7 +72,7 @@ def list_students():
     alunos_2: list[Aluno] = [] # Lista de Objetos(Aluno) com os dados da tabela
 
     for aluno in alunos_1:
-        alunos_2.append(Aluno(aluno[0], aluno[1], aluno[2], aluno[3], aluno[4], aluno[5], aluno[6]))
+        alunos_2.append(Aluno(aluno[0], aluno[1], aluno[2], aluno[3], aluno[4], aluno[5], aluno[6], aluno[7]))
 
     connection.close()
 
@@ -84,7 +85,7 @@ def get(al_id):
 
     cursor.execute('SELECT * FROM alunos WHERE id = ?', (str(al_id),))
     row = cursor.fetchall()[0]
-    aluno = Aluno(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+    aluno = Aluno(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
 
     connection.close()
 
@@ -95,8 +96,8 @@ def update(al_id, aluno: Aluno):
     """Atualiza um elemento no banco de dados"""
     connection, cursor = connect_db()
 
-    cursor.execute('UPDATE alunos SET nome = ?, senha = ?, data_nascimento = ?, ano_matricula = ?, cpf = ?, idade = ? WHERE id = ?',
-                (aluno.nome, aluno.senha, aluno.data_nascimento, aluno.ano_matricula, aluno.cpf, aluno.idade, al_id))
+    cursor.execute('UPDATE alunos SET nome = ?, email = ?, senha = ?, data_nascimento = ?, ano_matricula = ?, cpf = ?, idade = ? WHERE id = ?',
+                (aluno.nome, aluno.email, aluno.senha, aluno.data_nascimento, aluno.ano_matricula, aluno.cpf, aluno.idade, al_id))
     
     connection.commit()
     connection.close()
@@ -130,7 +131,7 @@ def list_students_by_class(class_id): #-> list:
     students = cursor.fetchall()
 
     for student in students:
-        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4], student[5], student[6]))
+        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4], student[5], student[6], student[7]))
 
     connection.close()
 
@@ -155,7 +156,7 @@ def list_students_by_school(school_id): #-> list:
     students = cursor.fetchall()
 
     for student in students:
-        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4], student[5], student[6]))
+        students_obj.append(Aluno(student[0], student[1], student[2], student[3], student[4], student[5], student[6], student[7]))
 
     connection.close()
 

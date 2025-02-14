@@ -87,7 +87,7 @@ def update_managers(gestor_id,gestor: Gestor):
 
 def generate_manager_id(gestor: Gestor, escola):
     """Gera um id para o gestor"""
-    nascimento = gestor.nascimento[6:]
+    nascimento = gestor.nascimento[:4]
     cod = nascimento + str(escola.escola_id)
     
     for n in range(3):
