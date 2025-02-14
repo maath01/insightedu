@@ -367,7 +367,6 @@ def cadastro_avaliacao():
     av.create(nova_avaliacao, materia)
     
     return redirect(url_for('avaliacoes'))
-#funcionando 
 
 @app.route('/cadastro/coordenador', methods=['POST'])
 def cadastro_coordenador():
