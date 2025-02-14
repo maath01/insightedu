@@ -464,9 +464,7 @@ def matricular_aluno(aluno_id):
             connection.close()
     return redirect(url_for('perfil_aluno', aluno_id=aluno_id))
 
-#felipe 
 
-#desempenho da turma
 @app.route('/plot/turma/materias/bimestre/<int:turma_id>')
 def plot_class_matter_bim_average(turma_id):
     materias = ['Português', 'Matemática', 'Ciencias', 'Historia', 'Geografia']
@@ -509,7 +507,7 @@ def plot_class_matter_bim_average(turma_id):
     
     return Response(buf.getvalue(), mimetype='image/png')
 
-#desempenho do aluno
+
 @app.route('/plot/aluno/desempenho/notas/<int:al_id>')
 def plot_student_performance_by_notes(al_id):
 
