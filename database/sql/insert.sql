@@ -1,39 +1,11 @@
 -- database: :memory:
 INSERT INTO escolas (id, nome, cidade, uf) VALUES
-(68921, 'IFCE', 'Crato', 'CE'),
-(60932, 'Maria Violeta Arraes', 'Crato', 'CE');
-
-INSERT INTO professores (id, nome, email, senha, uf, data_nascimento, cpf, idade) VALUES
-(199568921436, 'Ana Silva Souza', 'ana.silva@gmail.com', 'anass123', 'CE', '01-01-1995', '058.942.809-21', 39),
-(199868921543, 'Roberto Gonçalves', 'roberto.goncalves@gmail.com', '12345678', 'CE', '20-04-1998', '921.748.910-21', 36),
-(199260932821, 'Diego Morais', 'diego.morais@gmail.com', '12345678', 'CE', '07-08-1992', '735.891.318-97', 42);
-
-INSERT INTO escolas_professores (escolas_id, professores_id) VALUES (68921, 199568921436), (68921, 199868921543), (60932, 199260932821);
-
+(68921, 'Escola Municipal Alfredo Correia', 'Crato', 'CE'),
 INSERT INTO coordenadores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921329, 'Gabriel', 'gabriel@gmail.com', '04-05-1989', '12345678', '892.309.280-91', 36);
 INSERT INTO escolas_coordenadores (escolas_id, coordenadores_id) VALUES (68921, 198968921329);
 
 INSERT INTO gestores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921543, 'Gabriela', 'gabriela@gmail.com', '04-05-1989', '12345678', '738.927.121-65', 36);
 INSERT INTO escolas_gestores (escolas_id, gestores_id) VALUES (68921, 198968921543);
-
-INSERT INTO alunos (id, nome, email, senha, data_nascimento, ano_matricula, cpf, idade) VALUES 
-(2010689216742, 'Matheus Soares do Nascimento', 'matheus.soares@gmail.com', '12345678', '02-10-2004', '2010', '192.281.218-21', 20),
-(2008689215321, 'Suyane Oliveira da Silva', 'suyane.oliveira@gmail.com', 'abcdefgh', '08-10-2003', '2008', '213.312.653-98', 21),
-(2010689215413, 'Taislene da Silva Gonçalves', 'taislene.goncalves@gmail', 'abcdefgh', '03-10-2004', '2010', '812.391.823-32', 20),
-(2007689216223, 'Rozane Raquel da Silva Gonçalves', 'raquel.goncalves@gmail.com', 'abcdefgh', '10-06-2002', '2007', '307.823.029.80', 22);
-
-INSERT INTO turmas (id, serie, letra) VALUES (689211426, 1, 'A'), (689211832, 1, 'B');
-INSERT INTO turmas_alunos (turmas_id, alunos_id) VALUES 
-(689211426, 2010689216742),
-(689211426, 2008689215321),
-(689211832, 2010689215413),
-(689211832, 2007689216223);
-INSERT INTO escolas_turmas (escolas_id, turmas_id) VALUES (68921, 689211426), (68921, 689211832);
-INSERT INTO escolas_alunos (escolas_id, alunos_id) VALUES
-(68921, 2010689216742),
-(68921, 2008689215321),
-(68921, 2010689215413),
-(68921, 2007689216223);
 
 INSERT INTO materias (id, nome) VALUES 
 (1, 'Português'),
@@ -70,17 +42,6 @@ INSERT INTO ufs (id, nome, sigla) VALUES
 (25, 'São Paulo', 'SP'),
 (26, 'Sergipe', 'SE'),
 (27, 'Tocantins', 'TO');
-
-INSERT INTO professores_turmas_materias (professores_id, turmas_id, materias_id) VALUES 
-(199568921436, 689211426, 1),
-(199568921436, 689211426, 2),
-(199568921436, 689211426, 3),
-(199568921436, 689211426, 4),
-(199568921436, 689211426, 5),
-(199868921543, 689211832, 1),
-(199868921543, 689211832, 3),
-(199868921543, 689211832, 4),
-(199868921543, 689211832, 5);
 
 INSERT INTO avaliacoes (id, serie, bimestre, professor_id, turma_id, data_aplicacao) VALUES
 (12393742, 1, 2, 199568921436, 689211426, '20-06-2024'),
@@ -196,19 +157,6 @@ INSERT INTO descritores_mat (id, habilidade, serie, numero) VALUES
 (43, 'Efetuar cálculos com números reais', 9, 43),
 (44, 'Resolver e elaborar problemas com números reais em notação científica', 9, 44),
 (45, 'Resolver e elaborar problemas envolvendo porcentagens sucessivas e taxas percentuais', 9, 45);
-
-INSERT INTO dominio_descritores_port (id, aluno_id, descritor_1, descritor_2, descritor_3,  descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29, descritor_30, descritor_31, descritor_32, descritor_33, descritor_34, descritor_35, descritor_36, descritor_37, descritor_38, descritor_39, descritor_40, descritor_41, descritor_42, descritor_43, descritor_44, descritor_45) VALUES
-(0, 2010689216742, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(1, 2008689215321, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(2, 2010689215413, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(3, 2007689216223, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0);
-
-INSERT INTO dominio_descritores_mat (id, aluno_id, descritor_1, descritor_2, descritor_3,  descritor_4, descritor_5, descritor_6, descritor_7, descritor_8, descritor_9, descritor_10, descritor_11, descritor_12, descritor_13, descritor_14, descritor_15, descritor_16, descritor_17, descritor_18, descritor_19, descritor_20, descritor_21, descritor_22, descritor_23, descritor_24, descritor_25, descritor_26, descritor_27, descritor_28, descritor_29, descritor_30, descritor_31, descritor_32, descritor_33, descritor_34, descritor_35, descritor_36, descritor_37, descritor_38, descritor_39, descritor_40, descritor_41, descritor_42, descritor_43, descritor_44, descritor_45) VALUES
-(0, 2010689216742, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(1, 2008689215321, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(2, 2010689215413, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0),
-(3, 2007689216223, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0);
-
 
 INSERT INTO questoes (id, enunciado, serie, materia, assunto, resposta) VALUES
 (51557832, 'Na frase "O gato preto dorme na cadeira.", qual é o substantivo e qual é o adjetivo?', 5, 'Português', 'Classes de palavras', 'Gato e preto'),

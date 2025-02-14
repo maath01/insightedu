@@ -91,7 +91,7 @@ def home():
     
     elif session['user_type'] == 'gestor':
         gestor_ = gestor.get(session['id'])
-        return render_template('home_gestor.html', gestor=gestor)
+        return render_template('home_gestor.html', gestor=gestor_)
     
 
 

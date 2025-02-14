@@ -17,23 +17,34 @@ def create_database():
     if not os.path.exists('database/banco.db'):
         connection, cursor = connect_db()
 
-        # Cria todas as tabelas do banco
-        with open('database/sql/schema.sql') as file:
-            commands = file.read().split(';')
-        
-        for command in commands:
-            # print(command)
-            cursor.execute(command)
-            connection.commit()
+        files = ['schema', 'insert', 'insert_alunos', 'insert_turmas.sql']
 
-        # Adiciona dados as tabelas
-        with open('database/sql/insert.sql') as file:
-            commands = file.read().split(';')
+        for f in files:
+            with open(f'database/sql/{f}.sql') as file:
+                commands = file.read().split(';')
+            
+            for command in commands:
+                # print(command)
+                cursor.execute(command)
+                connection.commit()
+
+        # # Cria todas as tabelas do banco
+        # with open('database/sql/schema.sql') as file:
+        #     commands = file.read().split(';')
         
-        for command in commands:
-            # print(command)
-            cursor.execute(command)
-            connection.commit()
+        # for command in commands:
+        #     # print(command)
+        #     cursor.execute(command)
+        #     connection.commit()
+
+        # # Adiciona dados as tabelas
+        # with open('database/sql/insert.sql') as file:
+        #     commands = file.read().split(';')
+        
+        # for command in commands:
+        #     # print(command)
+        #     cursor.execute(command)
+        #     connection.commit()
 
         connection.close()
 
