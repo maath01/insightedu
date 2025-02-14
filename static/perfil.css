@@ -1,0 +1,149 @@
+body {
+    font-family: 'Figtree', sans-serif;
+    background: linear-gradient(135deg, #ffffff, #d0d0d0);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-attachment: fixed;
+}
+
+.container {
+    padding-top: 20px;
+}
+
+.back-button {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background-color: #0e3c5d;
+    color: white;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:active {
+    background-color: #0a2b44;
+}
+
+
+@media (max-width: 768px) {
+    .back-button {
+        padding: 8px 16px;
+        font-size: 14px;
+        top: 10px;
+        left: 10px;
+    }
+}
+
+h1 {
+    color: #2A7EBA;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.btn-primary {
+    background-color: #22689B;
+    border-color: #22689B;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #1a5577;
+    border-color: #1a5577;
+}
+
+.btn-success {
+    background-color: #2A7EBA;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #0e3c5d;
+}
+
+
+.nav-pills .nav-link {
+    border-radius: 5px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #d0d0d0;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #2A7EBA;
+    color: white;
+}
+
+
+.table {
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #22689B;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.table tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
+
+.card-body img {
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card-body img:hover {
+    transform: scale(1.05);
+}

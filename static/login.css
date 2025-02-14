@@ -1,0 +1,104 @@
+
+@font-face {
+    font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Figtree';  
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative; 
+}
+
+
+label {
+    color: white;
+    text-align: left;
+    font-family: 'Figtree'; 
+}
+
+
+form {
+    background-color: #2A7EBA;
+    border-radius: 20px;
+    padding: 60px;  
+    width: 450px;   
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Figtree'; 
+}
+
+.img {
+    position: absolute; 
+    top: 20px;  
+    left: 20px; 
+    margin-bottom: 50px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+    background-color: #22689B;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Figtree'; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category-buttons button.selected {
+    background-color: #f8f8f8;
+    color: #22689B;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Figtree'; 
+    background: #f0f0f0;
+}
+
+button {
+    background-color: #0e3c5d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Figtree'; 
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #082b40;
+}
+
+@media (max-width: 400px) {
+    form {
+        width: 90%;
+    }
+}

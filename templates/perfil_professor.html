@@ -4,15 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do(a) {{professor.nome}}</title>
-    <link rel="stylesheet" href="">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='perfil.css') }}">
 </head>
 <body>
-    <h1>Perfil do(a) {{professor.nome}}</h1>
-    
-        <p><b>Nome:</b> {{ professor.nome }}</p>
-        <p><b>UF:</b> {{ professor.uf }}</p>
-        <p><b>Email:</b> {{ professor.email }}</p>
+    <a class="back-button" href="{{ url_for('lista_professores') }}">⬅</a>
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="text-primary">Perfil do(a) {{professor.nome}}</h1>
+        </div>
+        
+        <div class="card shadow-sm p-4 mt-4">
+            <div class="card-body">
+                <h4 class="card-title text-primary">Informações do Professor</h4>
+                <p><strong>Nome:</strong> {{ professor.nome }}</p>
+                <p><strong>UF:</strong> {{ professor.uf }}</p>
+                <p><strong>Email:</strong> {{ professor.email }}</p>
+            </div>
+        </div>
 
-    <a href="/">Voltar para a página inicial</a>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

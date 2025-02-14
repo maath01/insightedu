@@ -12,7 +12,6 @@ import database.models.dominio_descritores_mat as dom_mt
 import database.models.descritor_port as desc_p
 import database.models.descritor_mat as desc_m
 
-
 app = Flask(__name__)
 app.secret_key = 'insightedu'
 
@@ -45,24 +44,24 @@ def login():
             session['id'] = user_id
             if categoria == 'aluno':
                 session['user_type'] = 'aluno'
-                flash(f"Aluno(a) {user[1]}, foi logado(a) com sucesso!")   
+                flash(f"Aluno(a) {user[1]}, foi logado(a) com sucesso!", 'sucess')   
 
             elif categoria == 'professor':
                 session['user_type'] = 'professor'
-                flash(f"Professor(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Professor(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             elif categoria == 'coordenador':
                 session['user_type'] = 'coordenador'
-                flash(f"Coordenador(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Coordenador(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             elif categoria == 'gestor':
                 session['user_type'] = 'gestor'
-                flash(f"Gestor(a) {user[1]}, foi logado(a) com sucesso!")
+                flash(f"Gestor(a) {user[1]}, foi logado(a) com sucesso!", 'success')
 
             return redirect(url_for('home'))
             
         else:
-            flash('Não logado, tente novamente!')
+            flash("Não logado, tente novamente!", 'danger')
             return render_template('login.html')
 
     return render_template('login.html')
@@ -79,26 +78,32 @@ def logout():
 @login_required
 def home():
     if session['user_type'] == 'aluno':
-        return render_template('home_aluno.html')
+        aluno_obj = aluno.get(session['id'])
+        return render_template('home_aluno.html', aluno=aluno_obj)
     
     elif session['user_type'] == 'professor':
-        return render_template('home_professor.html')
+        professor = prof.get(session['id'])
+        return render_template('home_professor.html', professor=professor)
 
     elif session['user_type'] == 'coordenador':
-        return render_template('home_coordenador.html')
+        coordenador = coor.get(session['id'])
+        return render_template('home_coordenador.html', coordenador=coordenador)
     
     elif session['user_type'] == 'gestor':
         return render_template('home_gestor.html')
+    
 
 
 
 @app.route('/perfil_aluno/<int:aluno_id>')
 @login_required
 def perfil_aluno(aluno_id):
+    serie_selecionada = request.args.get('serie', None)
     try:  
         student = aluno.get(aluno_id)
+        
         if student:
-            notas = nota.get_student_notes(aluno_id)
+            notas = nota.get_student_notes(aluno_id)            
             dom_port = dom_pt.get(aluno_id) 
             dom_mat = dom_mt.get(aluno_id)
             dominios = []
@@ -107,7 +112,7 @@ def perfil_aluno(aluno_id):
                     [dom_port.dominio[i], dom_mat.dominio[i]]
                 )
 
-            return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios)
+            return render_template('perfil_aluno.html', aluno=student, notas=notas, dominios=dominios, serie_selecionada=serie_selecionada)
         else:
             return render_template('erro.html', mensagem=f"Aluno com ID {aluno_id} não encontrado.")
     finally:
@@ -180,6 +185,7 @@ def turmas():
         return render_template('turmas.html', turmas=turmas_, user_type=session['user_type'])
 
 
+
 @app.route ('/home/turmas/<int:turma_id>')
 @login_required
 def lista_alunos(turma_id):
@@ -189,7 +195,8 @@ def lista_alunos(turma_id):
         if alunos:
             return render_template('lista_alunos.html', turma=turma_, alunos=alunos)
         else:
-            return f"<h1>Não há alunos cadastrados na turma {turma_id}.</h1>"
+            flash(f"Não há alunos cadastrados na turma {turma_id}.", "warning")
+            return redirect(url_for('turmas'))
     finally:
         pass
 
@@ -250,6 +257,7 @@ def cadastro_notas(av_id):
                     nt_ = nota.get(n[0])
                     nt_.nota = nt
                     nota.update(nt_.nota_id, nt_)
+    flash("Notas cadastradas com sucesso!")
     return redirect(url_for('avaliacao', av_id=av_id))
 
 
@@ -292,6 +300,50 @@ def cadastro_aluno():
     except Exception as e:
         flash("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.")
         return redirect(url_for('home'))
+    
+
+
+
+@app.route('/cadastro/professor', methods=['POST'])
+def cadastro_professor():
+    if session.get('user_type') != 'gestor':
+        flash("Você não tem permissão para acessar esta funcionalidade.")
+        return redirect(url_for('home'))
+    try:
+        nome = request.form['nome']
+        email = request.form['email']
+        uf = request.form['uf']
+        data_nascimento = request.form['data_nascimento']
+        cpf = request.form['cpf']
+        idade = int(request.form['idade'])
+        
+        gestor_id = session.get('id')
+        escola_id = escola.get_school_id(gestor_id)
+        esc = escola.get(escola_id)
+        
+        novo_professor = prof.Professor(
+            prof_id=0,
+            nome=nome,
+            email=email,
+            senha='12345678',
+            uf=uf,
+            data_nascimento=data_nascimento,
+            cpf=cpf,
+            idade=idade
+        )
+        
+        prof.create(novo_professor, esc)
+        
+        flash("Professor cadastrado com sucesso!")
+        return redirect(url_for('list_teachers'))
+    
+    except Exception as e:
+        flash("Ocorreu um erro ao cadastrar o professor. Por favor, tente novamente.")
+        return redirect(url_for('home'))
+    
+
+
+
 
 
 @app.route('/cadastro/turma', methods=['POST'])
@@ -465,6 +517,55 @@ def plot_student_matters_average(al_id=0):
     plt.close()
 
     return Response(buf, mimetype='image/png')
+
+@app.route('/plot/descs_port/turma/<int:turma_id>')
+def plot_descs_port_class(turma_id):
+    alunos = aluno.list_students_by_class(turma_id)
+    dominios = dom_pt.get_dom_by_class(alunos)
+
+    quantidades = [0 for i in range(45)]
+
+    for dom in dominios:
+        for i, desc in enumerate(dom.dominio):
+            quantidades[i] += desc
+
+    fig, ax = plt.subplots()
+    ax.bar([str(i) for i in range(45)], quantidades)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
+
+
+@app.route('/plot/descs_mat/turma/<int:turma_id>')
+def plot_descs_mat_class(turma_id):
+    alunos = aluno.list_students_by_class(turma_id)
+    dominios = dom_mt.get_dom_by_class(alunos)
+
+    quantidades = [0 for i in range(45)]
+
+    for dom in dominios:
+        for i, desc in enumerate(dom.dominio):
+            quantidades[i] += desc
+
+    fig, ax = plt.subplots()
+    ax.bar([str(i) for i in range(45)], quantidades)
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plt.close()
+
+    return Response(buf, mimetype='image/png')
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')  
+
+@app.route('/contato')
+def contato():
+    return render_template('contato.html')
 
 
 '''Busca por aluno através do nome enviado por requisição no form do arquivo buscar_alunos.html'''

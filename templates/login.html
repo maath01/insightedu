@@ -4,30 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/login.css">
     <title>Login</title>
 </head>
 
 <body>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul id="messages" class="list-unstyled">
-            {% for message in messages %}
-                <li class="alert alert-success">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
 
-    <!-- <div class="logo">
-        <img src="../static/logo.png" alt="Logo">
-    </div> -->
-
+<div class="img">
+    <a href="/">
+        <img src="../static/LOGO.png" alt="InsightEdu" style="height: 50px;">
+    </a>
+</div>
     <form action="/login" method="POST">
-        
-        
-        <!--<div class="icon">👤</div> -->
-
+       
         <div class="category-buttons">
             <button type="button" class="selected" onclick="selectCategory(this, 'aluno')">Aluno</button>
             <button type="button" onclick="selectCategory(this, 'coordenador')">Coordenador</button>
@@ -43,7 +32,26 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required placeholder="Senha"><br>
         </div>
-
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul id="messages" class="list-unstyled">
+            {% for message in messages %}
+                <li class="alert {{ 'alert-success' if 'sucesso' in message else 'alert-danger' }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+    
+            <script>
+                setTimeout(function() {
+                    const messageBox = document.getElementById('messages');
+                    if (messageBox) {
+                        messageBox.style.display = 'none';
+                    }
+                }, 5000);
+            </script>
+        {% endif %}
+    {% endwith %}
+    
+    
         <button type="submit">Entrar</button>
     </form>
 

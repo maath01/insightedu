@@ -1,3 +1,4 @@
+-- database: :memory:
 INSERT INTO escolas (id, nome, cidade, uf) VALUES
 (68921, 'IFCE', 'Crato', 'CE'),
 (60932, 'Maria Violeta Arraes', 'Crato', 'CE');

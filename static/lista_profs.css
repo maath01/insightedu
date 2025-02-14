@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: 'Figtree', sans-serif;
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0);
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #2A7EBA;
+    text-align: center;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.list-group {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #d9eaf7;
+    color: black;
+    transform: scale(1.02);
+}
+
+a {
+    color: #2A7EBA;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background-color: #0e3c5d;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success {
+    background-color: #22689B;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: block;
+    margin: 20px auto;
+}
+
+.btn-success:hover {
+    background-color: #0e3c5d;
+}
+
+.btn-success:active{
+    background-color: #0b2d45 !important;
+}
+.modal-content {
+    border-radius: 10px;
+}S
+
+.modal-header {
+    background-color: #2A7EBA;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #f8f8f8;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #f0f0f0;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #2A7EBA;
+    box-shadow: 0 0 5px rgba(42, 126, 186, 0.5);
+}

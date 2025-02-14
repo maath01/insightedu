@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o Sistema - InsightEdu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/sobre.css">
+</head>
+<body>
+    
+    <a class="back-button" href="{{ url_for('home') }}">⬅</a>
+    <header class="container py-4">
+        <h1>Bem-vindo ao InsightEdu</h1>
+        <p>A plataforma educacional para transformar a gestão escolar e o aprendizado de alunos.</p>
+    </header>
+
+    <section class="container py-4">
+        <h2>Sobre o Sistema</h2>
+        <p>
+            O InsightEdu foi desenvolvido para atender às necessidades de escolas e educadores na organização e 
+            gestão do aprendizado dos alunos. A plataforma oferece uma série de funcionalidades para otimizar a 
+            comunicação entre professores, alunos, coordenadores e gestores.
+        </p>
+        <p>
+            Com o InsightEdu, é possível gerenciar turmas, realizar o acompanhamento de desempenho dos alunos 
+            e até mesmo gerar relatórios detalhados para análises mais profundas. A plataforma foi criada 
+            com uma interface intuitiva e responsiva, para facilitar a navegação de todos os usuários.
+        </p>
+    </section>
+
+    <section class="container py-4">
+        <h2>Principais Funcionalidades</h2>
+        <ul>
+            <li><strong>Gerenciamento de Turmas:</strong> Crie, edite e exclua turmas de forma simples e organize os alunos de acordo com suas séries e matérias.</li>
+            <li><strong>Acompanhamento de Desempenho:</strong> Registre notas, atividades e relatórios de cada aluno, acompanhando o progresso ao longo do ano letivo.</li>
+            <li><strong>Integração de Equipe:</strong> Conecte professores, coordenadores e gestores em um ambiente colaborativo para otimizar a gestão escolar.</li>
+            <li><strong>Relatórios Personalizados:</strong> Gere relatórios detalhados sobre o desempenho dos alunos e a eficiência do sistema de ensino.</li>
+        </ul>
+    </section>
+
+    <section class="container py-4">
+        <h2>Demonstração Visual</h2>
+        <p>Veja como o InsightEdu se apresenta na tela, com uma interface fácil de usar e recursos acessíveis para todos.</p>
+        <img src="../static/sistema.png" alt="Demonstração do sistema">
+    </section>
+
+    <section class="container py-4">
+        <h2 id="depoimentos">O Que os Usuários Estão Dizendo</h2>
+        <p>Confira alguns depoimentos de professores, alunos e gestores que estão usando o InsightEdu.</p>
+        <ul id="depoimentos-list">
+            <li><strong>Professor João Silva:</strong> "A plataforma tem sido essencial para otimizar meu trabalho e melhorar o acompanhamento do progresso dos meus alunos."</li>
+            <li><strong>Coordenadora Maria Costa:</strong> "O InsightEdu me ajudou a organizar melhor as turmas e a ter uma visão clara sobre o desempenho de todos os alunos."</li>
+        </ul>
+    </section>
+</body>
+</html>

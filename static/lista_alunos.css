@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Figtree', sans-serif;
+    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2A7EBA;
+    text-align: center;
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+.list-group {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #d9eaf7;
+    color: black;
+    transform: scale(1.02);
+}
+
+a {
+    color: #2A7EBA;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.back-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Figtree", sans-serif;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 40px;
+    max-width: 200px;
+}
+
+.back-button .arrow {
+    margin-left: 8px; 
+}
+
+.back-button:hover {
+    background-color: #0e3c5d;
+    color: white;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:active {
+    background-color: #0a2b44;
+}
+
+.btn-primary {
+    background-color: #22689B;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0e3c5d;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #2A7EBA;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #f8f8f8;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #f0f0f0;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #2A7EBA;
+    box-shadow: 0 0 5px rgba(42, 126, 186, 0.5);
+}

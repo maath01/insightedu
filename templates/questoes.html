@@ -5,92 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InsightEdu</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='questoes.css') }}">
 </head>
 <body>
-    <form action="/home/questoes/filtradas" method="post">
-        <label for="serie">serie</label>
-        <select name="serie" id="serie">
-            {% for i in range(1, 10) %}:
-            <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-            <option value="todas">Todas</option>
-        </select>
-        <label for="materia">Materia</label>
-        <select name="materia" id="materia">
-            <option value="Português">Português</option>
-            <option value="Matematica">Matematica</option>
-            <option value="Ciencias">Ciencias</option>
-            <option value="Historia">Historia</option>
-            <option value="Geografia">Geografia</option>
-            <option value="todas">Todas</option>
-        </select>
-        <label for="assunto">Assunto</label>
-        <input type="text" name="assunto" id="assunto">
-        <button type="submit">Pesquisar</button>
-    </form>
-
-    <!-- Botão para abrir o modal -->
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastroQuestao">Adicionar Questão</button>
-
-    <!-- Modal de Cadastro -->
-    <div class="modal fade" id="modalCadastroQuestao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="/cadastro/questao" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Cadastrar Nova Questão</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="enunciado" class="form-label">Enunciado</label>
-                            <input type="text" class="form-control" id="enunciado" name="enunciado" required>
+    <div class="container mt-4">
+        <a class="btn btn-outline-primary mb-3" href="{{ url_for('home') }}">⬅</a>
+        
+        <form action="/home/questoes/filtradas" method="post" class="p-4 bg-light rounded shadow">
+            <div class="mb-3">
+                <label for="serie" class="form-label">Série</label>
+                <select name="serie" id="serie" class="form-select">
+                    {% for i in range(1, 10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                    <option value="todas">Todas</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="materia" class="form-label">Matéria</label>
+                <select name="materia" id="materia" class="form-select">
+                    <option value="Português">Português</option>
+                    <option value="Matematica">Matemática</option>
+                    <option value="Ciencias">Ciências</option>
+                    <option value="Historia">História</option>
+                    <option value="Geografia">Geografia</option>
+                    <option value="todas">Todas</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="assunto" class="form-label">Assunto</label>
+                <input type="text" name="assunto" id="assunto" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+        </form>
+        
+        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modalCadastroQuestao">Adicionar Questão</button>
+        
+        <div class="modal fade" id="modalCadastroQuestao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="/cadastro/questao" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">Cadastrar Nova Questão</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="mb-3">
-                            <select name="serie" id="serie">
-                                {% for i in range(1, 10) %}:
-                                <option value="{{ i }}">{{ i }}</option>
-                                {% endfor %}
-                                <option value="todas">Todas</option>
-                            </select>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="enunciado" class="form-label">Enunciado</label>
+                                <input type="text" class="form-control" id="enunciado" name="enunciado" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="serie" class="form-label">Série</label>
+                                <select name="serie" id="serie" class="form-select">
+                                    {% for i in range(1, 10) %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                    <option value="todas">Todas</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="materia" class="form-label">Matéria</label>
+                                <select name="materia" id="materia" class="form-select" required>
+                                    <option value="Português">Português</option>
+                                    <option value="Matematica">Matemática</option>
+                                    <option value="Ciencias">Ciências</option>
+                                    <option value="Historia">História</option>
+                                    <option value="Geografia">Geografia</option>
+                                    <option value="todas">Todas</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assunto" class="form-label">Assunto</label>
+                                <input type="text" class="form-control" id="assunto" name="assunto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="resposta" class="form-label">Resposta</label>
+                                <input type="text" class="form-control" id="resposta" name="resposta" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <select name="materia" id="materia" required>
-                                <option value="Português">Português</option>
-                                <option value="Matematica">Matematica</option>
-                                <option value="Ciencias">Ciencias</option>
-                                <option value="Historia">Historia</option>
-                                <option value="Geografia">Geografia</option>
-                                <option value="todas">Todas</option>
-                            </select>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="assunto" class="form-label">Assunto</label>
-                            <input type="text" class="form-control" id="letra" name="assunto" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="resposta" class="form-label">Resposta</label>
-                            <input type="text" class="form-control" id="resposta" name="resposta" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Salvar</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
+        
+        <ul class="list-group mt-4">
+            {% for question in questions %}
+            <li class="list-group-item">
+                <h5>{{ question.serie }}º ano - {{ question.materia }} - {{ question.assunto }}</h5>
+                <p>{{ question.enunciado }}</p>
+                <p><strong>Resposta:</strong> {{ question.resposta }}</p>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
     
-    <ul>
-        {% for question in questions %}
-        <li>
-            <h2>{{ question.serie }} ano - {{ question.materia }} - {{ question.assunto }}</h2>
-            <p>{{ question.enunciado }}</p>
-            <p>Resposta: {{ question.resposta }}</p>
-        </li>
-        {% endfor %}
-    </ul>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

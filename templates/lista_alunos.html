@@ -4,22 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Alunos</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lista_alunos.css') }}">
+
 </head>
 <body>
-    <h1>Lista de Alunos - Turma {{ turma }}</h1>
-    
-    <ul>
-        {% for aluno in alunos %}
-            <li><a href="{{ url_for('perfil_aluno', aluno_id=aluno.al_id)}}">{{ aluno }}</a></li>
-        {% endfor %}
-    </ul>
-    <li><a href="{{ url_for('turmas') }}">Listar Turmas</a></li>
-    <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Português')}}">
-    <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Matemática')}}">
-    <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciencias')}}">
-    <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Historia')}}">
-    <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia')}}">
+     <a class="back-button" href="{{ url_for('turmas') }}">⬅</a>
+     <div class="container mt-5">
+        
+        <h1 class="mb-4 text-center">Lista de Alunos - Turma {{ turma }}</h1>
+
+        <ul class="list-group mb-4">
+            {% for aluno in alunos %}
+            <li class="list-group-item">
+                <a href="{{ url_for('perfil_aluno', aluno_id=aluno.al_id) }}" class="d-block">
+                    {{ aluno }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('turmas') }}" class="btn btn-secondary mb-4">Listar Turmas</a>
+
+        <h3>Gráficos das Médias por Matéria</h3>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Português') }}" class="img-fluid">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Matemática') }}" class="img-fluid">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciencias') }}" class="img-fluid">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Historia') }}" class="img-fluid">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia') }}" class="img-fluid">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_descs_port_class', turma_id=turma.tur_id)}}" class="img-fluid">
+            </div>
+            <div class="col-md-4 mb-4">
+                <img src="{{ url_for('plot_descs_mat_class', turma_id=turma.tur_id)}}" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <img src="{{ url_for('plot_class_matter_bim_average', turma_id=turma.tur_id) }}" alt="Desempenho da turma">
     

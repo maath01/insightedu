@@ -1,3 +1,4 @@
+-- database: :memory:
 CREATE TABLE professores (
     id BIGINT NOT NULL,
     nome VARCHAR(100) NOT NULL,
