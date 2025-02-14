@@ -397,3 +397,22 @@ def get_averages_general(id_turma,serie):
         list_notas_gerais.append(notas_gerais)
 
     return list_notas_gerais
+
+def get_class_average_by_bim_and_matter(alunos, id_turma, bim, materia):
+    """Calcula a media da turma em um bimestre, em determinada materia"""
+    turma_ = turma.get(id_turma)
+    total = 0
+    count = 0
+    
+    for aluno in alunos:
+        notas = get_student_notes(aluno.al_id)
+        nota = acess_notes_data(notas, turma_.serie, bim, materia)
+        if nota != None:
+            total += nota
+            count += 1
+
+    try:
+        media = total / count
+    except ZeroDivisionError:
+        return 0
+    return media

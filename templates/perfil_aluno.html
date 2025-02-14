@@ -32,14 +32,9 @@
         </ul>
         <img src="{{ url_for('plot_student_matters_average', al_id=aluno.al_id)}}">
         <a href="/">Voltar para a página inicial</a>
-  
 
-    {% if session['user_type'] == 'gestor' %}
-    <a href="{{ url_for('matricular_aluno', aluno_id=aluno.al_id) }}" class="btn btn-primary">
-        Matricular Aluno
-    </a>
-    {% endif %}
 
+    <img src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id, serie=serie) }}">
     <table>
         <tr>
             <th>N° do descritor</th>
