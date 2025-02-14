@@ -16,22 +16,6 @@ body {
     color: #333;
 }
 
-.navbar {
-    color: #2A7EBA;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-nav .nav-item .nav-link {
-    color: #2A7EBA; 
-    font-size: 1rem;
-    font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-nav .nav-item .nav-link:hover {
-    color: #154161; 
-    transform: translateY(-2px); 
-}
 
 .container-logo {
     display: flex;
@@ -80,16 +64,6 @@ body {
     background-color: #2A7EBA; 
 }
 
-.footer-menu {
-    margin-top: auto;
-    background-color: #f8f9fa;
-    padding: 12px 0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #6c757d;
-    border-top: 1px solid #e9ecef;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-}
 
 .btn-primary {
     background-color: #2A7EBA;

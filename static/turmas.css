@@ -1,20 +1,63 @@
 body {
-    font-family: 'Figtree';
+    font-family: 'Figtree', sans-serif;
     background-color: #f8f8f8;
+    margin: 10px;
+    padding: 0;
+}
+
+.container {
+    min-height: 80vh;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 40px;
+}
+
+.back-button:hover {
+    background-color: #0e3c5d;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transform: translateX(-5px);
+}
+
+.back-button:active {
+    background-color: #0a2b44;
+    transform: translateX(0);
 }
 
 h1 {
     color: #2A7EBA;
+    font-size: 2rem;
+    text-align: center;
 }
 
 .table {
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
+    animation: fadeInTable 1s ease-out forwards;
 }
 
 .table th, .table td {
     vertical-align: middle;
+    padding: 15px;
 }
 
 .table-striped tbody tr:nth-child(odd) {
@@ -25,9 +68,37 @@ h1 {
     background-color: #e2e2e2;
 }
 
+.table-striped tbody tr {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInRow 0.3s ease-out forwards;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    animation-delay: 0.01s;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    animation-delay: 0.01s;
+}
+
+@keyframes fadeInRow {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInTable {
+    to {
+        opacity: 1;
+    }
+}
+
 .btn-primary {
     background-color: #2A7EBA;
     border-color: #2A7EBA;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -44,11 +115,17 @@ h1 {
 .btn-success {
     background-color: #2A7EBA;
     border-color: #2A7EBA;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 600;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .btn-success:hover {
     background-color: #22689B;
     border-color: #22689B;
+    transform: scale(1.05);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-success:focus, .btn-success:active {
@@ -57,25 +134,9 @@ h1 {
     outline: none;
 }
 
-.btn-back {
-    margin-bottom: 20px;
-    background-color: #2A7EBA;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-.btn-back:hover {
-    background-color: #082b40;
-}
-
 .modal-header {
     background-color: #2A7EBA;
     color: white;
-}
-
-.modal-footer {
-    background-color: #f8f8f8;
 }
 
 .modal-body input,
@@ -87,21 +148,4 @@ h1 {
 .modal-body input:focus,
 .modal-body select:focus {
     border-color: #22689B;
-    box-shadow: 0 0 0 0.2rem rgba(34, 104, 155, 0.25);
-}
-
-.container {
-    min-height: 80vh;
-    padding-bottom: 50px;
-}
-
-footer {
-    background-color: #f8f9fa;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 14px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
 }

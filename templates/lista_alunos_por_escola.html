@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='lista_alunos_por_escola.css') }}">
 </head>
 <body>
+    <a class="back-button" href="{{ url_for('home') }}">⬅</a>
     <div class="container mt-5">
         <h1>Lista de Alunos da Escola {{ escola_id }}</h1>
         <ul class="list-group">

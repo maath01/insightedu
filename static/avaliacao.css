@@ -36,22 +36,40 @@ h2 {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
-.btn-back {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #2A7EBA;
-    color: white;
-    border: none;
+.back-button {
     padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
     font-size: 16px;
+    font-weight: 600;
+    font-family: "Figtree", sans-serif;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 40px;
 }
 
-.btn-back:hover {
-    background-color: #082b40;
-    color: white;
+.back-button:hover {
+    background-color: #0e3c5d;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:active {
+    background-color: #0a2b44;
+}
+
+
+@media (max-width: 768px) {
+    .back-button {
+        width: 100%;
+        max-width: 200px;
+        padding: 12px 0;
+        font-size: 18px;
+    }
 }
 
 .form-control {

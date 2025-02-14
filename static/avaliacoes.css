@@ -1,57 +1,150 @@
-body {
+@font-face {
     font-family: 'Figtree';
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: 'Figtree', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #d0d0d0); /* Fundo gradiente */
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Caixa com sombra */
+}
+
+h1, h2 {
+    color: #2A7EBA;
+    text-align: center;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.list-group {
+    margin-top: 20px;
 }
 
 .list-group-item {
-    transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    background-color: #f8f8f8;
+    color: #2A7EBA;
     border-radius: 8px;
     margin-bottom: 10px;
-    color: black;
+    padding: 15px;
+    font-size: 18px;
+    transition: all 0.3s ease;
 }
 
 .list-group-item:hover {
+    background-color: #d9eaf7;
+    color: #2A7EBA;
     transform: scale(1.02);
-    background-color: #2A7EBA;
-    color: white;
 }
 
 .list-group-item a {
     color: inherit;
-}
-
-.btn-back {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #2A7EBA;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
     text-decoration: none;
 }
 
-.btn-back:hover {
-    background-color: #082b40;
+a {
+    color: #2A7EBA;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #2A7EBA;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background-color: #0e3c5d;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:active {
+    background-color: #0b2d45;
+}
+
+.btn-success {
+    background-color: #22689B;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: block;
+    margin: 20px auto;
+}
+
+.btn-success:hover {
+    background-color: #0e3c5d;
+}
+
+.btn-success:active {
+    background-color: #0b2d45 !important;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #2A7EBA;
     color: white;
 }
 
-h1 {
-    color: #2A7EBA;
+.modal-footer {
+    background-color: #f8f8f8;
 }
 
-footer {
-    background-color: #f8f9fa;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 14px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
+.form-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #f0f0f0;
+    transition: all 0.3s;
 }
 
-.container {
-    min-height: 80vh;
-    padding-bottom: 50px;
+.form-control:focus {
+    border-color: #2A7EBA;
+    box-shadow: 0 0 5px rgba(42, 126, 186, 0.5);
 }

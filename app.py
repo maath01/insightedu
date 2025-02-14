@@ -11,9 +11,6 @@ import database.dominio_descritores_port as dom_dp
 import database.dominio_descritores_mat as dom_mt
 import database.descritor_port as desc_p
 import database.descritor_mat as desc_m
-import seaborn as sns
-import numpy as np
-import base64
 
 app = Flask(__name__)
 app.secret_key = 'insightedu'
@@ -149,13 +146,11 @@ def turmas():
         escola_id = escola.get_school_id(session['id'])
         turmas_ = turma.list_classes_by_school(escola_id)
         profs = prof.list_teachers_by_school(escola_id)
-        for turma_ in turmas_:
-            alunos = aluno.list_students_by_class(turma_.tur_id)
-            turma_.media = nota.get_class_average_general(alunos, turma_.tur_id)
         return render_template('turmas.html', turmas=turmas_, professores=profs, user_type=session['user_type'])
     elif session['user_type'] == 'professor': 
         turmas_ = turma.list_classes_by_teacher(session['id'])
         return render_template('turmas.html', turmas=turmas_, user_type=session['user_type'])
+
 
 
 @app.route ('/home/turmas/<int:turma_id>')
@@ -460,6 +455,14 @@ def plot_descs_mat_class(turma_id):
     plt.close()
 
     return Response(buf, mimetype='image/png')
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')  
+
+@app.route('/contato')
+def contato():
+    return render_template('contato.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
