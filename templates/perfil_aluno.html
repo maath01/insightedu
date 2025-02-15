@@ -9,8 +9,9 @@
 
 </head>
 <body>
-  <a class="back-button" href="{{ url_for('home') }}">⬅</a>
-  <div class="container mt-4">
+    {% include 'navbar.html' %}
+    <a class="back-button" href="{{ url_for('home') }}">⬅</a>
+    <div class="container mt-4">
 
     <div class="text-center mb-4">
       <h1 class="display-4 text-primary">Perfil do Aluno</h1>

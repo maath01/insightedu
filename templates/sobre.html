@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/sobre.css">
 </head>
 <body>
-    
+    {% include 'navbar.html' %}
     <a class="back-button" href="{{ url_for('home') }}">⬅</a>
     <header class="container py-4">
         <h1>Bem-vindo ao InsightEdu</h1>
@@ -53,5 +53,6 @@
             <li><strong>Coordenadora Maria Costa:</strong> "O InsightEdu me ajudou a organizar melhor as turmas e a ter uma visão clara sobre o desempenho de todos os alunos."</li>
         </ul>
     </section>
+    {% include 'footer.html' %}
 </body>
 </html>

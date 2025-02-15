@@ -5,6 +5,7 @@
     <title>Buscar Alunos</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h2>Buscar Alunos</h2>
     
     <form action="/buscar/alunos" method="POST">
@@ -22,5 +23,6 @@
     {% else %}
         <p>Nenhum aluno encontrado.</p>
     {% endif %}
+    {% include 'footer.html' %}
 </body>
 </html>

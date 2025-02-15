@@ -9,6 +9,7 @@
 
 </head>
 <body>
+    
      <a class="back-button" href="{{ url_for('turmas') }}">⬅</a>
      <div class="container mt-5">
         
@@ -29,6 +30,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <img src="{{ url_for('plot_class_matter_bim_average', turma_id=turma.tur_id) }}" alt="Desempenho da turma">
-    
+    {% include 'footer.html' %}
 </body>
 </html>
