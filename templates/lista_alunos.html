@@ -26,35 +26,7 @@
 
         <a href="{{ url_for('turmas') }}" class="btn btn-secondary mb-4">Listar Turmas</a>
 
-        <h3>Gráficos das Médias por Matéria</h3>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Português') }}" class="img-fluid">
-            </div>
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Matemática') }}" class="img-fluid">
-            </div>
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Ciencias') }}" class="img-fluid">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Historia') }}" class="img-fluid">
-            </div>
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_class_matters_average', turma_id=turma.tur_id, materia='Geografia') }}" class="img-fluid">
-            </div>
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_descs_port_class', turma_id=turma.tur_id)}}" class="img-fluid">
-            </div>
-            <div class="col-md-4 mb-4">
-                <img src="{{ url_for('plot_descs_mat_class', turma_id=turma.tur_id)}}" class="img-fluid">
-            </div>
-        </div>
-    </div>
-
-
+       
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,24 +1,33 @@
+/* Fonte Figtree */
 @font-face {
     font-family: 'Figtree';
-    src: url('../fonts/Figtree-VariableFont_wght.ttf') format('truetype');
+    src: url('/static/fonts/figtree-Regular.woff2') format('woff2'),
+         url('/static/fonts/figtree-Regular.woff') format('woff');
     font-weight: normal;
+    font-style: normal;
 }
 
-@font-face {
-    font-family: 'Figtree';
-    src: url('../fonts/Figtree-Italic-VariableFont_wght.ttf') format('truetype');
-    font-style: italic;
-    font-weight: normal;
-}
 
 body {
+    html, body {
+        height: 100%;
+    }
+    
     font-family: 'Figtree', sans-serif;
     background: linear-gradient(135deg, #f0f0f0, #ffffff);
-    min-height: 100vh;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
 
 h1 {
     color: #2A7EBA;
@@ -27,7 +36,6 @@ h1 {
     font-size: 36px;
     margin-bottom: 25px;
 }
-
 
 .list-group {
     margin-top: 20px;
@@ -48,7 +56,6 @@ h1 {
     transform: scale(1.02);
 }
 
-
 a {
     color: #2A7EBA;
     font-weight: 600;
@@ -59,13 +66,13 @@ a:hover {
     text-decoration: underline;
 }
 
+
 .back-button {
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
-    font-family: "Figtree", sans-serif;
     color: white;
     background-color: #2A7EBA;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -79,10 +86,6 @@ a:hover {
     max-width: 200px;
 }
 
-.back-button .arrow {
-    margin-left: 8px;
-}
-
 .back-button:hover {
     background-color: #0e3c5d;
     color: white;
@@ -94,37 +97,82 @@ a:hover {
 }
 
 
-.btn-primary {
-    background-color: #22689B;
+.btn-cadastrar {
+    display: block;
+    margin: 20px auto;
+    background-color: #2A7EBA;
     border: none;
     color: white;
     font-size: 16px;
-    padding: 12px 20px;
+    padding: 12px 25px;
     border-radius: 6px;
-    width: auto;
     cursor: pointer;
     transition: all 0.3s;
+    font-weight: 600;
 }
 
-.btn-primary:hover {
+.btn-cadastrar:hover {
     background-color: #0e3c5d;
 }
 
 
+/* Modal */
+.modal-dialog {
+    max-width: 500px;
+    width: 100%; 
+    position: relative;
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
 .modal-content {
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
 }
 
 .modal-header {
     background-color: #2A7EBA;
     color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-body {
+    font-size: 16px;
+    padding: 25px 20px;
 }
 
 .modal-footer {
     background-color: #f8f8f8;
+    padding: 15px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: flex;
+    justify-content: flex-end;
 }
 
+.modal-footer .btn {
+    background-color: #2A7EBA;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
 
+.modal-footer .btn:hover {
+    background-color: #0e3c5d;
+}
+
+.modal-footer .btn:active {
+    background-color: #103148;
+}
+
+/* Form Control */
 .form-control {
     margin-bottom: 15px;
     padding: 12px;
@@ -137,27 +185,4 @@ a:hover {
 .form-control:focus {
     border-color: #2A7EBA;
     box-shadow: 0 0 5px rgba(42, 126, 186, 0.5);
-}
-
-.container-for-modal-button {
-    position: relative;
-    width: 100%; 
-    height: 100vh;
-}
-
-.open-modal-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    background-color: #22689B;
-    color: white;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.open-modal-button:hover {
-    background-color: #0e3c5d;
 }
