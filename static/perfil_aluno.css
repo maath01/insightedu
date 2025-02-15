@@ -2,6 +2,7 @@ body {
     font-family: 'Figtree';
     background: linear-gradient(135deg, #ffffff, #d0d0d0);
     color: #333;
+    background-size: cover;
 }
 
 

@@ -9,7 +9,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='lista_alunos_por_escola.css') }}">
 </head>
 <body>
-
+    <div class="container mt-5 pt-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul id="messages" class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert {{ 'alert-success' if 'sucesso' in message else 'alert-danger' }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <script>
+                    setTimeout(function() {
+                        const messageBox = document.getElementById('messages');
+                        if (messageBox) {
+                            messageBox.style.display = 'none';
+                        }
+                    }, 5000); 
+                </script>
+            {% endif %}
+        {% endwith %}
+      
     <a class="back-button" href="{{ url_for('home') }}">⬅</a>
     <div class="container mt-5">
         <h1>Lista de Alunos da Escola {{ escola_id }}</h1>
