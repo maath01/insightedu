@@ -1,8 +1,10 @@
-body {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Figtree', sans-serif;
     background: linear-gradient(to bottom, #ffffff, #d0d0d0);
     color: #0e3c5d;
-    padding: 20px;
 }
 
 a.btn.btn-outline-primary {

@@ -10,7 +10,16 @@
 <body>
     <div class="container mt-4">
         <a class="btn btn-outline-primary mb-3" href="{{ url_for('home') }}">⬅</a>
-        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <form action="/home/questoes/filtradas" method="post" class="p-4 bg-light rounded shadow">
             <div class="mb-3">
                 <label for="serie" class="form-label">Série</label>

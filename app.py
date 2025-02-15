@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
 from io import BytesIO
 from functools import wraps
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from database.models import aluno, turma, escola, nota, questao, gestor, escola
 from database.scripts import banco, connection_tables
@@ -245,6 +247,9 @@ def questoes_filtradas():
         return redirect(url_for('questoes'))
     
     questions = questao.list_questions_filtered(serie, materia, assunto)
+    
+    if not questions:
+        flash('Nenhuma questão encontrada.', 'warning')
     return render_template('questoes.html', questions=questions)
 
 

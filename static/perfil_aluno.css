@@ -285,16 +285,16 @@ form button:hover {
 }
 
 #student-performance-image {
-    width: 100%; /* Ajusta a largura para 100% do contêiner */
-    max-width: 500px; /* Limita a largura a 500px */
-    height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Trata a imagem como um bloco */
-    margin: 0 auto; /* Centraliza a imagem */
-    border-radius: 10px; /* Borda arredondada */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: transform 0.3s ease; /* Efeito de transição */
+    width: 100%; 
+    max-width: 500px; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease; 
 }
 
 #student-performance-image:hover {
-    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+    transform: scale(1.05); 
 }
