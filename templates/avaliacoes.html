@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='avaliacoes.css') }}">
 
     <title>Avaliações</title>
 </head>
 <body>
-    {% include 'navbar.html' %}
+
 <div class="container">
   <a class="back-button" href="{{ url_for('home') }}">⬅</a>
     <h1>Lista de Avaliações</h1>
@@ -81,10 +79,10 @@
                             <label for="materia">Matéria</label>
                             <select class="form-control" id="materia" name="materia" required>
                                 <option value="" disabled selected>Selecione a matéria</option>
-                                <option value="Português">Português</option>
-                                <option value="Matemática">Matemática</option>
-                                <option value="Ciências">Ciências</option>
-                                <option value="História">História</option>
+                                <option value="Portugues">Portugues</option>
+                                <option value="Matematica">Matematica</option>
+                                <option value="Ciencias">Ciencias</option>
+                                <option value="Historia">Historia</option>
                                 <option value="Geografia">Geografia</option>
                             </select>
                         </div>

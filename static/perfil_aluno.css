@@ -2,7 +2,7 @@ body {
     font-family: 'Figtree';
     background: linear-gradient(135deg, #ffffff, #d0d0d0);
     color: #333;
-    background-size: cover;
+    background-attachment: fixed;
 }
 
 
@@ -99,8 +99,8 @@ table th, table td {
 }
 
 table th {
-    background-color: #2A7EBA;
-    color: white;
+    background-color: #f1efef;
+    color: #2A7EBA;
     font-weight: bold;
     text-align: center;
 }
@@ -137,6 +137,10 @@ button.btn-primary {
     font-size: 14px;
     padding: 10px 20px;
     transition: background-color 0.3s ease;
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+
 }
 
 button.btn-primary:hover {
@@ -165,8 +169,9 @@ button.btn-primary {
     border-radius: 8px;
     padding: 10px 20px;
     font-size: 16px;
-    margin: 10px;
+    margin: 20px auto;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: block;
 }
 
 button.btn-primary:hover {

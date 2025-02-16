@@ -1,8 +1,7 @@
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Figtree', sans-serif;
+    font-family: 'Figtree';
     background: linear-gradient(to bottom, #ffffff, #d0d0d0);
     color: #0e3c5d;
 }
@@ -66,8 +65,6 @@ form label {
     font-weight: 600;
     color: #2A7EBA;
 }
-
-
 
 button {
     background-color: #22689B;
