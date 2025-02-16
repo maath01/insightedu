@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Figtree', Arial, sans-serif;
+    font-family: 'Figtree';
     background: linear-gradient(to top, #f3f3f3, #ffffff);
     display: flex;
     flex-direction: column;
