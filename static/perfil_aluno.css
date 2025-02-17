@@ -290,17 +290,18 @@ form button:hover {
     background-color: #0e3c5d;
 }
 
-#student-performance-image {
-    width: 100%; 
-    max-width: 500px; 
-    height: auto; 
-    display: block; 
-    margin: 0 auto; 
+#student-performance-image,
+#student-first {
+    height: 300px; /* Defina a altura desejada */
+    object-fit: cover; /* Garante que a imagem não distorça e preencha a área */
+    width: auto; /* Ajusta a largura proporcionalmente à altura */
     border-radius: 10px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease;
 }
 
-#student-performance-image:hover {
+#student-performance-image:hover,
+#student-first:hover {
     transform: scale(1.05); 
 }
+

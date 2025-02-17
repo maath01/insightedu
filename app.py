@@ -13,7 +13,8 @@ import database.models.dominio_descritores_port as dom_pt
 import database.models.dominio_descritores_mat as dom_mt
 import database.models.descritor_port as desc_p
 import database.models.descritor_mat as desc_m
-
+from database.models import professor 
+from database.models.professor import delete
 app = Flask(__name__)
 app.secret_key = 'insightedu'
 
@@ -93,7 +94,7 @@ def home():
     
     elif session['user_type'] == 'gestor':
         gestor_ = gestor.get(session['id'])
-        return render_template('home_gestor.html', gestor=gestor)
+        return render_template('home_gestor.html', gestor=gestor_)
     
 
 
@@ -731,3 +732,41 @@ if __name__ == "__main__":
 
 
 
+@app.route('/deletar/professor', methods=['POST'])
+def deletar_professor():
+    professor_id = request.form['professor_id']
+    print(professor_id)
+    
+    if professor_id:
+       delete(professor_id) 
+
+       return redirect(url_for('list_teachers'))  
+    else:
+      
+        return redirect(url_for('list_teachers'))  
+    
+@app.route('/deletar/aluno', methods=['POST'])
+@login_required
+def deletar_aluno():
+    if session.get('user_type') != 'gestor':  # Verifica se é um gestor
+        flash('Acesso negado!', 'danger')
+        return redirect(url_for('home'))
+
+    al_id = request.form.get('aluno_id')
+    gestor_id = session.get('id')
+    escola_id = escola.get_school_id(gestor_id)
+    esc = escola.get(escola_id)
+        
+    if al_id:
+        try:
+            aluno.delete(al_id)  # Chama a função que remove o aluno do banco
+            flash('Aluno deletado com sucesso!', 'sucesso')
+        except Exception as e:
+            flash(f'Erro ao deletar aluno: {str(e)}', 'danger')
+    else:
+        flash('Aluno não encontrado.', 'danger')
+
+    return redirect(url_for('lista_alunos_por_escola', school_id=escola_id))  # Redireciona para a lista de alunos
+
+    
+    

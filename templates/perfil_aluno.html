@@ -75,7 +75,14 @@
       {% endfor %}
     </div>
 
-    <img id="student-first" src="{{ url_for('plot_student_matters_average', al_id=aluno.al_id) }}">
+  
+
+    <div class="d-flex justify-content-center align-items-center">
+        <img id="student-first" class="img-fluid mx-2" src="{{ url_for('plot_student_matters_average', al_id=aluno.al_id) }}">
+        <img id="student-performance-image" class="img-fluid mx-2" src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id, serie=serie) }}">
+    </div>
+    
+
 
 
     <div class="text-center mt-4">
@@ -88,7 +95,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/dist/js/bootstrap.min.js"></script>
 
 
-    <img id="student-performance-image" src="{{ url_for('plot_student_performance_by_notes', al_id=aluno.al_id, serie=serie) }}">
+  
     <table>
         <tr>
             <th>N° do descritor</th>
