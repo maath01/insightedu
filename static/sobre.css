@@ -8,6 +8,8 @@ body {
     font-family: 'Figtree';
     line-height: 1.6;
     background: linear-gradient(180deg, #e0e0e0, #f8f8f8); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #333;
     padding: 50px 0; 
 }

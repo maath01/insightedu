@@ -9,6 +9,8 @@
 body {
     font-family: 'Figtree';
     background: linear-gradient(to top, #f3f3f3, #ffffff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -33,7 +35,7 @@ body {
     color: #2A7EBA;
     font-size: 1.8rem;
     font-weight: 600;
-    margin-bottom: 20px; 
+    margin-bottom: 10px; 
 }
 
 .tools-box {

@@ -9,6 +9,8 @@
 body {
     font-family: 'Figtree';
     background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -61,7 +63,7 @@ a:hover {
 }
 .back-button {
     position: fixed;
-    top: 20px;
+    top: 50px;
     left: 20px;
     padding: 10px 15px;
     border: none;
