@@ -10,7 +10,7 @@
 </head>
 <body>
   {% include 'navbar.html' %}
-  <a class="back-button" href="{{ url_for('home') }}">⬅</a>
+
   <div class="container mt-5 pt-5">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -30,29 +30,27 @@
         {% endif %}
     {% endwith %}
   
-  <div class="container mt-5 pt-5">
-    <div class="container-bemvindo">
-      <h1>Bem-vindo(a), {{ gestor.nome }}!</h1>
-    </div>
-    <div class="container mt-5 pt-5">
-      <div class="tools-box my-4 mx-auto">
-          <h2>Área do Gestor</h2>
-          <div class="row">
-
-              <div class="col-md-4">
-                  <a href="/home/lista_professores" class="btn btn-primary btn-lg w-100">Listar Professores</a>
-              </div>
-              <div class="col-md-4">
-                  <a href="/home/turmas" class="btn btn-primary btn-lg w-100">Listar Turmas</a>
-              </div>
-              <div class="col-md-4">
-                  <a href="/home/alunos" class="btn btn-primary btn-lg w-100">Listar Alunos</a>
-              </div>
-          </div>
-          <div class="row mt-4">
-                  <div class="col-md-4">
-                  <a href="/home/questoes" class="btn btn-primary btn-lg w-100">Banco de Questões</a>
-              </div>
+            <div class="container mt-5 pt-5">
+                <div class="container-bemvindo text-center">
+                    <h1>Bem-vindo(a), {{ gestor.nome }}!</h1>
+                </div>
+                
+                <div class="container mt-5 pt-5">
+                    <div class="tools-box my-4 mx-auto text-center">
+                        <h2>Área do Gestor</h2>
+            
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="/home/lista_professores" class="btn btn-primary btn-lg">Listar Professores</a>
+                            <a href="/home/turmas" class="btn btn-primary btn-lg">Listar Turmas</a>
+                            <a href="/home/alunos" class="btn btn-primary btn-lg">Listar Alunos</a>
+                            <a href="/home/lista_coordenadores" class="btn btn-primary btn-lg">Listar Coordenadores</a>
+                            <a href="/home/questoes" class="btn btn-primary btn-lg">Banco de Questões</a>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            
           </div>
       </div>
   </div>

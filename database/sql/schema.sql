@@ -95,7 +95,7 @@ CREATE TABLE descritores_port (
     habilidade VARCHAR(100) NOT NULL,
     serie int NOT NULL,
     numero int NOT NULL,
-    materia VARCHAR(15) DEFAULT 'Português',
+    materia VARCHAR(15) DEFAULT 'Portugues',
     PRIMARY KEY(id)
 );
 
@@ -104,7 +104,7 @@ CREATE TABLE descritores_mat (
     habilidade VARCHAR (100) NOT NULL,
     serie INT NOT NULL,
     numero INT NOT NULL,
-    materia VARCHAR (25) DEFAULT 'Matemática'
+    materia VARCHAR (25) DEFAULT 'Matematica'
 );
 
 CREATE TABLE questoes (
@@ -164,7 +164,7 @@ CREATE TABLE materias_avaliacoes (
     avaliacoes_id BIGINT NOT NULL
 );
 
--- Tabela de domínio de descritores para português
+-- Tabela de domínio de descritores para portugues
 CREATE TABLE dominio_descritores_port ( 
     id INTEGER PRIMARY KEY AUTOINCREMENT,        
     aluno_id INT NOT NULL,                    
@@ -215,7 +215,7 @@ CREATE TABLE dominio_descritores_port (
     descritor_45 INT NOT NULL                      
 );
 
--- Tabela de domínio de descritores para matemática
+-- Tabela de domínio de descritores para matematica
 CREATE TABLE dominio_descritores_mat (
     id INTEGER PRIMARY KEY AUTOINCREMENT,        
     aluno_id INT NOT NULL,                    

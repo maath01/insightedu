@@ -1,8 +1,9 @@
-body {
-    font-family: 'Figtree', sans-serif;
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Figtree';
     background: linear-gradient(to bottom, #ffffff, #d0d0d0);
     color: #0e3c5d;
-    padding: 20px;
 }
 
 a.btn.btn-outline-primary {
@@ -64,8 +65,6 @@ form label {
     font-weight: 600;
     color: #2A7EBA;
 }
-
-
 
 button {
     background-color: #22689B;

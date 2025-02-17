@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, flash, redirect, url_for, Response
 from io import BytesIO
 from functools import wraps
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from database.models import aluno, turma, escola, nota, questao, gestor, escola
 from database.scripts import banco, connection_tables
@@ -245,6 +247,9 @@ def questoes_filtradas():
         return redirect(url_for('questoes'))
     
     questions = questao.list_questions_filtered(serie, materia, assunto)
+    
+    if not questions:
+        flash('Nenhuma questão encontrada.', 'warning')
     return render_template('questoes.html', questions=questions)
 
 
@@ -348,7 +353,7 @@ def cadastro_professor():
     
     except Exception as e:
         flash("Ocorreu um erro ao cadastrar o professor. Por favor, tente novamente.")
-        return redirect(url_for('home'))
+        return redirect(url_for('list_teachers'))
     
 
 
@@ -511,7 +516,7 @@ def plot_class_matters_average(turma_id, materia):
 @app.route('/plot/aluno/materias/medias/<int:al_id>')
 @login_required
 def plot_student_matters_average(al_id=0):
-    lista_materias = ['Português', 'Matemática','Ciencias', 'Historia', 'Geografia']
+    lista_materias = ['Portugues', 'Matematica','Ciencias', 'Historia', 'Geografia']
     lista_medias = []
     turma_ = aluno.get_class(al_id)
     for materia in lista_materias:
@@ -620,7 +625,7 @@ def matricular_aluno(aluno_id):
 
 @app.route('/plot/turma/materias/bimestre/<int:turma_id>')
 def plot_class_matter_bim_average(turma_id):
-    materias = ['Português', 'Matemática', 'Ciencias', 'Historia', 'Geografia']
+    materias = ['Portugues', 'Matematica', 'Ciencias', 'Historia', 'Geografia']
     
     alunos = aluno.list_students_by_class(turma_id)
     
@@ -634,9 +639,9 @@ def plot_class_matter_bim_average(turma_id):
         for materia in materias:
             media = nota.get_class_average_by_bim_and_matter(alunos, turma_id, i, materia)
             
-            if materia == 'Português':
+            if materia == 'Portugues':
                 portugues.append(media)
-            elif materia == 'Matemática':
+            elif materia == 'Matematica':
                 matematica.append(media)
             elif materia == 'Ciencias':
                 ciencias.append(media)
@@ -646,8 +651,8 @@ def plot_class_matter_bim_average(turma_id):
                 geografia.append(media)
     
     fig, ax = plt.subplots()
-    ax.plot(['1', '2', '3', '4'], portugues, label='Português')
-    ax.plot(['1', '2', '3', '4'], matematica, label='Matemática')
+    ax.plot(['1', '2', '3', '4'], portugues, label='Portugues')
+    ax.plot(['1', '2', '3', '4'], matematica, label='Matematica')
     ax.plot(['1', '2', '3', '4'], ciencias, label='Ciencias')
     ax.plot(['1', '2', '3', '4'], historia, label='Historia')
     ax.plot(['1', '2', '3', '4'], geografia, label='Geografia')
@@ -668,7 +673,7 @@ def plot_student_performance_by_notes(al_id):
 
     serie = aluno.get_class(al_id).serie
 
-    materias_dict = {"Português": [], "Matemática": [], "Ciencias": [], "Historia": [], "Geografia": []}
+    materias_dict = {"Portugues": [], "Matematica": [], "Ciencias": [], "Historia": [], "Geografia": []}
     
 
     for serie_nome, materias in notas.items():
