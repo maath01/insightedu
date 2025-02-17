@@ -41,6 +41,7 @@ def login():
         senha = request.form['senha']
 
         user = banco.check_login(categoria, user_id, senha)
+        print(user)
 
         if user:
             session['id'] = user_id

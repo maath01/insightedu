@@ -17,9 +17,10 @@ def create_database():
     if not os.path.exists('database/banco.db'):
         connection, cursor = connect_db()
 
-        files = ['schema', 'insert', 'insert_alunos', 'insert_turmas.sql']
+        files = ['schema', 'insert', 'insert_alunos', 'insert_turmas', 'insert_profs', 'insert_avaliacoes']
 
         for f in files:
+            # print(f)
             with open(f'database/sql/{f}.sql') as file:
                 commands = file.read().split(';')
             

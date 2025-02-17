@@ -1,6 +1,6 @@
 -- database: :memory:
 INSERT INTO escolas (id, nome, cidade, uf) VALUES
-(68921, 'Escola Municipal Alfredo Correia', 'Crato', 'CE'),
+(68921, 'Escola Municipal Alfredo Correia', 'Crato', 'CE');
 INSERT INTO coordenadores (id, nome, email, nascimento, senha, cpf, idade) VALUES (198968921329, 'Gabriel', 'gabriel@gmail.com', '04-05-1989', '12345678', '892.309.280-91', 36);
 INSERT INTO escolas_coordenadores (escolas_id, coordenadores_id) VALUES (68921, 198968921329);
 
@@ -42,27 +42,6 @@ INSERT INTO ufs (id, nome, sigla) VALUES
 (25, 'São Paulo', 'SP'),
 (26, 'Sergipe', 'SE'),
 (27, 'Tocantins', 'TO');
-
-INSERT INTO avaliacoes (id, serie, bimestre, professor_id, turma_id, data_aplicacao) VALUES
-(12393742, 1, 2, 199568921436, 689211426, '20-06-2024'),
-(13364342, 1, 3, 199568921436, 689211426, '20-06-2024'),
-(14348723, 1, 4, 199568921436, 689211426, '20-06-2024'),
-(14174829, 1, 4, 199868921543, 689211832, '20-06-2024');
-INSERT INTO materias_avaliacoes (materias_id, avaliacoes_id) VALUES
-(3, 12393742),
-(3, 13364342),
-(3, 14348723),
-(1, 14174829);
-
-INSERT INTO notas (id, aluno_id, avaliacao_id, nota) VALUES
-(201068921674212343, 2010689216742, 12393742, 8.9),
-(201068921674213354, 2010689216742, 13364342, 9.1),
-(201068921674214321, 2010689216742, 14348723, 10.0),
-(200868921532113365, 2008689215321, 13364342, 7.4),
-(200868921532114378, 2008689215321, 14348723, 8.9),
-(200868921532112362, 2008689215321, 12393742, 8.5),
-(201068921541314156, 2010689215413, 14174829, 6.7),
-(200768921622314198, 2007689216223, 14174829, 7.4);
 
 INSERT INTO descritores_port (id, habilidade, serie, numero) VALUES
 (1, 'Reconhecer que textos são lidos e escritos da esquerda para a direita e de cima para baixo da página', 1, 1),

@@ -83,11 +83,10 @@ CREATE TABLE avaliacoes (
 );
 
 CREATE TABLE notas (
-    id BIGINT NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     aluno_id BIGINT NOT NULL,
     avaliacao_id BIGINT NOT NULL,
-    nota REAL NOT NULL,
-    PRIMARY KEY(id)
+    nota REAL NOT NULL
 );
 
 CREATE TABLE descritores_port (
